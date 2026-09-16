@@ -1,0 +1,19 @@
+<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cursor-fill" x1="4" y1="3" x2="27" y2="28" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D5D0FF"/>
+      <stop offset="0.44" stop-color="#B2A5FF"/>
+      <stop offset="1" stop-color="#8774EE"/>
+    </linearGradient>
+    <linearGradient id="cursor-sheen" x1="8" y1="5" x2="18" y2="21" gradientUnits="userSpaceOnUse">
+      <stop stop-color="white" stop-opacity="0.52"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="cursor-shadow" x="-45%" y="-45%" width="190%" height="190%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="3" stdDeviation="2.4" flood-color="#3E3881" flood-opacity="0.18"/>
+      <feDropShadow dx="0.45" dy="1.1" stdDeviation="0.7" flood-color="#29255D" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <path d="M5.25 3.55C4.46 3.02 3.5 3.59 3.5 4.54V27.12C3.5 28.3 4.94 28.88 5.77 28.04L13.04 20.75H26.09C27.78 20.75 28.45 18.62 27.04 17.67L5.25 3.55Z" fill="url(#cursor-fill)" stroke="#3E3881" stroke-width="1.7" stroke-linejoin="round" filter="url(#cursor-shadow)"/>
+  <path d="M6.18 5.55L24.62 17.45H12.17L5.42 24.22V5.34C5.42 5.43 5.8 5.3 6.18 5.55Z" fill="url(#cursor-sheen)" opacity="0.68"/>
+</svg>

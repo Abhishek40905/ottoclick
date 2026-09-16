@@ -1,0 +1,42 @@
+/* Final light-first cascade: keeps the home story white even when legacy campaign styles are loaded. */
+.reference-home-hero {
+  background: #fff !important;
+  color: var(--ink) !important;
+}
+
+.reference-home-hero .reference-hero-copy,
+.reference-home-hero h1 {
+  color: var(--ink) !important;
+  background: transparent !important;
+}
+
+.reference-home-hero h1 em {
+  color: #5534d5 !important;
+}
+
+.reference-home-hero p {
+  color: #52515d !important;
+}
+
+.reference-home-hero .ref-eyebrow {
+  color: var(--purple) !important;
+}
+
+.reference-home-hero .ref-button-soft {
+  color: var(--purple) !important;
+  background: #ede9ff !important;
+  border-color: rgba(158, 140, 252, .2) !important;
+}
+
+.reference-home-hero .ref-button-soft:hover {
+  background: #e5ddff !important;
+}
+
+.reference-home-hero::before,
+.reference-home-hero::after {
+  background: transparent !important;
+}
+
+@media (max-width: 900px) {
+  .reference-home-hero { background: #fff !important; }
+}
