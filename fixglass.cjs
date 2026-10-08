@@ -1,0 +1,1 @@
+const fs = require('fs'); let data = fs.readFileSync('src/data/productsData.js', 'utf8'); data = data.replace(/title:\s*\"Glass G1 Smart Door Lock\"/, 'title: \"GLASS G1 SMART DOOR LOCK\"'); data = data.replace(/model:\s*\"G1 Glass Series\"/, 'model: \"OC-DL01-W\"'); fs.writeFileSync('src/data/productsData.js', data);

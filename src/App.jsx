@@ -1802,10 +1802,52 @@ function BlogPostPage({ slug }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   SEO HANDLER
+   ═══════════════════════════════════════════════════════════════ */
+function SEO({ title, description, url = 'https://ottoclick.in' }) {
+  useEffect(() => {
+    document.title = title;
+    const setMeta = (name, content) => {
+      let el = document.querySelector(`meta[name="${name}"]`) || document.querySelector(`meta[property="${name}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        if (name.startsWith('og:')) el.setAttribute('property', name);
+        else el.setAttribute('name', name);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', content);
+    };
+    setMeta('description', description);
+    setMeta('og:title', title);
+    setMeta('og:description', description);
+    setMeta('og:url', url + window.location.pathname);
+  }, [title, description, url]);
+  return null;
+}
+
+/* ═══════════════════════════════════════════════════════════════
    APP ROOT
    ═══════════════════════════════════════════════════════════════ */
 export default function App() {
   const { route, productSlug, blogSlug, solutionVariant } = usePageRoute();
+
+  let seo = { title: 'Ottoclick | Your Comfort, Our Priority', description: 'Premium smart home, hotel, and industrial automation solutions in Kanpur. Engineered for performance, built for life.' };
+  if (route === 'about') seo = { title: 'About Us | Ottoclick', description: 'Learn about Ottoclick\'s mission to make spaces smarter, safer, and more efficient with cutting-edge automation.' };
+  else if (route === 'contact') seo = { title: 'Contact Us | Ottoclick', description: 'Get in touch with Ottoclick to discuss your automation project, request a consultation, or talk to an expert.' };
+  else if (route === 'products') seo = { title: 'Smart Products | Ottoclick', description: 'Explore our range of premium smart touch switches, sensors, climate controllers, and security systems.' };
+  else if (route === 'product-detail') {
+    const prod = productCatalog.find(p => p.slug === productSlug);
+    if (prod) seo = { title: `${prod.title} | Ottoclick`, description: prod.description };
+  }
+  else if (route === 'solution-home') seo = { title: 'Home Automation Solutions | Ottoclick', description: 'Transform your home with intelligent lighting, climate control, and security automation.' };
+  else if (route === 'solution-hotel') seo = { title: 'Hotel Automation Solutions | Ottoclick', description: 'Enhance guest experiences and streamline operations with our premium hotel automation systems.' };
+  else if (route === 'solution-institutional') seo = { title: 'Institutional Automation | Ottoclick', description: 'Intelligent building management for campuses, hospitals, and corporate offices.' };
+  else if (route === 'solution-industrial') seo = { title: 'Industrial Automation | Ottoclick', description: 'Improve efficiency and safety in factories and plants with robust industrial automation.' };
+  else if (route === 'blogs') seo = { title: 'Insights & Articles | Ottoclick', description: 'Read the latest insights on smart home technology, energy management, and automation trends.' };
+  else if (route === 'blog-post') {
+    const article = insightCards.find(c => c[1].toLowerCase().replace(/\s+/g, '-') === blogSlug) || insightCards[0];
+    if (article) seo = { title: `${article[1]} | Ottoclick`, description: article[2] };
+  }
 
   useEffect(() => {
     let lenisInstance;
@@ -1889,6 +1931,7 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false);
 
   return <>
+    <SEO {...seo} />
     {route === 'home' && <Intro />}
     <Navbar onSearchOpen={() => setSearchOpen(true)} />
     <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />

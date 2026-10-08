@@ -1,0 +1,1 @@
+const fs = require('fs'); let data = fs.readFileSync('src/data/productsData.js', 'utf8'); const lines = data.split('\n'); lines.splice(363, 29); fs.writeFileSync('src/data/productsData.js', lines.join('\n'));

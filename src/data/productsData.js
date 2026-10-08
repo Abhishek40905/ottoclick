@@ -362,35 +362,6 @@ quickSpecs: [
 ]},
 
   {
-    id: "luxe-12m-12s2f",
-    slug: "luxe-series-12-gang-switch",
-title: "Luxe Series : 12 Gang Switch",
-    model: "LSW/Z-12M-12S2F",
-    category: "Smart Touch Panels",
-    categorySlug: "smart-touch-panels",
-    subcategory: "Luxe",
-    badge: "Luxe Frame",
-    image: "/products/catalog/luxe-12m-12s2f.png",
-shortDesc: "Luxe Series 12 Gang Switch.",
-description: "Luxe Series 12 Gang Switch.",
-specs: {
-  "Plate Size": "12 Module",
-  "Touch Gangs": "12",
-  "Panel Material": "Tempered Glass"
-},
-    highlights: [
-      "12 touch controls",
-    ],
-    idealFor: "Large living spaces and master suites",
-    catalogueSource: "Master Catalogue Page 13",
-
-quickSpecs: [
-  "12 Module",
-  "12 Touch Gangs",
-  "Tempered Glass"
-]},
-
-  {
     id: "luxe-12m-8s1f2u",
     slug: "luxe-series-8-gang-1-fan-2-socket",
 title: "Luxe Series : 8 Gang + 1 Fan + 2 Socket",
@@ -3239,7 +3210,7 @@ quickSpecs: [
     categorySlug: "motion-sensors",
     subcategory: "Motion Lights",
     badge: "Rechargeable",
-    image: "/products/catalog/motion-rechargeable-light-02.png",
+    image: "/products/catalog/motion-rechargeable-light.png",
     shortDesc:
       "Rechargeable motion sensor light with 160 LEDs and 800 lumens.",
     description:
@@ -3277,7 +3248,7 @@ quickSpecs: [
     categorySlug: "motion-sensors",
     subcategory: "Motion Lights",
     badge: "Hanging Sensor Light",
-    image: "/products/catalog/motion-rechargeable-light-03.png",
+    image: "/products/catalog/motion-rechargeable-light.png",
     shortDesc:
       "Rechargeable hanging sensor light with built-in lithium battery.",
     description:
@@ -3316,7 +3287,7 @@ quickSpecs: [
     categorySlug: "motion-sensors",
     subcategory: "Motion Lights",
     badge: "Type-C Rechargeable",
-    image: "/products/catalog/motion-rechargeable-light-04.png",
+    image: "/products/catalog/motion-rechargeable-light.png",
     shortDesc:
       "Type-C rechargeable motion sensor light with adjustable colour temperature.",
     description:
@@ -3716,7 +3687,7 @@ quickSpecs: [
     categorySlug: "timer-switches",
     subcategory: "Timer Switches",
     badge: "Timer",
-    image: "/products/catalog/timer-frontier.png",
+    image: "/products/catalog/timer-oc-t1.png",
     shortDesc:
       "Automatic daily time switch with mechanical dial for lighting loads.",
     description:
@@ -3754,7 +3725,7 @@ quickSpecs: [
     categorySlug: "timer-switches",
     subcategory: "Timer Switches",
     badge: "4 PIN",
-    image: "/products/catalog/timer-din-rail-4pin.png",
+    image: "/products/catalog/timer-oc-t2.png",
     shortDesc:
       "DIN rail-mounted automatic time switch with 15A switching capacity.",
     description:
@@ -3794,7 +3765,7 @@ quickSpecs: [
     categorySlug: "timer-switches",
     subcategory: "Timer Switches",
     badge: "5 PIN",
-    image: "/products/catalog/timer-din-rail-5pin.png",
+    image: "/products/catalog/timer-oc-t3.png",
     shortDesc:
       "DIN rail-mounted automatic time switch with 30A switching capacity.",
     description:
@@ -3834,7 +3805,7 @@ quickSpecs: [
     categorySlug: "timer-switches",
     subcategory: "Timer Switches",
     badge: "Plug-In Timer",
-    image: "/products/catalog/timer-plug.png",
+    image: "/products/catalog/timer-oc-t4.png",
     shortDesc:
       "Plug-in timer for automatic ON/OFF control without wiring.",
     description:
@@ -3873,7 +3844,7 @@ quickSpecs: [
     categorySlug: "timer-switches",
     subcategory: "Timer Switches",
     badge: "Programmable Timer",
-    image: "/products/catalog/timer-analogue.png",
+    image: "/products/catalog/timer-oc-t5.png",
     shortDesc:
       "Analogue programmable time switch with mechanical ON/OFF setting.",
     description:
@@ -3910,7 +3881,7 @@ quickSpecs: [
     categorySlug: "timer-switches",
     subcategory: "Timer Switches",
     badge: "Astronomical",
-    image: "/products/catalog/timer-astronomical.png",
+    image: "/products/catalog/timer-oc-t6.png",
     shortDesc:
       "Astronomical timer with sunrise and sunset based scheduling.",
     description:
@@ -3948,7 +3919,7 @@ quickSpecs: [
     categorySlug: "timer-switches",
     subcategory: "Photocell Sensors",
     badge: "Day / Night",
-    image: "/products/catalog/day-night-sensor.png",
+    image: "/products/catalog/sensor-oc-lb2.png",
     shortDesc:
       "Photocell sensor for automatic day/night lighting control.",
     description:
@@ -3990,7 +3961,7 @@ quickSpecs: [
     categorySlug: "home-automation-accessories",
     subcategory: "Smart Plugs",
     badge: "10A",
-    image: "/products/catalog/smart-wifi-plug-10a.png",
+    image: "/products/catalog/accessory-oc-ss01.png",
     shortDesc:
       "10A smart Wi-Fi plug with app control and overload protection.",
     description:
@@ -4026,7 +3997,7 @@ quickSpecs: [
     categorySlug: "home-automation-accessories",
     subcategory: "Smart Plugs",
     badge: "16A",
-    image: "/products/catalog/smart-wifi-plug-16a.png",
+    image: "/products/catalog/accessory-oc-ss01.png",
     shortDesc:
       "16A smart Wi-Fi plug for high-power appliances with scheduling and energy monitoring.",
     description:
@@ -4073,7 +4044,7 @@ quickSpecs: [
     categorySlug: "home-automation-accessories",
     subcategory: "Smart MCB",
     badge: "63A",
-    image: "/products/catalog/wifi-circuit-breaker-63a.png",
+    image: "/products/catalog/accessory-wifi-breaker.png",
     shortDesc:
       "Wi-Fi circuit breaker with remote and manual control.",
     description:
@@ -4110,7 +4081,7 @@ quickSpecs: [
     categorySlug: "home-automation-accessories",
     subcategory: "IR & RF Controllers",
     badge: "IR + RF",
-    image: "/products/catalog/wifi-ir-rf-blaster.png",
+    image: "/products/catalog/accessory-wifi-ir-rf.png",
     shortDesc:
       "Wi-Fi IR and RF blaster for smart device control.",
     description:
@@ -4144,7 +4115,7 @@ quickSpecs: [
     categorySlug: "home-automation-accessories",
     subcategory: "IR Controllers",
     badge: "Zigbee",
-    image: "/products/catalog/zigbee-ir-blaster.png",
+    image: "/products/catalog/accessory-zigbee-ir.png",
     shortDesc:
       "Zigbee IR blaster for controlling compatible home appliances.",
     description:
@@ -4181,7 +4152,7 @@ quickSpecs: [
     categorySlug: "staircase-lighting",
     subcategory: "Staircase Controllers",
     badge: "32 Channel",
-    image: "/products/catalog/stair-case-controller.png",
+    image: "/products/catalog/staircase-oc-sls01.png",
     shortDesc:
       "32-channel staircase controller for constant-voltage LED strips.",
     description:
@@ -4217,7 +4188,7 @@ quickSpecs: [
     categorySlug: "staircase-lighting",
     subcategory: "Staircase Controllers",
     badge: "PIR",
-    image: "/products/catalog/smart-staircase-pir-controller.png",
+    image: "/products/catalog/staircase-oc-sls02.png",
     shortDesc:
       "Smart staircase PIR controller supporting up to 30 steps.",
     description:
@@ -4251,7 +4222,7 @@ quickSpecs: [
     categorySlug: "staircase-lighting",
     subcategory: "Staircase Kits",
     badge: "Complete Kit",
-    image: "/products/catalog/stair-motion-light-kit.png",
+    image: "/products/catalog/staircase-oc-slk.png",
     shortDesc:
       "Complete 32-channel stair motion lighting kit with LED strip, controller and PIR sensors.",
     description:
@@ -4297,7 +4268,7 @@ quickSpecs: [
     categorySlug: "smart-control-panels",
     subcategory: "Scene Switches",
     badge: "Zircon",
-    image: "/products/catalog/zircon-4gang-4scene.png",
+    image: "/products/catalog/panel-oc-ssm-4g4s.png",
     shortDesc:
       "Zircon 4 Gang + 4 Scene smart control panel.",
     description:
@@ -4324,7 +4295,7 @@ quickSpecs: [
     categorySlug: "smart-control-panels",
     subcategory: "Scene Switches",
     badge: "12 Scene",
-    image: "/products/catalog/zigbee-4gang-12scene.png",
+    image: "/products/catalog/panel-oc-ssm-4g.png",
     shortDesc:
       "Zigbee 4 Gang 12 Scene Creator with magnetic wall plate.",
     description:
@@ -4353,7 +4324,7 @@ quickSpecs: [
     categorySlug: "smart-control-panels",
     subcategory: "Scene Switches",
     badge: "CCT Control",
-    image: "/products/catalog/zigbee-smart-cct-knob.png",
+    image: "/products/catalog/panel-oc-ssm-cct.png",
     shortDesc:
       "Zigbee smart CCT dimming and tunable knob with display and 2 node scene switches.",
     description:
@@ -4384,7 +4355,7 @@ quickSpecs: [
     categorySlug: "smart-control-panels",
     subcategory: "Touch Control Panels",
     badge: "Zircon",
-    image: "/products/catalog/zircon-4gang-display.png",
+    image: "/products/catalog/panel-oc-ssm-dis.png",
     shortDesc:
       "Zircon 4 Gang smart control panel with display.",
     description:
@@ -4412,7 +4383,7 @@ quickSpecs: [
     categorySlug: "smart-control-panels",
     subcategory: "Touch Control Panels",
     badge: "3.5 Inch",
-    image: "/products/catalog/smart-zigbee-touch-3-5.png",
+    image: "/products/catalog/panel-oc-cp-35.png",
     shortDesc:
       "3.5-inch smart Zigbee touch control screen with 4 gang relay support.",
     description:
@@ -4444,7 +4415,7 @@ quickSpecs: [
     categorySlug: "smart-control-panels",
     subcategory: "Touch Control Panels",
     badge: "Infinity",
-    image: "/products/catalog/infinity-6-smart-panel.png",
+    image: "/products/catalog/panel-oc-cp-6.png",
     shortDesc:
       "6-inch Smart Wi-Fi touch control panel with knob, Zigbee gateway and video calling.",
     description:
@@ -4479,7 +4450,7 @@ quickSpecs: [
     categorySlug: "smart-control-panels",
     subcategory: "Touch Control Panels",
     badge: "HomeSync Pro",
-    image: "/products/catalog/homesync-pro-4-smart-panel.png",
+    image: "/products/catalog/panel-oc-cp-4.png",
     shortDesc:
       "4-inch Smart Wi-Fi touch control panel with Alexa, Zigbee, BLE Mesh gateway and video calling.",
     description:

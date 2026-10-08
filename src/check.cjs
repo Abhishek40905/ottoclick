@@ -1,0 +1,1 @@
+const fs = require('fs'); const data = fs.readFileSync('data/productsData.js', 'utf8'); const regex = /image:\s*['\"]\/products\/catalog\/([^'\"]+)['\"]/g; let match; const missing = []; while ((match = regex.exec(data)) !== null) { const file = match[1]; if (!fs.existsSync('../public/products/catalog/' + file)) { missing.push(file); } } console.log([...new Set(missing)]);

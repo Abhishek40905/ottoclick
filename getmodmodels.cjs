@@ -1,0 +1,1 @@
+const fs = require('fs'); const data = fs.readFileSync('src/data/productsData.js', 'utf8'); const regex = /id:\s*\"retrofit-oc-sls-[^\"]+\"[\s\S]*?model:\s*\"([^\"]+)\"/g; let match; while ((match = regex.exec(data)) !== null) { console.log(match[0].match(/id:\s*\"([^\"]+)\"/)[1] + ' -> ' + match[1]); }

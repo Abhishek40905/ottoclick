@@ -1,1 +1,0 @@
-const fs = require('fs'); const lines = fs.readFileSync('src/data/productsData.js', 'utf8').split('\n'); ['aura-4m-2s1u', 'aura-8m-8s', 'aura-12m-8s1f2u', 'aura-12m-12s2f', 'aura-6m-2s2u'].forEach(id => { const start = lines.findIndex(l => l.includes('id: \"' + id + '\"')); if(start > -1) { console.log(id + ' line: ' + (start + 1)); } });

@@ -1,0 +1,1 @@
+const fs = require('fs'); const lines = fs.readFileSync('src/data/productsData.js', 'utf8').split('\n'); ['light-scd08', 'light-scd05'].forEach(id => { const start = lines.findIndex(l => l.includes('id: \"' + id + '\"')); if(start > -1) { console.log('---- ' + id + ' ----\n' + lines.slice(start - 1, start + 10).join('\n')); } });

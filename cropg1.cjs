@@ -1,0 +1,1 @@
+const sharp = require('sharp'); const img = 'C:/Users/LOQ/.gemini/antigravity/brain/c06630ab-5ee3-4d2b-86d6-9eae61777b94/.user_uploaded/media_1791469420976_05ce6c5e.png'; sharp(img).extract({ left: 500, top: 0, width: 400, height: 371 }).toFile('public/products/catalog/lock-glass-g1.png'); console.log('cropped g1');

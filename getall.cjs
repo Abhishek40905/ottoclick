@@ -1,0 +1,1 @@
+const fs = require('fs'); const data = fs.readFileSync('src/data/productsData.js', 'utf8'); const regex = /id:\s*\"([^\"]+)\"[^}]*?title:\s*\"([^\"]+)\"[^}]*?model:\s*\"([^\"]+)\"/g; let match; while ((match = regex.exec(data)) !== null) { if (!match[1].includes('aura') && !match[1].includes('luxe')) console.log(match[1] + ' | ' + match[2] + ' | ' + match[3]); }
