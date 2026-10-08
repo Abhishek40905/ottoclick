@@ -1,10 +1,21 @@
 /* oxlint-disable no-unused-vars -- legacy motion modules remain available for future campaign variants */
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
-import { ArrowRight, BarChart3, Building2, Check, ChevronDown, CircleGauge, Clock, Cpu, Eye, Factory, GraduationCap, Heart, Hotel, House, Layers, Lightbulb, Lock, Mail, MapPin, Menu, Monitor, Moon, Phone, Play, Search, Settings, ShieldCheck, Smartphone, Sparkles, Sun, Thermometer, Users, Wifi, Wrench, X, Zap } from 'lucide-react';
+import { Activity, ArrowRight, BarChart3, Bell, Box, Building2, Check, CheckCircle2, ChevronDown, CircleGauge, Clock, Cpu, Eye, Factory, GraduationCap, Heart, Hotel, House, Layers, Lightbulb, Lock, Mail, MapPin, Menu, MessageCircle, Monitor, Moon, Phone, Play, Search, Settings, ShieldCheck, Sliders, Smartphone, Sparkles, Sun, Thermometer, Users, Wifi, Wrench, X, Zap } from 'lucide-react';
 import logo from '../ottoclick-logo.svg';
 import livingRoom from './assets/ottoclick-living-room.png';
 import smartProducts from './assets/ottoclick-smart-products.png';
+import { productCategories, productsData } from './data/productsData.js';
+import {
+  FloorplanShowcase,
+  ZigbeeWifiComparison,
+  AppAndVoiceShowcase,
+  SceneCreationShowcase,
+  CatalogueNinePillars,
+  WarrantyBanner
+} from './components/CatalogueSections.jsx';
+import { HeroSlideshow } from './components/HeroSlideshow.jsx';
+import { blogCategories, blogsData } from './data/blogsData.js';
 
 /* ─── Constants ─── */
 const ease = [0.16, 1, 0.3, 1];
@@ -82,7 +93,7 @@ function Intro() {
   if (dismissed) return null;
   return <motion.div className="intro" initial={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }} style={{ opacity: introOpacity, scale: introScale, y: introY, filter: introBlur, pointerEvents: hasScrolled ? 'none' : 'auto' }}>
     <motion.div className="intro-mark"><AnimatedLogo scrollYProgress={hasScrolled ? introProgress : undefined} /></motion.div>
-    <motion.span initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .7, duration: .45, ease }}>INTELLIGENCE, SIMPLIFIED</motion.span>
+    <motion.span initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .7, duration: .45, ease }}>YOUR COMFORT, OUR PRIORITY.</motion.span>
     <motion.div className="intro-scroll-hint" style={{ cursor: 'pointer' }} onClick={() => window.dispatchEvent(new CustomEvent('scroll-to-enter'))} animate={{ opacity: hasScrolled ? 0 : [0.35, 1, 0.35], y: hasScrolled ? 8 : [0, 5, 0] }} transition={{ duration: 2.4, repeat: hasScrolled ? 0 : Infinity, ease: 'easeInOut' }}><span>Scroll to enter</span><ChevronDown size={15} /></motion.div>
   </motion.div>;
 }
@@ -92,10 +103,34 @@ function Navbar({ onSearchOpen }) {
   const [open, setOpen] = useState(false);
   const { scrollY, scrollYProgress } = useScroll();
   const [scrolled, setScrolled] = useState(false);
-  useEffect(() => scrollY.on('change', current => setScrolled(current > 20)), [scrollY]);
-  const links = [['Home', '/'], ['About', '/about-us/'], ['Products', '/product/'], ['Insights', '/blog/']];
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    return scrollY.on('change', (latest) => {
+      setScrolled(latest > 20);
+
+      if (open) {
+        setHidden(false);
+        return;
+      }
+
+      const prev = lastScrollY.current;
+      lastScrollY.current = latest;
+
+      if (latest <= 20) {
+        setHidden(false);
+      } else if (latest > prev + 4) {
+        setHidden(true);
+      } else if (latest < prev - 4) {
+        setHidden(false);
+      }
+    });
+  }, [scrollY, open]);
+
+  const links = [['Home', '/'], ['About', '/about-us/'], ['Products', '/product/'], ['Blogs', '/blog/']];
   const solutionLinks = [['Home Automation', '/home-automation/'], ['Hotel Automation', '/hotel-automation/'], ['Institutional Automation', '/institutional-automation/'], ['Industrial Automation', '/industrial-automation/']];
-  return <motion.header className={`nav-shell ${scrolled ? 'nav-scrolled' : ''}`}>
+  return <motion.header className={`nav-shell ${scrolled ? 'nav-scrolled' : ''} ${hidden ? 'nav-hidden' : ''}`}>
     <motion.div className="nav-progress" style={{ scaleX: scrollYProgress }} />
     <nav className="nav wrap" aria-label="Main navigation">
       <a href="/" className="logo-link" aria-label="Ottoclick home"><Logo compact /></a>
@@ -109,7 +144,7 @@ function Navbar({ onSearchOpen }) {
         </div>
         <a href="/about-us/">About</a>
         <a href="/product/">Products</a>
-        <a href="/blog/">Insights</a>
+        <a href="/blog/">Blogs</a>
       </div>
       <div className="nav-right">
         <button type="button" className="nav-search-trigger" aria-label="Open search" onClick={onSearchOpen}><Search size={16} /></button>
@@ -217,46 +252,62 @@ const capabilities = [
   [Phone, 'AMC & Support'],
 ];
 
-const productCategories = [
-  [Wifi, 'Smart Switches', 'Touch, voice & app-controlled switches for every room.'],
-  [Eye, 'Sensors', 'Motion, occupancy, temperature & ambient light sensors.'],
-  [Cpu, 'Smart Controllers', 'Central hubs that unify your entire automation system.'],
-  [Lightbulb, 'Lighting Controllers', 'Dimming, scenes, scheduling & colour tuning.'],
-  [Sun, 'Curtain Controllers', 'Motorised curtain & blind automation modules.'],
-  [Thermometer, 'HVAC Controllers', 'Smart climate management for split & central AC.'],
-  [Lock, 'Access Control', 'Biometric, RFID & keypad entry systems.'],
-  [ShieldCheck, 'Security Systems', 'Cameras, alarms & intrusion detection.'],
-  [Layers, 'Gate Automation', 'Sliding, swing & boom barrier automation.'],
-  [Monitor, 'Control Panels', 'Wall-mounted touchscreen panels for centralised control.'],
-  [Zap, 'Energy Management', 'Real-time monitoring, analytics & optimisation.'],
-  [BarChart3, 'Shutter Automation', 'Rolling shutter & window automation modules.'],
+
+const categoryIconMap = {
+  'Smart Touch Panels': Sliders,
+  'DOOR Locks': Lock,
+  'Digital Door Locks': Lock,
+  'Door Locks': Lock,
+  'Smart Curtains & Blinds': Sun,
+  'Smart Lighting': Lightbulb,
+  'Motion Sensors': Eye,
+  'Wardrobe Sensors': Layers,
+  'Gas Sensors': ShieldCheck,
+  'Door & Window Sensors': Box,
+  'Timer': Clock,
+  'Staircase Automation': Activity,
+  'Accessories': Cpu,
+};
+
+// Legacy slug aliases so any older bookmarks or links gracefully map to catalogue items
+const legacySlugMap = {
+  'smart-switches': 'luxe-series-2-gang-switch',
+  'smart-touch-switches': 'luxe-series-2-gang-switch',
+  'smart-controllers': 'infinity-6-smart-touch-control-panel',
+  'control-panels': 'homesync-pro-4-smart-touch-panel',
+  'lighting-controllers': 'zigbee-cob-driver-7w-13-5w',
+  'curtain-controllers': 'curtain-motor-2-5nm',
+  'hvac-controllers': 'wifi-ir-rf-blaster',
+  'sensors': 'ceiling-360-degree-microwave-motion-sensor',
+  'multi-sensor-pro': 'ceiling-360-degree-microwave-motion-sensor',
+  'access-control': 'series-1-smart-door-lock',
+  'biometric-smart-lock': 'series-1-smart-door-lock',
+  'security-systems': 'series-3-pro-smart-door-lock',
+  'series-3-smart-door-lock': 'series-3-pro-smart-door-lock',
+  'gate-automation': 'automated-door-motor',
+  'shutter-automation': 'garage-shutter-motor',
+  'energy-management': 'wifi-circuit-breaker-63a'
+};
+
+const productCatalog = productsData.map(p => ({
+  ...p,
+  Icon: categoryIconMap[p.category] || Wifi,
+  detail: p.description
+}));
+
+const featuredHomeSlugs = [
+  'luxe-series-2-gang-switch',
+  'series-3-pro-smart-door-lock',
+  'curtain-motor-2-5nm',
+  'magnetic-track-linear-diffused-light',
+  'ceiling-360-degree-microwave-motion-sensor',
+  'infinity-6-smart-touch-control-panel'
 ];
 
-const productCatalog = [
-  { slug: 'smart-switches', Icon: Wifi, title: 'Smart Switches', category: 'Switches & Controls', description: 'Premium retrofit switches for lights, fans and scenes — without breaking walls.', detail: 'Upgrade existing switch plates with tactile control, app access and voice scenes in a single, clean installation.', highlights: ['Zero-damage retrofit installation', 'Manual, mobile and voice control', 'Scene-ready dimming and scheduling'], idealFor: 'Homes, villas and hotel rooms' },
-  { slug: 'smart-controllers', Icon: Cpu, title: 'Smart Controllers', category: 'Switches & Controls', description: 'The quiet intelligence layer that brings every connected system together.', detail: 'A reliable control core for coordinating lighting, climate, curtains, access and sensors from one ecosystem.', highlights: ['Multi-protocol device orchestration', 'Local-first reliability', 'Scales from one room to a campus'], idealFor: 'Integrated residential and commercial systems' },
-  { slug: 'control-panels', Icon: Monitor, title: 'Control Panels', category: 'Switches & Controls', description: 'Minimal wall-mounted touch interfaces for a calm, intuitive experience.', detail: 'Give every room a beautiful command surface with quick scenes, room status and one-touch control.', highlights: ['Custom room dashboards', 'Scene and schedule shortcuts', 'Elegant flush-mount finish'], idealFor: 'Luxury residences, hotels and conference rooms' },
-  { slug: 'lighting-controllers', Icon: Lightbulb, title: 'Lighting Controllers', category: 'Lighting & Climate', description: 'Dimming, colour tuning and automated scenes that follow the rhythm of your day.', detail: 'Create warm arrival scenes, focused work modes and ambient evening lighting while reducing unnecessary energy use.', highlights: ['Dimming and RGB colour control', 'Sunrise, sunset and occupancy scenes', 'Room-by-room energy intelligence'], idealFor: 'Homes, hospitality and retail spaces' },
-  { slug: 'curtain-controllers', Icon: Sun, title: 'Curtain Controllers', category: 'Lighting & Climate', description: 'Motorised curtains and blinds that respond to time, light and temperature.', detail: 'Automate privacy, daylight and heat control with silent movement and precise scheduling.', highlights: ['Sunrise and sunset routines', 'Quiet motorised movement', 'Manual override always available'], idealFor: 'Bedrooms, suites, boardrooms and living spaces' },
-  { slug: 'hvac-controllers', Icon: Thermometer, title: 'HVAC Controllers', category: 'Lighting & Climate', description: 'Comfort that adapts automatically to occupancy and ambient conditions.', detail: 'Coordinate AC and climate systems with schedules, room presence and temperature targets for a more efficient space.', highlights: ['Occupancy-based temperature control', 'Smart scheduling and presets', 'Reduced runtime and energy waste'], idealFor: 'Homes, hotels, offices and institutions' },
-  { slug: 'sensors', Icon: Eye, title: 'Sensors', category: 'Lighting & Climate', description: 'Small, discreet sensors that make every automation feel considered.', detail: 'Capture motion, occupancy, temperature and ambient light data so the right action happens at the right moment.', highlights: ['Motion and occupancy sensing', 'Temperature and ambient light data', 'Discreet, retrofit-friendly hardware'], idealFor: 'Every automated room and corridor' },
-  { slug: 'access-control', Icon: Lock, title: 'Access Control', category: 'Security & Access', description: 'Biometric, RFID and keypad access designed for effortless security.', detail: 'Manage who enters, when they enter and how access is recorded across homes, offices and institutions.', highlights: ['Biometric, RFID and PIN entry', 'Guest and staff access schedules', 'Remote unlock and activity logs'], idealFor: 'Homes, offices, hotels and campuses' },
-  { slug: 'security-systems', Icon: ShieldCheck, title: 'Security Systems', category: 'Security & Access', description: 'Connected cameras, alarms and intrusion detection for round-the-clock confidence.', detail: 'Bring video, motion alerts, doorbells and emergency notifications into one responsive security layer.', highlights: ['AI-assisted motion detection', 'Instant intrusion notifications', 'Video doorbell and camera integration'], idealFor: 'Residential, commercial and institutional sites' },
-  { slug: 'gate-automation', Icon: Layers, title: 'Gate Automation', category: 'Entry & Outdoor', description: 'Smooth, secure automation for sliding gates, swing gates and barriers.', detail: 'Make arrivals safer and more convenient with controlled entry, remote operation and reliable access events.', highlights: ['Sliding, swing and boom barrier support', 'Remote open and close control', 'Safety sensors and obstruction detection'], idealFor: 'Homes, housing societies and facilities' },
-  { slug: 'shutter-automation', Icon: BarChart3, title: 'Shutter Automation', category: 'Entry & Outdoor', description: 'Automated rolling shutters and windows for security, comfort and control.', detail: 'Schedule, group and remotely control shutters without disrupting the architecture of your space.', highlights: ['Timed open and close routines', 'Group control for multiple zones', 'Manual safety override'], idealFor: 'Retail, industrial and commercial spaces' },
-  { slug: 'energy-management', Icon: Zap, title: 'Energy Management', category: 'Energy & Insights', description: 'Real-time visibility and intelligent optimisation for lower operating costs.', detail: 'Understand where energy goes, automate high-load systems and act on meaningful consumption insights.', highlights: ['Live usage monitoring', 'Peak-load and runtime optimisation', 'Actionable performance reports'], idealFor: 'Hotels, offices, campuses and large homes' },
-];
+const featuredCatalogueProducts = featuredHomeSlugs
+  .map(slug => productCatalog.find(p => p.slug === slug))
+  .filter(Boolean);
 
-const insightCards = [
-  ['Home Automation', 'How Home Automation Improves Everyday Living', 'A comprehensive look at how smart homes are transforming comfort, security and energy efficiency.', 'Sep 4, 2025', 'home'],
-  ['Hospitality', 'How Hotel Automation Enhances Guest Experience', 'From keycard integration to smart climate — the technology behind premium hotel stays.', 'Aug 28, 2025', 'hotel'],
-  ['Industrial', 'The Future of Industrial Automation in India', 'How Indian manufacturers are adopting intelligent control systems for safety and efficiency.', 'Aug 20, 2025', 'industrial'],
-  ['Smart Buildings', 'Energy Management in Smart Buildings', 'Cutting energy costs by up to 30% with intelligent building automation strategies.', 'Aug 12, 2025', 'institutional'],
-  ['Technology', 'Why Retrofitting is the Future of Smart Homes', 'No rewiring, no renovation — how retrofit automation is making smart homes accessible to everyone.', 'Jul 30, 2025', 'home'],
-  ['Case Study', 'Ottoclick at The Grand Hotel, Kanpur', 'A complete hotel automation project — 120 rooms, centralised control, and 28% energy savings.', 'Jul 15, 2025', 'hotel'],
-];
-
-const blogCategories = ['All', 'Home Automation', 'Hotel Automation', 'Industrial', 'Smart Buildings', 'Energy Management', 'Security', 'Technology', 'Case Studies'];
 
 /* ─── Shared UI Components ─── */
 function RefEyebrow({ children }) { return <span className="ref-eyebrow">{children}</span>; }
@@ -287,7 +338,7 @@ function ReferenceHome() {
     {/* 1. Hero */}
     <section className="reference-hero reference-home-hero">
       <div className="reference-hero-copy">
-        <RefEyebrow>SMARTER SPACES. BRIGHTER TOMORROWS.</RefEyebrow>
+        <RefEyebrow>YOUR COMFORT, OUR PRIORITY.</RefEyebrow>
         <h1>Automation<br />for a Smarter<br /><em>World</em></h1>
         <p>We design and deliver intelligent automation solutions for homes, hotels, institutions and industries — engineered for performance, built for life.</p>
         <div className="reference-actions">
@@ -296,7 +347,7 @@ function ReferenceHome() {
         </div>
       </div>
       <div className="reference-hero-media">
-        <RefImage variant="home" className="reference-hero-image" alt="Modern automated luxury home" />
+        <HeroSlideshow />
       </div>
     </section>
 
@@ -315,7 +366,10 @@ function ReferenceHome() {
       </div>
     </section>
 
-    {/* 4. What We Automate */}
+    {/* 4. Complete Home Automation Floorplan (Master Catalogue pp. 6–7) */}
+    <FloorplanShowcase />
+
+    {/* 5. What We Automate */}
     <section className="reference-section">
       <div className="reference-section-heading">
         <div>
@@ -335,27 +389,19 @@ function ReferenceHome() {
       </div>
     </section>
 
-    {/* 5. Why OTTOCLICK */}
-    <section className="reference-section">
-      <div className="reference-section-heading">
-        <div>
-          <RefEyebrow>WHY OTTOCLICK</RefEyebrow>
-          <h2>Built for the way <em>life moves.</em></h2>
-        </div>
-        <p>One partner from first idea to final support, with systems engineered around your space.</p>
-      </div>
-      <div className="reference-value-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
-        {['End-to-end solutions', 'Custom engineering', 'Scalable systems', 'Energy efficiency', 'Centralised control', 'Installation & support'].map((item, i) => (
-          <motion.div className="reference-value-card" key={item} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .08 }}>
-            <span>0{i + 1}</span>
-            <h3>{item}</h3>
-            <p>Thoughtful planning, dependable technology, and a calm experience at every touchpoint.</p>
-          </motion.div>
-        ))}
-      </div>
-    </section>
+    {/* 6. Why OTTOCLICK - The 9 Pillars (Master Catalogue p. 5) */}
+    <CatalogueNinePillars />
 
-    {/* 6. Industries We Serve */}
+    {/* 7. Zigbee vs. Wi-Fi Comparison Table (Master Catalogue p. 8) */}
+    <ZigbeeWifiComparison />
+
+    {/* 8. Mobile App & Voice-Enabled Smart Living (Master Catalogue p. 9) */}
+    <AppAndVoiceShowcase />
+
+    {/* 9. Scene Creation: One Space, Many Moods (Master Catalogue p. 42) */}
+    <SceneCreationShowcase />
+
+    {/* 10. Industries We Serve */}
     <section className="reference-section">
       <div className="reference-section-heading">
         <div>
@@ -375,30 +421,71 @@ function ReferenceHome() {
       </div>
     </section>
 
-    {/* 7. Featured Products */}
-    <section className="reference-section">
+    {/* 11. Featured Products from Master Catalogue */}
+    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 80px' }}>
       <div className="reference-section-heading">
         <div>
-          <RefEyebrow>OUR TECHNOLOGY</RefEyebrow>
-          <h2>Products built for <em>intelligent spaces.</em></h2>
+          <RefEyebrow>FLAGSHIP HARDWARE</RefEyebrow>
+          <h2>Master Catalogue <em>Highlights.</em></h2>
         </div>
-        <p>Explore the hardware and systems that power every Ottoclick installation.</p>
+        <p>Direct from our 2025 Architectural &amp; Hardware Catalogues: precision switches, biometric locks, silent motors, and sensors.</p>
       </div>
-      <div className="product-category-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
-        {productCategories.slice(0, 3).map(([Icon, title, desc], i) => (
-          <motion.a href="/product/" className="product-category-card" key={title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .07 }}>
-            <div className="product-card-img"><Icon size={36} strokeWidth={1.3} /></div>
-            <div className="product-card-body">
-              <h4>{title}</h4>
-              <p>{desc}</p>
-              <span className="product-card-link">Explore <ArrowRight size={13} /></span>
+
+      <div className="product-category-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 24 }}>
+        {featuredCatalogueProducts.map((p, i) => (
+          <motion.div
+            className="product-catalog-card"
+            key={p.slug}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * .06, duration: .4 }}
+          >
+            <div className="product-card-visual" style={{ height: 210 }}>
+              {p.badge && <span className="product-floating-badge">{p.badge}</span>}
+              <img src={p.image} alt={p.title} className="product-card-img-element" loading="lazy" />
+              {p.model && <span className="product-card-model-tag">{p.model}</span>}
             </div>
-          </motion.a>
+
+            <div className="product-card-content">
+              <div className="product-card-topmeta">
+                <span className="product-card-subcategory">{p.subcategory}</span>
+                {p.catalogueSource && (
+                  <span className="product-card-pagesource">
+                    {p.catalogueSource.replace('Master Catalogue ', 'MC ').replace('Smart Motion PDF ', 'SM ')}
+                  </span>
+                )}
+              </div>
+
+              <h3 className="product-card-title">{p.title}</h3>
+              <p className="product-card-desc">{p.shortDesc}</p>
+
+              {p.specs && (
+                <div className="product-specs-chips">
+                  {Object.entries(p.specs).slice(0, 3).map(([k, v]) => (
+                    <span key={k} className="product-spec-pill" title={`${k}: ${v}`}>
+                      {v.length > 28 ? v.slice(0, 26) + '…' : v}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <div className="product-card-footer" style={{ marginTop: 'auto', paddingTop: 14 }}>
+                <a href={`/product/${p.slug}/`} className="product-btn-details" style={{ width: '100%', justifyContent: 'center' }}>
+                  Explore Product <ArrowRight size={13} />
+                </a>
+              </div>
+            </div>
+          </motion.div>
         ))}
+      </div>
+
+      <div style={{ textAlign: 'center', marginTop: 36 }}>
+        <RefButton href="/product/">Browse Complete 118-Product Catalogue</RefButton>
       </div>
     </section>
 
-    {/* 8. How We Work */}
+    {/* 12. How We Work */}
     <section className="reference-process">
       <RefEyebrow>HOW WE WORK</RefEyebrow>
       <h2>From concept to <em>reality.</em></h2>
@@ -413,7 +500,36 @@ function ReferenceHome() {
       </div>
     </section>
 
-    {/* 9. CTA */}
+    {/* 13. Featured Projects */}
+    <section className="reference-section">
+      <div className="reference-section-heading">
+        <div>
+          <RefEyebrow>CASE STUDIES</RefEyebrow>
+          <h2>Featured <em>projects.</em></h2>
+        </div>
+        <p>Discover how we've transformed spaces through intelligent automation.</p>
+      </div>
+      <div className="project-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px' }}>
+        {[
+          { title: "Luxury Smart Villa", category: "Residential", img: livingRoom },
+          { title: "Corporate HQ Automation", category: "Commercial", img: STOCK.hotel }
+        ].map((proj, i) => (
+          <motion.a href="/contact-us/" key={proj.title} style={{ display: 'block', overflow: 'hidden', borderRadius: '12px', background: '#fff', border: '1px solid var(--line)', textDecoration: 'none' }} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .1 }}>
+            <div style={{ height: '240px' }} className="ref-image about"><img src={proj.img} alt={proj.title} /></div>
+            <div style={{ padding: '24px' }}>
+              <span style={{ display: 'block', fontSize: '9px', fontWeight: 600, color: 'var(--purple)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>{proj.category}</span>
+              <h4 style={{ margin: 0, fontSize: '16px', color: 'var(--ink)' }}>{proj.title}</h4>
+              <span className="product-card-link" style={{ marginTop: '14px' }}>View Case Study <ArrowRight size={13} /></span>
+            </div>
+          </motion.a>
+        ))}
+      </div>
+    </section>
+
+    {/* 14. Trust of Ottoclick - 2 Years Warranty (Master Catalogue p. 43) */}
+    <WarrantyBanner />
+
+    {/* 15. CTA */}
     <ReferenceCTA />
   </div>;
 }
@@ -435,59 +551,48 @@ function PageHero({ eyebrow, title, body, variant = 'home', src, children }) {
 
 function AboutPage() {
   return <div className="reference-site inner-page">
-    <PageHero eyebrow="OUR STORY" title={<>Engineering<br />Smarter<br /><em>Spaces.</em></>} body="OTTOCLICK was founded with a simple belief — that technology should make spaces smarter, safer and more efficient for everyone." variant="about">
-      <RefButton href="/contact-us/">Our Journey</RefButton>
+    <PageHero
+      eyebrow="YOUR HOME AUTOMATION PARTNER"
+      title={<>Redefining<br />Smart Home<br /><em>Automation.</em></>}
+      body="Welcome to OTTOCLICK, a forward-thinking automation brand delivering intelligent, energy-efficient solutions for modern homes and spaces. We specialize in designing and deploying smart automation systems that transform everyday environments into seamless, connected, and future-ready living experiences."
+      variant="about"
+      src="/assets/catalogue/about-family-room.png"
+    >
+      <RefButton href="/contact-us/">Talk to an Expert</RefButton>
     </PageHero>
 
     {/* Stats */}
     <div className="reference-stat-row">
-      <div><strong>100+</strong><span>Projects Delivered</span></div>
-      <div><strong>4+</strong><span>Industries Served</span></div>
-      <div><strong>99%</strong><span>Client Satisfaction</span></div>
-      <div><strong>End-to-End</strong><span>Support</span></div>
+      <div><strong>118+</strong><span>Catalogue Products</span></div>
+      <div><strong>11</strong><span>Product Categories</span></div>
+      <div><strong>2 Years</strong><span>Official Warranty</span></div>
+      <div><strong>Zigbee &amp; Wi-Fi</strong><span>Dual Architecture</span></div>
     </div>
 
-    {/* Our Story */}
+    {/* Catalogue Story from Page 4 */}
     <section className="reference-copy-section">
-      <RefEyebrow>WHY WE STARTED</RefEyebrow>
-      <h2>The problem we're <em>solving.</em></h2>
+      <RefEyebrow>OUR VISION &amp; PERSPECTIVE • CATALOGUE PAGE 04</RefEyebrow>
+      <h2>From luxury to <em>functional necessity.</em></h2>
       <div className="reference-copy-columns">
-        <p>Most automation in India is fragmented — one vendor for lighting, another for security, a third for HVAC. The result is complexity, incompatibility, and frustration. OTTOCLICK was born to change that.</p>
-        <p>We saw a world where every space — from a single bedroom to an entire campus — deserves intelligent, unified automation. Not expensive gadgets, but thoughtfully engineered systems that actually make life better.</p>
+        <p>In today's rapidly evolving lifestyle landscape, home automation in India is transitioning from an exclusive luxury offering to a functional necessity. Growing expectations around comfort, convenience, safety, security, and energy efficiency are driving the adoption of smart automation solutions across residential and commercial spaces.</p>
+        <p>From residences and villas to institutions and commercial spaces, our focus is on creating the right ambience, comfort, and functionality, ensuring that every automated space feels effortless to use and enjoyable to experience.</p>
       </div>
     </section>
 
-    {/* What We Believe */}
-    <section className="reference-section">
-      <div className="reference-section-heading">
-        <div>
-          <RefEyebrow>WHAT WE BELIEVE</RefEyebrow>
-          <h2>Innovation should feel <em>human.</em></h2>
-        </div>
-        <p>These five principles guide every system we design and every relationship we build.</p>
-      </div>
-      <div className="belief-grid">
-        {beliefs.map(([Icon, title, desc], i) => (
-          <motion.div className="belief-card" key={title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .06 }}>
-            <Icon size={22} strokeWidth={1.6} />
-            <h4>{title}</h4>
-            <p>{desc}</p>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-
-    {/* Our Approach */}
+    {/* Catalogue Portfolio Summary */}
     <section className="reference-split">
       <div>
-        <RefEyebrow>OUR APPROACH</RefEyebrow>
-        <h2>We don't sell devices. We design <em>ecosystems.</em></h2>
+        <RefEyebrow>COMPREHENSIVE PORTFOLIO</RefEyebrow>
+        <h2>Everything unified under <em>one ecosystem.</em></h2>
       </div>
       <div>
-        <p>OTTOCLICK isn't simply selling smart switches or sensors. We design and integrate complete automation ecosystems — where every device, every protocol, and every interaction is engineered to work as one cohesive, dependable system.</p>
-        <p>From the first consultation to ongoing support, our team stays close to the details that make a space feel truly yours.</p>
+        <p>Our product portfolio includes smart touch switches (Luxe, Aura &amp; Canvas), smart lighting &amp; architectural drivers, motorized curtains/blinds, digital door locks, safety &amp; surveillance systems, and centralized control systems — fully app-based and voice-enabled with Amazon Alexa and Google Home.</p>
+        <p>With scene-based control and automation workflows, Ottoclick makes smart living intuitive, efficient, and accessible. Experience convenience, control, and innovation — designed to fit your lifestyle.</p>
       </div>
     </section>
+
+    {/* Why Choose Ottoclick - 9 Pillars */}
+    <CatalogueNinePillars />
 
     {/* Capabilities */}
     <section className="reference-section">
@@ -496,7 +601,7 @@ function AboutPage() {
           <RefEyebrow>OUR CAPABILITIES</RefEyebrow>
           <h2>Full-spectrum automation <em>expertise.</em></h2>
         </div>
-        <p>We handle everything in-house — no outsourcing, no gaps, no surprises.</p>
+        <p>We handle everything in-house — consultation, hardware selection, configuration, and lifelong support.</p>
       </div>
       <div className="capability-grid">
         {capabilities.map(([Icon, label], i) => (
@@ -508,12 +613,8 @@ function AboutPage() {
       </div>
     </section>
 
-    {/* Vision & Mission */}
-    <section className="vision-block">
-      <RefEyebrow>VISION & MISSION</RefEyebrow>
-      <h2>To make intelligent automation accessible to every space in India — and beyond.</h2>
-      <p>We envision a future where every building, every home, and every workspace operates at its fullest potential — safer, more efficient, and deeply responsive to the people who use it.</p>
-    </section>
+    {/* 2 Years Warranty Banner */}
+    <WarrantyBanner />
 
     <ReferenceCTA />
   </div>;
@@ -532,9 +633,13 @@ const solutionDetails = {
       [Thermometer, 'HVAC', 'Smart climate control for every room.'],
       [ShieldCheck, 'Security', 'Cameras, alarms & intrusion detection.'],
       [Lock, 'Door Locks', 'Biometric & smart lock integration.'],
+      [Box, 'Gates', 'Automated gate and garage door control.'],
       [Monitor, 'Entertainment', 'Multi-room audio & video control.'],
+      [Activity, 'Sensors', 'Motion, occupancy & environmental sensors.'],
+      [Zap, 'Energy Management', 'Track & reduce consumption property-wide.'],
     ],
     useCases: ['Smart Villa', 'Luxury Apartment', 'Second Home', 'Penthouse'],
+    capabilities: ['Centralised Control', 'App Control', 'Voice Control', 'Scenes & Scheduling', 'Remote Monitoring'],
   },
   hotel: {
     hero: 'Smarter Hotels. Better Guest Experiences.',
@@ -545,9 +650,12 @@ const solutionDetails = {
       [Thermometer, 'HVAC Control', 'Energy-saving climate management.'],
       [Lock, 'Key Card Integration', 'Access control linked to room systems.'],
       [Zap, 'Energy Management', 'Track & reduce consumption property-wide.'],
+      [Bell, 'DND / MUR', 'Do Not Disturb & Make Up Room indicators.'],
+      [Sun, 'Smart Curtains', 'Automated curtains tied to guest presence.'],
       [Eye, 'Centralised Monitoring', 'Real-time status of every room.'],
     ],
     useCases: ['Boutique Hotels', 'Luxury Resorts', 'Business Hotels', 'Heritage Properties'],
+    capabilities: ['Better Guest Experience', 'Energy Savings', 'Operational Efficiency', 'Reduced Manual Intervention', 'Premium Brand'],
   },
   institutional: {
     hero: 'Intelligent Spaces for Brighter Futures.',
@@ -561,6 +669,7 @@ const solutionDetails = {
       [Monitor, 'Conference Rooms', 'One-touch AV & automation control.'],
     ],
     useCases: ['Schools & Colleges', 'Hospitals', 'Corporate Campuses', 'Government Buildings'],
+    capabilities: ['Energy Efficiency', 'Centralised Management', 'Security', 'Operational Control', 'Scalability'],
   },
   industrial: {
     hero: 'Intelligent Control for Industrial Environments.',
@@ -574,6 +683,7 @@ const solutionDetails = {
       [BarChart3, 'Process Integration', 'Connect to existing industrial systems.'],
     ],
     useCases: ['Manufacturing Plants', 'Warehouses', 'Data Centres', 'Processing Facilities'],
+    capabilities: ['Efficiency', 'Safety', 'Reduced Downtime', 'Energy Optimisation', 'Centralised Visibility'],
   },
 };
 
@@ -645,123 +755,467 @@ function SolutionsPage() {
    ═══════════════════════════════════════════════════════════════ */
 function ProductsPage() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeSubcategory, setActiveSubcategory] = useState('All');
+  const [quickViewProduct, setQuickViewProduct] = useState(null);
   const productResultsRef = useRef(null);
-  const productFilters = ['All', ...Array.from(new Set(productCatalog.map(product => product.category)))];
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setQuickViewProduct(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const normalizedSearch = searchTerm.trim().toLowerCase();
+  const currentCategoryData = productCategories.find(c => c.id === activeCategory);
+
   const filteredProducts = productCatalog.filter(product => {
-    const matchesCategory = activeCategory === 'All' || product.category === activeCategory;
-    const searchText = `${product.title} ${product.category} ${product.description} ${product.detail} ${product.idealFor} ${product.highlights.join(' ')}`.toLowerCase();
-    return matchesCategory && (!normalizedSearch || searchText.includes(normalizedSearch));
+    const matchesCategory = activeCategory === 'all' || product.categorySlug === activeCategory;
+    const matchesSubcategory = activeSubcategory === 'All' || product.subcategory === activeSubcategory;
+    const searchHaystack = `${product.title} ${product.model || ''} ${product.category} ${product.subcategory || ''} ${product.description || ''} ${product.badge || ''} ${product.idealFor || ''} ${product.highlights?.join(' ') || ''} ${JSON.stringify(product.specs || {})}`.toLowerCase();
+    const matchesSearch = !normalizedSearch || searchHaystack.includes(normalizedSearch);
+    return matchesCategory && matchesSubcategory && matchesSearch;
   });
-  const SelectedIcon = selectedProduct?.Icon;
-  const submitSearch = event => {
-    event.preventDefault();
-    if (filteredProducts[0]) setSelectedProduct(filteredProducts[0]);
-    productResultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  const handleCategorySelect = (catId) => {
+    setActiveCategory(catId);
+    setActiveSubcategory('All');
+    setQuickViewProduct(null);
+    if (productResultsRef.current) {
+      productResultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
-  return <div className="reference-site inner-page">
-    <PageHero eyebrow="OUR PRODUCTS" title={<>Technology<br />That Powers<br /><em>Intelligent Spaces</em></>} body="A wide range of automation products designed for performance, reliability and seamless integration." variant="products" src={smartProducts}>
-      <form className="reference-search product-search-shell" role="search" onSubmit={submitSearch}>
-        <button type="submit" className="product-search-submit" aria-label="Show matching products"><Search size={15} /></button>
-        <input aria-label="Search products" aria-controls="product-results" autoComplete="off" value={searchTerm} onChange={event => { setSearchTerm(event.target.value); setSelectedProduct(null); }} placeholder="Search products..." />
-        {searchTerm && <button type="button" className="product-search-clear" aria-label="Clear product search" onClick={() => setSearchTerm('')}><X size={14} /></button>}
-      </form>
-    </PageHero>
+  const handleSubcategorySelect = (subcat) => {
+    setActiveSubcategory(subcat);
+    setQuickViewProduct(null);
+  };
 
-    {/* Product Stage */}
-    <section className="reference-product-stage">
-      <div className="product-device product-device-dark"><span /><span /><span /></div>
-      <div className="product-device product-device-light"><span /><span /><span /></div>
-    </section>
+  return (
+    <div className="reference-site inner-page">
+      <PageHero
+        eyebrow="OTTOCLICK MASTER CATALOGUE"
+        title={<>Smart Automation<br />Engineered for <em>Every Space</em></>}
+        body="Explore our complete hardware range: Smart Touch Panels, Digital Door Locks, Motorized Curtains & Blinds, Architectural Lighting, and Advanced Sensors."
+        variant="products"
+        src={smartProducts}
+      >
+        <form className="reference-search product-search-shell" role="search" onSubmit={e => e.preventDefault()}>
+          <button type="submit" className="product-search-submit" aria-label="Search catalogue"><Search size={16} /></button>
+          <input
+            aria-label="Search products by model or keyword"
+            autoComplete="off"
+            value={searchTerm}
+            onChange={e => { setSearchTerm(e.target.value); setQuickViewProduct(null); }}
+            placeholder="Search by model (e.g. LSW/Z, OC-DL01, OC-T1) or keyword..."
+          />
+          {searchTerm && (
+            <button type="button" className="product-search-clear" aria-label="Clear search" onClick={() => setSearchTerm('')}>
+              <X size={15} />
+            </button>
+          )}
+        </form>
+      </PageHero>
 
-    {/* Full Product Catalogue */}
-    <section className="product-catalog-section" ref={productResultsRef} id="product-results">
-      <div className="product-catalog-heading">
-        <div>
-          <RefEyebrow>PRODUCT CATEGORIES</RefEyebrow>
-          <h2>Everything you need, <em>engineered.</em></h2>
-        </div>
-        <p>{filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} available. Select a category to see how it fits into your space.</p>
-      </div>
-
-      <div className="product-filter-row" aria-label="Filter products by category">
-        {productFilters.map(category => <button type="button" key={category} className={activeCategory === category ? 'active' : ''} onClick={() => { setActiveCategory(category); setSelectedProduct(null); }}>{category}</button>)}
-      </div>
-
-      {filteredProducts.length > 0 ? <div className="product-category-grid">
-        {filteredProducts.map((product, i) => {
-          const Icon = product.Icon;
-          return <motion.a href={`/product/${product.slug}/`} className="product-category-card" key={product.slug} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .04 }}>
-            <div className="product-card-img"><Icon size={36} strokeWidth={1.3} /></div>
-            <div className="product-card-body">
-              <span className="product-card-category">{product.category}</span>
-              <h4>{product.title}</h4>
-              <p>{product.description}</p>
-              <span className="product-card-link">View product <ArrowRight size={13} /></span>
-            </div>
-          </motion.a>;
-        })}
-      </div> : <div className="product-empty-state"><Search size={25} /><h3>No products found</h3><p>Try a broader search or choose another category.</p><button type="button" onClick={() => { setSearchTerm(''); setActiveCategory('All'); setSelectedProduct(null); }}>Clear filters</button></div>}
-
-      <AnimatePresence mode="wait" initial={false}>
-        {selectedProduct && <motion.section className="product-detail-panel" key={selectedProduct.slug} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: .35, ease }} aria-live="polite">
-          <div className="product-detail-icon"><SelectedIcon size={32} strokeWidth={1.5} /></div>
-          <div className="product-detail-copy">
-            <div className="product-detail-topline"><RefEyebrow>{selectedProduct.category}</RefEyebrow><button type="button" className="product-detail-close" aria-label="Close product details" onClick={() => setSelectedProduct(null)}><X size={16} /></button></div>
-            <h3>{selectedProduct.title}</h3>
-            <p>{selectedProduct.detail}</p>
-            <div className="product-highlight-list">{selectedProduct.highlights.map(highlight => <span key={highlight}><Check size={14} />{highlight}</span>)}</div>
-            <div className="product-detail-footer"><span><strong>Ideal for</strong>{selectedProduct.idealFor}</span><RefButton href="/contact-us/">Request this solution</RefButton></div>
+      <section className="product-catalog-section" ref={productResultsRef} id="product-catalog">
+        <div className="product-catalog-heading">
+          <div>
+            <RefEyebrow>OUR PRODUCT RANGE</RefEyebrow>
+            <h2>Select a category to <em>explore.</em></h2>
           </div>
-        </motion.section>}
-      </AnimatePresence>
-    </section>
+          <p className="product-catalog-subtitle">
+            {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} available in the master catalogue.
+          </p>
+        </div>
 
-    <ReferenceCTA />
-  </div>;
+        {/* ─── 11 Primary Buttons as Specified by Layout ─── */}
+        <div className="category-buttons-wrapper">
+          <div className="category-buttons-scroll" role="tablist" aria-label="Catalogue Categories">
+            <button
+              type="button"
+              className={`category-btn ${activeCategory === 'all' ? 'is-active' : ''}`}
+              onClick={() => handleCategorySelect('all')}
+            >
+              <span className="category-btn-num">★</span>
+              <span>All Products</span>
+              <span className="category-btn-count">({productCatalog.length})</span>
+            </button>
+
+            {productCategories.map((cat, index) => {
+              const count = productCatalog.filter(p => p.categorySlug === cat.id).length;
+              const numStr = (index + 1) <= 9 ? `0${index + 1}` : `${index + 1}`;
+              return (
+                <button
+                  type="button"
+                  key={cat.id}
+                  className={`category-btn ${activeCategory === cat.id ? 'is-active' : ''}`}
+                  onClick={() => handleCategorySelect(cat.id)}
+                >
+                  <span className="category-btn-num">{numStr}</span>
+                  <span>{cat.name}</span>
+                  <span className="category-btn-count">({count})</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ─── Subcategory Filters Ribbon ─── */}
+        {currentCategoryData && currentCategoryData.subcategories && currentCategoryData.subcategories.length > 1 && (
+          <div className="subcategory-filters-bar">
+            <span className="subcategory-label">
+              <Sliders size={13} /> {currentCategoryData.name}:
+            </span>
+            {currentCategoryData.subcategories.map(subcat => {
+              const subCount = subcat === 'All'
+                ? productCatalog.filter(p => p.categorySlug === activeCategory).length
+                : productCatalog.filter(p => p.categorySlug === activeCategory && p.subcategory === subcat).length;
+              return (
+                <button
+                  type="button"
+                  key={subcat}
+                  className={`subcat-pill ${activeSubcategory === subcat ? 'is-active' : ''}`}
+                  onClick={() => handleSubcategorySelect(subcat)}
+                >
+                  {subcat} {subCount > 0 && `(${subCount})`}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* ─── Status & Active Filters Bar ─── */}
+        <div className="catalog-status-bar">
+          <span className="catalog-status-text">
+            {activeCategory === 'all' ? (
+              <>Showing <strong>all {filteredProducts.length}</strong> products across all categories</>
+            ) : (
+              <>
+                Showing <strong>{filteredProducts.length}</strong> product{filteredProducts.length !== 1 ? 's' : ''} in <strong>{currentCategoryData?.name}</strong>
+                {activeSubcategory !== 'All' && <> &rsaquo; <em>{activeSubcategory}</em></>}
+                {currentCategoryData?.catalogueRef && <span style={{ marginLeft: 8, opacity: .7 }}>({currentCategoryData.catalogueRef})</span>}
+              </>
+            )}
+            {searchTerm && <> matching &ldquo;<strong>{searchTerm}</strong>&rdquo;</>}
+          </span>
+
+          {(activeCategory !== 'all' || activeSubcategory !== 'All' || searchTerm) && (
+            <button
+              type="button"
+              className="catalog-reset-btn"
+              onClick={() => { setActiveCategory('all'); setActiveSubcategory('All'); setSearchTerm(''); }}
+            >
+              <X size={13} /> Reset Filters
+            </button>
+          )}
+        </div>
+
+        {/* ─── Product Cards Grid ─── */}
+        {filteredProducts.length > 0 ? (
+          <div className="product-category-grid">
+            {filteredProducts.map((p, i) => (
+              <motion.div
+                className="product-catalog-card"
+                key={p.id}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: .3, delay: Math.min(i * .03, .3) }}
+              >
+                <div className="product-card-visual">
+                  {p.badge && <span className="product-floating-badge">{p.badge}</span>}
+                  {p.model && <span className="product-model-chip">{p.model}</span>}
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    className="product-card-img-element"
+                    loading="lazy"
+                  />
+                </div>
+
+                <div className="product-card-content">
+                  <div className="product-card-topmeta">
+                    <span className="product-card-subcategory">{p.subcategory}</span>
+                    {p.catalogueSource && <span className="product-card-pagesource">{p.catalogueSource.replace('Master Catalogue ', 'MC ').replace('Smart Motion PDF ', 'SM ')}</span>}
+                  </div>
+
+                  <h3 className="product-card-title">{p.title}</h3>
+                  <p className="product-card-desc">{p.shortDesc}</p>
+
+                  {p.specs && (
+                    <div className="product-specs-chips">
+                      {Object.entries(p.specs).slice(0, 3).map(([k, v]) => (
+                        <span key={k} className="product-spec-pill" title={`${k}: ${v}`}>
+                          {v.length > 28 ? v.slice(0, 26) + '…' : v}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="product-card-footer">
+                    <button
+                      type="button"
+                      className="product-btn-quickview"
+                      onClick={() => setQuickViewProduct(p)}
+                    >
+                      <Eye size={13} /> Quick Specs
+                    </button>
+                    <a href={`/product/${p.slug}/`} className="product-btn-details">
+                      Details <ArrowRight size={13} />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          <div className="product-empty-state">
+            <Search size={28} />
+            <h3>No products found</h3>
+            <p>Try adjusting your search terms or select another category from the list above.</p>
+            <button
+              type="button"
+              onClick={() => { setSearchTerm(''); setActiveCategory('all'); setActiveSubcategory('All'); }}
+            >
+              Clear All Filters
+            </button>
+          </div>
+        )}
+      </section>
+
+      {/* ─── Interactive Quick Specs Modal ─── */}
+      <AnimatePresence>
+        {quickViewProduct && (
+          <motion.div
+            className="product-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: .2 }}
+            onClick={() => setQuickViewProduct(null)}
+          >
+            <motion.div
+              className="product-modal-container"
+              initial={{ opacity: 0, scale: .94, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: .94, y: 16 }}
+              transition={{ duration: .25, ease }}
+              onClick={e => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                className="product-modal-close"
+                onClick={() => setQuickViewProduct(null)}
+                aria-label="Close product modal"
+              >
+                <X size={18} />
+              </button>
+
+              <div className="product-modal-scroll">
+                <div className="product-modal-visual">
+                  {quickViewProduct.badge && (
+                    <span className="product-floating-badge" style={{ position: 'absolute', top: 18, left: 18 }}>
+                      {quickViewProduct.badge}
+                    </span>
+                  )}
+                  <img
+                    src={quickViewProduct.image}
+                    alt={quickViewProduct.title}
+                    className="product-modal-img"
+                  />
+                  {quickViewProduct.catalogueSource && (
+                    <span className="product-modal-source-tag">
+                      {quickViewProduct.catalogueSource}
+                    </span>
+                  )}
+                </div>
+
+                <div className="product-modal-body">
+                  <span className="product-modal-category-crumb">
+                    {quickViewProduct.category} &rsaquo; {quickViewProduct.subcategory}
+                  </span>
+                  <h3 className="product-modal-title">{quickViewProduct.title}</h3>
+                  {quickViewProduct.model && (
+                    <span className="product-modal-model-badge">
+                      Model: {quickViewProduct.model}
+                    </span>
+                  )}
+                  <p className="product-modal-desc">{quickViewProduct.description}</p>
+
+                  {/* Specifications Table */}
+                  {quickViewProduct.specs && (
+                    <>
+                      <div className="product-specs-table-title">
+                        <Sliders size={14} /> Technical Specifications
+                      </div>
+                      <table className="product-specs-table">
+                        <tbody>
+                          {Object.entries(quickViewProduct.specs).map(([key, val]) => (
+                            <tr key={key}>
+                              <td className="product-specs-key">{key}</td>
+                              <td className="product-specs-val">{val}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </>
+                  )}
+
+                  {/* Key Highlights */}
+                  {quickViewProduct.highlights && quickViewProduct.highlights.length > 0 && (
+                    <div className="product-modal-highlights">
+                      <div className="product-specs-table-title">
+                        <CheckCircle2 size={14} /> Key Highlights
+                      </div>
+                      <ul>
+                        {quickViewProduct.highlights.map(h => (
+                          <li key={h}>
+                            <Check size={14} /> <span>{h}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <div className="product-modal-actions">
+                    <Button
+                      href={`/contact-us/?product=${encodeURIComponent(quickViewProduct.title)}`}
+                      className="ref-button"
+                    >
+                      Request a Quote <ArrowRight size={14} />
+                    </Button>
+                    <a
+                      href={`/product/${quickViewProduct.slug}/`}
+                      className="button ref-button-soft"
+                    >
+                      View Full Page
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <ReferenceCTA />
+    </div>
+  );
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   INSIGHTS / BLOGS PAGE
+   BLOGS PAGE
    ═══════════════════════════════════════════════════════════════ */
 function BlogsPage() {
   const [activeFilter, setActiveFilter] = useState('All');
-  const filtered = activeFilter === 'All' ? insightCards : insightCards.filter(([cat]) => cat === activeFilter);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredBlogs = blogsData.filter(blog => {
+    const matchesFilter = activeFilter === 'All' || blog.category === activeFilter;
+    const matchesSearch = searchQuery.trim() === '' ||
+      `${blog.title} ${blog.summary} ${blog.category}`.toLowerCase().includes(searchQuery.toLowerCase().trim());
+    return matchesFilter && matchesSearch;
+  });
+
+  const featured = blogsData.find(b => b.featured) || blogsData[0];
 
   return <div className="reference-site inner-page">
-    <PageHero eyebrow="OTTOCLICK INSIGHTS" title={<>Ideas, Insights<br />and <em>Innovations</em></>} body="Explore expert insights, industry trends and practical guides on automation, smart buildings and more." variant="blogs">
-      <div className="reference-search"><span>Search articles...</span><Search size={15} /></div>
+    <PageHero
+      eyebrow="OTTOCLICK BLOGS"
+      title={<>Engineering Insights &amp;<br />Modern <em>Smart Living</em></>}
+      body="Explore in-depth architectural guides, protocol comparisons, technical breakdowns, and real-world automation case studies."
+      variant="blogs"
+    >
+      <div className="reference-search">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search articles, guides, protocols..."
+          style={{ border: 'none', outline: 'none', background: 'transparent', width: '100%', fontSize: 13, color: 'inherit' }}
+        />
+        <Search size={15} />
+      </div>
     </PageHero>
 
     {/* Filters */}
     <div className="reference-filter-row">
       {blogCategories.map(cat => (
-        <span key={cat} className={activeFilter === cat ? 'active' : ''} onClick={() => setActiveFilter(cat)} style={{ cursor: 'pointer' }}>{cat}</span>
+        <span
+          key={cat}
+          className={activeFilter === cat ? 'active' : ''}
+          onClick={() => setActiveFilter(cat)}
+          style={{ cursor: 'pointer' }}
+        >
+          {cat}
+        </span>
       ))}
     </div>
 
-    {/* Blog Grid */}
-    <section className="reference-blog-grid">
-      {filtered.map(([category, title, desc, date, variant]) => (
-        <a href="/contact-us/" className="reference-blog-card" key={title}>
-          <RefImage variant={variant} />
-          <div>
-            <RefEyebrow>{category}</RefEyebrow>
-            <h3>{title}</h3>
-            <p style={{ fontSize: 11, color: 'var(--muted)', lineHeight: 1.55, margin: '6px 0 12px' }}>{desc}</p>
-            <small>{date}</small>
+    {/* Featured Article Spotlight */}
+    {activeFilter === 'All' && searchQuery.trim() === '' && (
+      <section className="blogs-featured-hero">
+        <a href={`/blog/${featured.slug}/`} className="blogs-featured-card">
+          <div className="blogs-featured-visual">
+            <img src={featured.image} alt={featured.title} />
+            <span className="blogs-featured-badge">Featured Article</span>
+          </div>
+          <div className="blogs-featured-content">
+            <div className="blogs-meta-row">
+              <span className="blogs-meta-pill">{featured.category}</span>
+              <span>•</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><Clock size={12} /> {featured.readTime}</span>
+              <span>•</span>
+              <span>{featured.date}</span>
+            </div>
+            <h2 className="blogs-featured-title">{featured.title}</h2>
+            <p className="blogs-featured-summary">{featured.summary}</p>
+            <div className="blogs-author-strip">
+              <div className="blogs-author-avatar">OC</div>
+              <div className="blogs-author-info">
+                <strong>{featured.author}</strong>
+                <span>{featured.authorRole}</span>
+              </div>
+            </div>
           </div>
         </a>
-      ))}
+      </section>
+    )}
+
+    {/* Blog Cards Grid */}
+    <section className="blogs-grid-section">
+      <div className="blogs-grid">
+        {filteredBlogs.map((blog) => (
+          <a href={`/blog/${blog.slug}/`} className="blog-card-item" key={blog.id}>
+            <div className="blog-card-media">
+              <img src={blog.image} alt={blog.title} />
+              <span className="blog-card-badge">{blog.category}</span>
+            </div>
+            <div className="blog-card-body">
+              <div className="blog-card-meta">
+                <span>{blog.date}</span>
+                <span>•</span>
+                <span>{blog.readTime}</span>
+              </div>
+              <h3 className="blog-card-title">{blog.title}</h3>
+              <p className="blog-card-summary">{blog.summary}</p>
+              <div className="blog-card-footer">
+                <span>Read Article</span>
+                <ArrowRight size={14} />
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
     </section>
 
     {/* Bottom CTA */}
     <section className="insights-bottom-cta">
       <h3>Want to automate your space?</h3>
-      <p>Talk to OTTOCLICK — we'll help you find the right solution.</p>
+      <p>Talk to OTTOCLICK — our engineering specialists design solutions tailored to your floorplan.</p>
       <RefButton href="/contact-us/">Get in Touch</RefButton>
     </section>
   </div>;
@@ -779,9 +1233,11 @@ function ContactPage() {
         <h1>Let's Build<br />Smarter Spaces<br /><em>Together</em></h1>
         <p>Have a project in mind? Our team is here to help you find the right automation solution.</p>
         <div className="reference-contact-list">
-          <span><Phone size={16} /> +91 78804 66267</span>
-          <span><Mail size={16} /> info@ottoclick.in</span>
-          <span><MapPin size={16} /> Kanpur, Uttar Pradesh, India</span>
+          <span><Phone size={16} /> <a href="tel:+918423466267" style={{ color: 'inherit', textDecoration: 'none' }}>+91 842 346 6267</a></span>
+          <span><Phone size={16} /> <a href="tel:+919569548542" style={{ color: 'inherit', textDecoration: 'none' }}>+91 956 954 8542</a></span>
+          <span><MessageCircle size={16} /> <a href="https://wa.me/918423466267" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>+91 842 346 6267 (WhatsApp)</a></span>
+          <span><Mail size={16} /> <a href="mailto:support@ottoclick.in" style={{ color: 'inherit', textDecoration: 'none' }}>support@ottoclick.in</a></span>
+          <span><MapPin size={16} /> CSJMIF Shopping Complex, Kalyanpur, Kanpur, Uttar Pradesh 208024</span>
           <span><Clock size={16} /> Mon – Sat &nbsp;|&nbsp; 10:00 AM – 6:00 PM</span>
         </div>
         <div className="reference-socials">
@@ -797,6 +1253,7 @@ function ContactPage() {
         <input required type="email" placeholder="Email Address*" />
         <input required placeholder="Phone Number*" />
         <input placeholder="City" />
+        <input placeholder="Project Type (e.g., Villa, Hotel, Corporate)" />
         <select>
           <option>Solution Required</option>
           <option>Home Automation</option>
@@ -823,8 +1280,8 @@ function ContactPage() {
     <section style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 60px', height: 280, background: 'var(--soft)', borderRadius: 12, border: '1px solid var(--line)', display: 'grid', placeItems: 'center', color: 'var(--muted)', fontSize: 13 }}>
       <div style={{ textAlign: 'center' }}>
         <MapPin size={28} strokeWidth={1.5} style={{ marginBottom: 8, color: 'var(--purple)' }} />
-        <p style={{ margin: 0 }}>Kanpur, Uttar Pradesh, India</p>
-        <small>Office location map</small>
+        <p style={{ margin: 0, fontWeight: 600, color: 'var(--ink)' }}>CSJMIF Shopping Complex, Kalyanpur, Kanpur, Uttar Pradesh 208024</p>
+        <small>Ottoclick Head Office &amp; Experience Studio (Master Catalogue Page 44)</small>
       </div>
     </section>
   </div>;
@@ -834,10 +1291,13 @@ function ContactPage() {
 function ReferenceCTA() {
   return <section className="reference-cta">
     <div>
-      <RefEyebrow>READY TO AUTOMATE?</RefEyebrow>
-      <h2>Let's build smarter spaces <em>together.</em></h2>
+      <RefEyebrow>YOUR COMFORT, OUR PRIORITY.</RefEyebrow>
+      <h2>Ready to automate <em>your space?</em></h2>
     </div>
-    <RefButton href="/contact-us/">Talk to an Expert</RefButton>
+    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+      <RefButton href="/contact-us/">Talk to an Expert</RefButton>
+      <RefButton href="/contact-us/" className="ref-button-soft">Request a Consultation</RefButton>
+    </div>
   </section>;
 }
 
@@ -847,29 +1307,43 @@ function ReferenceFooter() {
     <div className="reference-footer-top">
       <div>
         <Logo />
-        <p>Automation for a smarter world. Engineered in Kanpur, deployed everywhere.</p>
+        <p>Your comfort, our priority. Engineered in Kanpur, deployed everywhere.</p>
+        <div className="reference-socials" style={{ marginTop: 24, fontSize: 13, gap: 16 }}>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--purple)', textDecoration: 'none', fontWeight: 600 }}>LinkedIn</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--purple)', textDecoration: 'none', fontWeight: 600 }}>Instagram</a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--purple)', textDecoration: 'none', fontWeight: 600 }}>YouTube</a>
+        </div>
       </div>
       <div className="reference-footer-links">
         <div>
-          <strong>Company</strong>
+          <strong>Quick Links</strong>
           <a href="/about-us/">About Us</a>
           <a href="/home-automation/">Solutions</a>
           <a href="/product/">Products</a>
-          <a href="/blog/">Insights</a>
+          <a href="/blog/">Blogs</a>
+          <a href="/about-us/#warranty">2-Year Warranty</a>
         </div>
         <div>
           <strong>Solutions</strong>
           <a href="/home-automation/">Home Automation</a>
-          <a href="/home-automation/">Hotel Automation</a>
-          <a href="/home-automation/">Institutional</a>
-          <a href="/home-automation/">Industrial</a>
+          <a href="/hotel-automation/">Hotel Automation</a>
+          <a href="/institutional-automation/">Institutional</a>
+          <a href="/industrial-automation/">Industrial</a>
+        </div>
+        <div>
+          <strong>Products</strong>
+          <a href="/product/smart-touch-switches/">Smart Switches</a>
+          <a href="/product/multi-sensor-pro/">Sensors</a>
+          <a href="/product/climate-controller/">HVAC Control</a>
+          <a href="/product/biometric-smart-lock/">Security</a>
         </div>
         <div>
           <strong>Connect</strong>
           <a href="/contact-us/">Contact Us</a>
-          <a href="mailto:info@ottoclick.in">info@ottoclick.in</a>
-          <a href="tel:+917880466267">+91 78804 66267</a>
-          <span style={{ fontSize: 9, color: '#98949e', marginTop: 4 }}>Kanpur, UP, India</span>
+          <a href="mailto:support@ottoclick.in">support@ottoclick.in</a>
+          <a href="tel:+918423466267">+91 842 346 6267</a>
+          <a href="tel:+919569548542">+91 956 954 8542</a>
+          <span style={{ fontSize: 9, color: '#98949e', marginTop: 4 }}>CSJMIF Shopping Complex, Kalyanpur, Kanpur 208024</span>
         </div>
       </div>
     </div>
@@ -877,7 +1351,7 @@ function ReferenceFooter() {
       <span>© {new Date().getFullYear()} Ottoclick. All rights reserved.</span>
       <span style={{ display: 'flex', gap: 16 }}>
         <a href="#" style={{ color: '#98949e' }}>Privacy Policy</a>
-        <a href="#" style={{ color: '#98949e' }}>Terms of Service</a>
+        <a href="/about-us/#warranty" style={{ color: '#98949e' }}>2-Year Warranty Terms</a>
       </span>
       <span>Kanpur, Uttar Pradesh, India</span>
     </div>
@@ -889,10 +1363,21 @@ function ReferenceFooter() {
    ═══════════════════════════════════════════════════════════════ */
 function SearchOverlay({ open, onClose }) {
   const [query, setQuery] = useState('');
+  const [prevOpen, setPrevOpen] = useState(open);
   const inputRef = useRef(null);
 
-  useEffect(() => { if (open && inputRef.current) inputRef.current.focus(); }, [open]);
-  useEffect(() => { if (!open) setQuery(''); }, [open]);
+  if (open !== prevOpen) {
+    setPrevOpen(open);
+    if (open) {
+      setQuery('');
+    }
+  }
+
+  useEffect(() => {
+    if (open && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [open]);
   useEffect(() => {
     const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
     if (open) window.addEventListener('keydown', handleKey);
@@ -901,9 +1386,16 @@ function SearchOverlay({ open, onClose }) {
 
   const normalizedQuery = query.trim().toLowerCase();
   const allSearchableItems = [
-    ...productCatalog.map(p => ({ type: 'Product', title: p.title, description: p.description, href: `/product/${p.slug}/`, icon: p.Icon, meta: p.category })),
+    ...productCatalog.map(p => ({
+      type: 'Product',
+      title: p.model ? `${p.title} (${p.model})` : p.title,
+      description: p.shortDesc || p.description,
+      href: `/product/${p.slug}/`,
+      icon: p.Icon,
+      meta: `${p.category}${p.model ? ` • ${p.model}` : ''}`
+    })),
     ...solutionCategories.map(([Icon, title, text, variant]) => ({ type: 'Solution', title, description: text, href: '/home-automation/', icon: Icon, meta: 'Solutions' })),
-    ...insightCards.map(([cat, title, desc, date]) => ({ type: 'Article', title, description: desc, href: '/blog/', icon: Play, meta: cat })),
+    ...blogsData.map(b => ({ type: 'Blog', title: b.title, description: b.summary, href: `/blog/${b.slug}/`, icon: Play, meta: b.category })),
     { type: 'Page', title: 'About Us', description: 'Learn about our story, values and vision.', href: '/about-us/', icon: Users, meta: 'Company' },
     { type: 'Page', title: 'Contact Us', description: 'Get in touch for consultations and enquiries.', href: '/contact-us/', icon: Mail, meta: 'Company' },
     { type: 'Page', title: 'Products', description: 'Explore our full range of automation hardware.', href: '/product/', icon: Cpu, meta: 'Company' },
@@ -965,7 +1457,14 @@ function SearchOverlay({ open, onClose }) {
    PRODUCT DETAIL PAGE
    ═══════════════════════════════════════════════════════════════ */
 function ProductDetailPage({ slug }) {
-  const product = productCatalog.find(p => p.slug === slug);
+  const resolvedSlug = legacySlugMap[slug] || slug;
+  const product = productCatalog.find(p =>
+    p.slug === resolvedSlug ||
+    p.id === resolvedSlug ||
+    p.slug === slug ||
+    p.id === slug ||
+    (p.model && p.model.toLowerCase() === (slug || '').toLowerCase())
+  );
 
   if (!product) return <div className="reference-site inner-page" style={{ padding: '120px 24px', textAlign: 'center' }}>
     <h2>Product not found</h2>
@@ -973,7 +1472,6 @@ function ProductDetailPage({ slug }) {
     <RefButton href="/product/">Browse All Products</RefButton>
   </div>;
 
-  const Icon = product.Icon;
   const relatedProducts = productCatalog.filter(p => p.category === product.category && p.slug !== product.slug);
   const otherProducts = relatedProducts.length > 0 ? relatedProducts : productCatalog.filter(p => p.slug !== product.slug).slice(0, 3);
 
@@ -985,72 +1483,304 @@ function ProductDetailPage({ slug }) {
 
     {/* Hero Section */}
     <section className="pdp-hero">
-      <div className="pdp-hero-visual">
-        <div className="pdp-icon-stage">
-          <motion.div initial={{ opacity: 0, scale: .8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .5, ease }}>
-            <Icon size={80} strokeWidth={1} />
-          </motion.div>
-        </div>
-        <span className="pdp-category-badge">{product.category}</span>
+      <div className="pdp-image-stage">
+        {product.badge && <span className="product-floating-badge" style={{ position: 'absolute', top: 20, left: 20 }}>{product.badge}</span>}
+        <motion.img
+          src={product.image}
+          alt={product.title}
+          className="pdp-main-image"
+          initial={{ opacity: 0, scale: .92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: .5, ease }}
+        />
+        {product.model && <span className="product-model-chip" style={{ position: 'absolute', top: 20, right: 20 }}>{product.model}</span>}
       </div>
+
       <motion.div className="pdp-hero-copy" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .15, ease }}>
-        <RefEyebrow>{product.category.toUpperCase()}</RefEyebrow>
+        <RefEyebrow>{product.category.toUpperCase()}{product.subcategory ? ` • ${product.subcategory.toUpperCase()}` : ''}</RefEyebrow>
         <h1>{product.title}</h1>
-        <p className="pdp-description">{product.detail}</p>
+        {product.model && <span className="pdp-model-pill">Model: {product.model}</span>}
+        <p className="pdp-description">{product.description || product.detail}</p>
+        {product.catalogueSource && (
+          <small style={{ display: 'block', color: 'var(--muted)', marginBottom: 20, fontFamily: 'DM Mono', fontSize: 11 }}>
+            Reference: {product.catalogueSource}
+          </small>
+        )}
+
+        {product.specs && (
+          <div className="pdp-specs-grid">
+            {Object.entries(product.specs).slice(0, 6).map(([k, v]) => (
+              <div key={k} className="pdp-spec-box">
+                <span className="pdp-spec-label">{k}</span>
+                <span className="pdp-spec-value">{v}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="pdp-actions">
-          <RefButton href="/contact-us/">Request a Quote</RefButton>
+          <RefButton href={`/contact-us/?product=${encodeURIComponent(product.title)}`}>Request a Quote</RefButton>
           <RefButton href="/contact-us/" className="ref-button-soft">Talk to an Expert</RefButton>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 22, padding: '12px 16px', background: 'rgba(158,140,252,0.08)', borderRadius: 10, border: '1px solid rgba(158,140,252,0.22)' }}>
+          <ShieldCheck size={22} color="#9E8CFC" style={{ flexShrink: 0 }} />
+          <div style={{ fontSize: 12, lineHeight: 1.45, color: 'var(--ink)' }}>
+            <strong>2-Year Warranty Included:</strong> Genuine Ottoclick hardware includes free parts, labor &amp; pan-India service support (Catalogue Page 43).
+          </div>
         </div>
       </motion.div>
     </section>
 
+    {/* Full Specifications Table Section */}
+    {product.specs && Object.keys(product.specs).length > 0 && (
+      <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 60px' }}>
+        <div className="reference-section-heading">
+          <div>
+            <RefEyebrow>TECHNICAL SPECIFICATIONS</RefEyebrow>
+            <h2>Performance &amp; <em>Parameters.</em></h2>
+          </div>
+          {product.catalogueSource && (
+            <p style={{ fontFamily: 'DM Mono', fontSize: 12 }}>{product.catalogueSource}</p>
+          )}
+        </div>
+        <table className="product-specs-table" style={{ background: '#fff', fontSize: 13, border: '1px solid rgba(62,56,129,0.1)' }}>
+          <tbody>
+            {Object.entries(product.specs).map(([key, val]) => (
+              <tr key={key}>
+                <td className="product-specs-key" style={{ padding: '12px 18px', width: '30%' }}>{key}</td>
+                <td className="product-specs-val" style={{ padding: '12px 18px' }}>{val}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    )}
+
     {/* Highlights */}
-    <section className="pdp-highlights">
-      <RefEyebrow>KEY FEATURES</RefEyebrow>
-      <h2>What makes it <em>different.</em></h2>
-      <div className="pdp-highlight-grid">
-        {product.highlights.map((highlight, i) => (
-          <motion.div className="pdp-highlight-card" key={highlight} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .08 }}>
-            <div className="pdp-highlight-number">0{i + 1}</div>
-            <p>{highlight}</p>
-          </motion.div>
-        ))}
-      </div>
-    </section>
+    {product.highlights && product.highlights.length > 0 && (
+      <section className="pdp-highlights">
+        <RefEyebrow>KEY FEATURES</RefEyebrow>
+        <h2>What makes it <em>different.</em></h2>
+        <div className="pdp-highlight-grid">
+          {product.highlights.map((highlight, i) => (
+            <motion.div className="pdp-highlight-card" key={highlight} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .08 }}>
+              <div className="pdp-highlight-number">0{i + 1}</div>
+              <p>{highlight}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    )}
 
     {/* Ideal For */}
-    <section className="pdp-ideal">
-      <div className="pdp-ideal-inner">
-        <div>
-          <RefEyebrow>IDEAL FOR</RefEyebrow>
-          <h2>{product.idealFor}</h2>
+    {product.idealFor && (
+      <section className="pdp-ideal">
+        <div className="pdp-ideal-inner">
+          <div>
+            <RefEyebrow>IDEAL FOR</RefEyebrow>
+            <h2>{product.idealFor}</h2>
+          </div>
+          <p>{product.description}</p>
         </div>
-        <p>{product.description}</p>
-      </div>
-    </section>
+      </section>
+    )}
+
+    {/* 2-Year Warranty Showcase */}
+    <div style={{ marginTop: 40 }}>
+      <WarrantyBanner />
+    </div>
 
     {/* Related Products */}
     <section className="pdp-related">
       <div className="pdp-related-heading">
         <div>
           <RefEyebrow>RELATED PRODUCTS</RefEyebrow>
-          <h2>You might also need</h2>
+          <h2>You might also need in {product.category}</h2>
         </div>
         <RefButton href="/product/" className="ref-button-soft">View All Products</RefButton>
       </div>
       <div className="product-category-grid" style={{ gridTemplateColumns: `repeat(${Math.min(otherProducts.length, 3)}, 1fr)` }}>
-        {otherProducts.slice(0, 3).map((rp, i) => {
-          const RPIcon = rp.Icon;
-          return <motion.a href={`/product/${rp.slug}/`} className="product-category-card" key={rp.slug} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .06 }}>
-            <div className="product-card-img"><RPIcon size={36} strokeWidth={1.3} /></div>
-            <div className="product-card-body">
-              <span className="product-card-category">{rp.category}</span>
-              <h4>{rp.title}</h4>
-              <p>{rp.description}</p>
-              <span className="product-card-link">View product <ArrowRight size={13} /></span>
+        {otherProducts.slice(0, 3).map((rp, i) => (
+          <motion.a href={`/product/${rp.slug}/`} className="product-catalog-card" key={rp.slug} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .06 }}>
+            <div className="product-card-visual" style={{ height: 160 }}>
+              {rp.badge && <span className="product-floating-badge">{rp.badge}</span>}
+              <img src={rp.image} alt={rp.title} className="product-card-img-element" loading="lazy" />
             </div>
-          </motion.a>;
-        })}
+            <div className="product-card-content">
+              <span className="product-card-subcategory">{rp.subcategory}</span>
+              <h4 style={{ margin: '4px 0 6px', fontSize: 15, fontWeight: 700 }}>{rp.title}</h4>
+              <p className="product-card-desc">{rp.shortDesc}</p>
+              <span className="product-card-link" style={{ marginTop: 'auto', display: 'inline-flex', alignItems: 'center', gap: 6, color: '#5534d5', fontSize: 11, fontWeight: 600 }}>
+                View product <ArrowRight size={13} />
+              </span>
+            </div>
+          </motion.a>
+        ))}
+      </div>
+    </section>
+
+    <ReferenceCTA />
+  </div>;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   INDIVIDUAL SOLUTION PAGE
+   ═══════════════════════════════════════════════════════════════ */
+function SolutionDetailPage({ variant }) {
+  const detail = solutionDetails[variant];
+  const categoryData = solutionCategories.find(c => c[3] === variant);
+  if (!detail || !categoryData) return null;
+
+  const [Icon, title] = categoryData;
+
+  return <div className="reference-site inner-page">
+    <PageHero eyebrow={title.toUpperCase()} title={<>{detail.hero}</>} body={detail.desc} variant={variant} />
+
+    <section className="solution-detail-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto', paddingTop: 80, borderBottom: 0 }}>
+      <RefEyebrow>FEATURES</RefEyebrow>
+      <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 650, letterSpacing: '-0.05em', margin: '14px 0 35px' }}>What we automate.</h2>
+      <div className="solution-feature-grid">
+        {detail.features.map(([FIcon, fname, fdesc]) => (
+          <div className="solution-feature" key={fname}>
+            <FIcon size={18} strokeWidth={1.6} />
+            <div><h4>{fname}</h4><p>{fdesc}</p></div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto' }}>
+      <div className="reference-section-heading">
+        <div>
+          <RefEyebrow>IDEAL FOR</RefEyebrow>
+          <h2>Use cases & applications.</h2>
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+        {detail.useCases.map(uc => <span key={uc} style={{ padding: '12px 20px', fontSize: 13, fontWeight: 600, color: 'var(--purple)', background: 'rgba(158,140,252,0.1)', borderRadius: 8 }}>{uc}</span>)}
+      </div>
+    </section>
+
+    {detail.capabilities && (
+      <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto', borderTop: '1px solid var(--line)' }}>
+        <RefEyebrow>CAPABILITIES</RefEyebrow>
+        <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 650, letterSpacing: '-0.05em', margin: '14px 0 35px' }}>Why choose this solution.</h2>
+        <div className="capability-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
+          {detail.capabilities.map((cap, i) => (
+            <motion.div className="capability-item" key={cap} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * .05 }}>
+              <CheckCircle2 size={22} strokeWidth={1.6} />
+              <span style={{ fontSize: '11px' }}>{cap}</span>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <ReferenceCTA />
+  </div>;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BLOG POST PAGE
+   ═══════════════════════════════════════════════════════════════ */
+function BlogPostPage({ slug }) {
+  const article = blogsData.find(b => b.slug === slug) || blogsData[0];
+  const relatedArticles = blogsData.filter(b => b.id !== article.id).slice(0, 3);
+
+  return <div className="reference-site inner-page">
+    <nav className="product-breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/blog/">Blogs</a> <span>/</span> <span className="current">{article.category}</span>
+    </nav>
+    <article style={{ width: 'min(860px, calc(100% - 48px))', margin: '40px auto 80px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+        <span className="blogs-meta-pill">{article.category}</span>
+        <span style={{ fontSize: 13, color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: 5 }}>
+          <Clock size={13} /> {article.readTime}
+        </span>
+        <span style={{ fontSize: 13, color: 'var(--muted)' }}>•</span>
+        <span style={{ fontSize: 13, color: 'var(--muted)' }}>{article.date}</span>
+      </div>
+
+      <h1 style={{ fontSize: 'clamp(32px, 4.2vw, 54px)', fontWeight: 700, lineHeight: 1.15, letterSpacing: '-0.04em', margin: '0 0 20px', color: 'var(--ink)' }}>
+        {article.title}
+      </h1>
+
+      <div className="blogs-author-strip" style={{ marginBottom: 35, paddingBottom: 20 }}>
+        <div className="blogs-author-avatar">OC</div>
+        <div className="blogs-author-info">
+          <strong>{article.author}</strong>
+          <span>{article.authorRole || 'Ottoclick Automation Engineering'}</span>
+        </div>
+      </div>
+
+      {/* Hero Cover Image */}
+      <div style={{ position: 'relative', height: 420, borderRadius: 20, overflow: 'hidden', marginBottom: 40, boxShadow: '0 20px 45px rgba(30, 26, 45, 0.12)' }}>
+        <img src={article.image} alt={article.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      </div>
+
+      {/* Lead Summary Callout */}
+      <div style={{ padding: '24px 28px', background: '#f5f3ff', borderLeft: '4px solid #7c5cfc', borderRadius: '0 14px 14px 0', marginBottom: 40 }}>
+        <p style={{ margin: 0, fontSize: 16, lineHeight: 1.7, color: '#312e81', fontWeight: 550 }}>
+          {article.summary}
+        </p>
+      </div>
+
+      {/* Article Body Sections */}
+      <div style={{ fontSize: 16, lineHeight: 1.85, color: '#374151' }}>
+        {article.content.map((sec, i) => (
+          <div key={i} style={{ marginBottom: 36 }}>
+            <h2 style={{ fontSize: 'clamp(20px, 2.2vw, 26px)', fontWeight: 700, color: 'var(--ink)', letterSpacing: '-0.02em', margin: '30px 0 14px' }}>
+              {sec.heading}
+            </h2>
+            <p style={{ margin: 0 }}>
+              {sec.text}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Author / Share Box */}
+      <div style={{ marginTop: 50, padding: 30, background: '#faf9fc', border: '1px solid var(--line)', borderRadius: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 20 }}>
+        <div>
+          <strong style={{ display: 'block', fontSize: 14, color: 'var(--ink)', marginBottom: 4 }}>Have questions about implementing this in your project?</strong>
+          <span style={{ fontSize: 12, color: 'var(--muted)' }}>Our team provides tailored electrical schematic reviews and site consultations.</span>
+        </div>
+        <RefButton href="/contact-us/">Speak with an Engineer</RefButton>
+      </div>
+    </article>
+
+    {/* Related Blogs */}
+    <section className="pdp-related" style={{ borderTop: '1px solid var(--line)', paddingBottom: 80 }}>
+      <div className="pdp-related-heading">
+        <div>
+          <RefEyebrow>CONTINUE READING</RefEyebrow>
+          <h2>Related Articles</h2>
+        </div>
+        <RefButton href="/blog/" className="ref-button-soft">View All Blogs</RefButton>
+      </div>
+      <div className="blogs-grid">
+        {relatedArticles.map((b) => (
+          <a href={`/blog/${b.slug}/`} className="blog-card-item" key={b.id}>
+            <div className="blog-card-media">
+              <img src={b.image} alt={b.title} />
+              <span className="blog-card-badge">{b.category}</span>
+            </div>
+            <div className="blog-card-body">
+              <div className="blog-card-meta">
+                <span>{b.date}</span>
+                <span>•</span>
+                <span>{b.readTime}</span>
+              </div>
+              <h3 className="blog-card-title">{b.title}</h3>
+              <p className="blog-card-summary">{b.summary}</p>
+              <div className="blog-card-footer">
+                <span>Read Article</span>
+                <ArrowRight size={14} />
+              </div>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
 
@@ -1062,7 +1792,7 @@ function ProductDetailPage({ slug }) {
    APP ROOT
    ═══════════════════════════════════════════════════════════════ */
 export default function App() {
-  const { route, productSlug } = usePageRoute();
+  const { route, productSlug, blogSlug, solutionVariant } = usePageRoute();
 
   useEffect(() => {
     let lenisInstance;
@@ -1121,9 +1851,13 @@ export default function App() {
   }, []);
 
   const page = route === 'about' ? <AboutPage />
-    : route === 'solutions' ? <SolutionsPage />
+    : route === 'solution-home' ? <SolutionDetailPage variant="home" />
+    : route === 'solution-hotel' ? <SolutionDetailPage variant="hotel" />
+    : route === 'solution-institutional' ? <SolutionDetailPage variant="institutional" />
+    : route === 'solution-industrial' ? <SolutionDetailPage variant="industrial" />
     : route === 'products' ? <ProductsPage />
     : route === 'product-detail' ? <ProductDetailPage slug={productSlug} />
+    : route === 'blog-post' ? <BlogPostPage slug={blogSlug} />
     : route === 'blogs' ? <BlogsPage />
     : route === 'contact' ? <ContactPage />
     : <ReferenceHome />;
