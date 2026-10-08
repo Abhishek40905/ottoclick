@@ -712,7 +712,7 @@ quickSpecs: [
     categorySlug: "smart-touch-panels",
     subcategory: "Canvas",
     badge: "Canvas",
-    image: "/products/catalog/canvas-marble.png",
+    image: "/products/catalog/canvas-veneer.png",
     shortDesc: "Canvas Series marble finish.",
     description:
       "Canvas Series customizable touch panel with marble finish.",
@@ -737,7 +737,7 @@ quickSpecs: [
     categorySlug: "smart-touch-panels",
     subcategory: "Canvas",
     badge: "Canvas",
-    image: "/products/catalog/canvas-veneer.png",
+    image: "/products/catalog/canvas-glossy.png",
     shortDesc: "Canvas Series veneer finish.",
     description:
       "Canvas Series customizable touch panel with veneer finish.",
@@ -762,7 +762,7 @@ quickSpecs: [
     categorySlug: "smart-touch-panels",
     subcategory: "Canvas",
     badge: "Canvas",
-    image: "/products/catalog/canvas-matt.png",
+    image: "/products/catalog/canvas-marble.png",
     shortDesc: "Canvas Series matt finish.",
     description:
       "Canvas Series customizable touch panel with matt finish.",
@@ -787,7 +787,7 @@ quickSpecs: [
     categorySlug: "smart-touch-panels",
     subcategory: "Canvas",
     badge: "Canvas",
-    image: "/products/catalog/canvas-glossy.png",
+    image: "/products/catalog/canvas-matt.png",
     shortDesc: "Canvas Series glossy finish.",
     description:
       "Canvas Series customizable touch panel with glossy finish.",
@@ -810,7 +810,7 @@ quickSpecs: [
   {
     id: "retrofit-oc-sls-4g",
     slug: "wifi-10a-circuit-breaker-2-way-4g",
-    title: "Wi-Fi 10A Circuit Breaker 2 Way - 4G",
+    title: "Wifi- 10A Circuit Breaker 2 Way - 4G",
     model: "OC-SLS-4G-W / OC-SLS-4G-Z",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
@@ -836,7 +836,7 @@ quickSpecs: [
   {
     id: "retrofit-oc-sls-4gz",
     slug: "zigbee-4-gang-5a-mini-smart-breaker",
-    title: "Zigbee 4 Gang 5A Mini Smart Breaker",
+    title: "Zigbee 4 Gang 5A mini smart breaker",
     model: "OC-SLS-4G-Z",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
@@ -862,7 +862,7 @@ quickSpecs: [
   {
     id: "retrofit-oc-sls-1g",
     slug: "wifi-16a-circuit-breaker-2-way-1-gang",
-    title: "Wi-Fi 16A Circuit Breaker 2 Way - 1 Gang / Zigbee 1 Gang 16A Mini Smart Breaker",
+    title: "Wifi- 16 A Circuit Breaker - 2 Way - 1 gang/ Zigbee 1 Gang 16A mini smart breaker",
     model: "OC-SLS-1G-W / OC-SLS-1G-Z",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
@@ -889,7 +889,7 @@ quickSpecs: [
   {
     id: "retrofit-oc-sls-2g",
     slug: "wifi-16a-circuit-breaker-2-way-2g",
-    title: "Wi-Fi 16A Circuit Breaker 2 Way - 2G / Zigbee 2 Gang 16A Mini Smart Breaker",
+    title: "Wifi- 16A Circuit Breaker 2 Way - 2G/Zigbee 2 Gang 16A mini smart breker",
     model: "OC-SLS-2G-W / OC-SLS-2G-Z",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
@@ -919,7 +919,7 @@ quickSpecs: [
   {
     id: "panel-oc-cp-6",
     slug: "infinity-6-smart-wifi-touch-control-panel",
-    title: "(Infinity) - 6” Smart Wi-Fi Touch Control Panel",
+    title: "(Infinity) - 6\" Smart Wi-Fi Touch Control Panel With Knob Control + Zigbee Gateway + Video Calling + Built in 2 Relay Switch",
     model: "OC-CP-6”",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
@@ -952,7 +952,7 @@ quickSpecs: [
   {
     id: "panel-oc-cp-4",
     slug: "homesync-pro-4-smart-wifi-touch-panel",
-    title: "(HomeSync Pro) - 4” Smart Wi-Fi Touch Control Panel",
+    title: "(HomeSync Pro) - 4\" Smart Wi-Fi Touch Control Panel With Built In Alexa + Zigbee + BLE Mesh Gateway + Video Calling",
     model: "OC-CP-4”",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
@@ -984,7 +984,7 @@ quickSpecs: [
   {
     id: "panel-oc-cp-35",
     slug: "35-smart-zigbee-touch-control-screen",
-    title: "3.5” Smart Zigbee Touch ControlScreen + 4 Gang Relay",
+    title: "3.5\" Smart Zigbee Touch Control Screen + 4 Gang Relay Support Curtain, Dimming and Scene",
     model: "OC-CP-3.5”",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
@@ -1213,7 +1213,7 @@ quickSpecs: [
   {
     id: "doorlock-series-3-pro",
     slug: "series-3-smart-door-lock",
-    title: "Series 3 Smart Door Lock",
+    title: "Series 3 Pro Smart Door Lock",
     model: "OC-DL01-W",
     category: "DOOR Locks",
     categorySlug: "door-locks",
@@ -1389,8 +1389,8 @@ quickSpecs: [
   {
     id: "doorlock-glass-g1",
     slug: "glass-g1-smart-door-lock",
-    title: "Glass G1 Smart Door Lock",
-    model: "G1 Glass Series",
+    title: "GLASS G1 SMART DOOR LOCK",
+    model: "OC-DL01-W",
     category: "DOOR Locks",
     categorySlug: "door-locks",
     subcategory: "Specialty & Metal Locks",
@@ -1771,7 +1771,7 @@ quickSpecs: [
   {
     id: "curtain-motor-2-5nm",
     slug: "zigbee-wifi-curtain-motor-2-5nm",
-    title: "Zigbee/Wifi Curtain Motor 2.5 Nm",
+    title: "Zigbee/Wifi Curtain Motor 2.5 Nm (App Control + Voice Command + Remote Control) - Load Capacity 80 kg",
     model: "OC-CMW/Z-2.5Nm",
     category: "Smart Curtains & Blinds",
     categorySlug: "curtains-blinds",
@@ -1803,7 +1803,7 @@ quickSpecs: [
   {
     id: "curtain-motor-1-5nm",
     slug: "zigbee-wifi-curtain-motor-1-5nm",
-    title: "Zigbee/Wifi Curtain Motor 1.5 Nm",
+    title: "Zigbee/Wifi Curtain Motor 1.5 Nm (App Control + Voice Command + Remote Control) - Load Capacity 50 kg",
     model: "OC-CMW/Z-1.5Nm",
     category: "Smart Curtains & Blinds",
     categorySlug: "curtains-blinds",
@@ -1835,7 +1835,7 @@ quickSpecs: [
   {
     id: "curtain-track-oc-nct",
     slug: "customised-super-silent-track-curtain-track-set",
-    title: "Customised Super Silent Track Curtain Track Set",
+    title: "Customised Super Silent Track Curtain Track Set with Drivers & Other Accessories for Slider Opening and Single Side Opening (Per Feet Rate)",
     model: "OC-NCT",
     category: "Smart Curtains & Blinds",
     categorySlug: "curtains-blinds",
@@ -1865,7 +1865,7 @@ quickSpecs: [
   {
     id: "blind-motor-35m",
     slug: "zigbee-wifi-tubular-motor-6n-35mm",
-    title: "Zigbee/Wifi Tubular Motor 6N, 35mm",
+    title: "Zigbee/Wifi Tubular Motor 6N, App Control + Voice Control + Remote Control , 35mm",
     model: "OC-BMW/Z-35M",
     category: "Smart Curtains & Blinds",
     categorySlug: "curtains-blinds",
@@ -1897,7 +1897,7 @@ quickSpecs: [
   {
     id: "remote-single-channel",
     slug: "single-channel-remote-oc-scr-01",
-    title: "Single Channel Remote",
+    title: "Single Channel Remote (for Single Curtain Set)",
     model: "OC-SCR-01",
     category: "Smart Curtains & Blinds",
     categorySlug: "curtains-blinds",
@@ -1922,7 +1922,7 @@ quickSpecs: [
   {
     id: "remote-double-channel",
     slug: "double-channel-remote-oc-dcr-02",
-    title: "Double Channel Remote",
+    title: "Double Channel Remote (for Dual Curtain Set)",
     model: "OC-DCR-02",
     category: "Smart Curtains & Blinds",
     categorySlug: "curtains-blinds",
@@ -1981,7 +1981,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "Deep Square",
-    image: "/products/catalog/light-scd01.png",
+    image: "/products/catalog/light-csl08.png",
     shortDesc:
       "Deep square panel 12W with 100mm cutout and 50mm depth.",
     description:
@@ -2010,7 +2010,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "Deep Round",
-    image: "/products/catalog/light-scd03.png",
+    image: "/products/catalog/light-csl01.png",
     shortDesc:
       "Deep round panel 12W with 100mm cutout and 50mm depth.",
     description:
@@ -2033,13 +2033,13 @@ quickSpecs: [
   {
     id: "light-scd08",
     slug: "surface-round-downlight-panel-3-in-1-cct",
-    title: "Surface - Round Downlight Panel 3 IN 1- CCT",
+    title: "Surface - Round Downlight Panel 3 IN 1- CCT (2700K-6500K)",
     model: "OC-SCD08/09/10",
     category: "Smart Lighting",
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "Surface Round",
-    image: "/products/catalog/light-scd08.png",
+    image: "/products/catalog/light-csl07.png",
     shortDesc:
       "Surface round downlight panel in 12W, 18W and 24W variants.",
     description:
@@ -2064,13 +2064,13 @@ quickSpecs: [
   {
     id: "light-scd05",
     slug: "surface-square-downlight-panel-3-in-1-cct",
-    title: "Surface - Square Downlight Panel 3 IN 1- CCT",
+    title: "Surface - Square Downlight Panel 3 IN 1- CCT (2700K-6500K)",
     model: "OC-SCD05/06/07",
     category: "Smart Lighting",
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "Surface Square",
-    image: "/products/catalog/light-scd05.png",
+    image: "/products/catalog/light-csl04.png",
     shortDesc:
       "Surface square downlight panel in 12W, 18W and 24W variants.",
     description:
@@ -2105,7 +2105,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "Trim-less Spot",
-    image: "/products/catalog/light-csl01.png",
+    image: "/products/catalog/light-scd03.png",
     shortDesc:
       "Trim-less spot in 7W, 12W and 18W variants with 3 IN 1 CCT.",
     description:
@@ -2136,7 +2136,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "Tiltable Spot",
-    image: "/products/catalog/light-csl04.png",
+    image: "/products/catalog/light-scd08.png",
     shortDesc:
       "Tiltable spot in 7W, 12W and 18W variants with 3 IN 1 CCT.",
     description:
@@ -2168,7 +2168,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "Gun Metal",
-    image: "/products/catalog/light-csl07.png",
+    image: "/products/catalog/light-scd01.png",
     shortDesc:
       "10W spot with 40mm cutout and gun metal reflector.",
     description:
@@ -2200,7 +2200,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "Deep Spot",
-    image: "/products/catalog/light-csl08.png",
+    image: "/products/catalog/light-scd05.png",
     shortDesc:
       "Deep spot in 7W, 12W and 18W variants with 3 IN 1 CCT.",
     description:
@@ -2235,7 +2235,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "Cylinder Spot",
-    image: "/products/catalog/light-ssl01.png",
+    image: "/products/catalog/light-ssl07.png",
     shortDesc:
       "Surface cylinder spot in 7W, 12W and 18W variants.",
     description:
@@ -2266,7 +2266,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "360 Adjustable",
-    image: "/products/catalog/light-ssl04.png",
+    image: "/products/catalog/light-lls05.png",
     shortDesc:
       "Adjustable surface cylinder spotlight in 10W, 12W and 15W variants.",
     description:
@@ -2296,7 +2296,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "Twisted Cylinder",
-    image: "/products/catalog/light-ssl07.png",
+    image: "/products/catalog/driver-oc-ld01.png",
     shortDesc:
       "12W surface twisted cylinder light with 3 IN 1 CCT.",
     description:
@@ -2329,7 +2329,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "Magnetic Track",
-    image: "/products/catalog/light-lls01.png",
+    image: "/products/catalog/light-ssl01.png",
     shortDesc:
       "Magnetic track linear diffused light in 12W and 20W variants.",
     description:
@@ -2357,7 +2357,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "Linear Laser",
-    image: "/products/catalog/light-lls03.png",
+    image: "/products/catalog/light-lls01.png",
     shortDesc:
       "Magnetic track linear laser light in 6W and 12W variants.",
     description:
@@ -2386,7 +2386,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Lightings",
     badge: "COB Adjustable",
-    image: "/products/catalog/light-lls05.png",
+    image: "/products/catalog/driver-oc-ld02.png",
     shortDesc:
       "Magnetic track COB adjustable light in 12W and 15W variants.",
     description:
@@ -2641,7 +2641,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Drivers",
     badge: "Zigbee COB Driver",
-    image: "/products/catalog/driver-oc-ld01.png",
+    image: "/products/catalog/light-ssl04.png",
     shortDesc:
       "Zigbee COB driver with dimming/CCT adjustment and DIP-adjustable current.",
     description:
@@ -2672,7 +2672,7 @@ quickSpecs: [
     categorySlug: "smart-lighting",
     subcategory: "Drivers",
     badge: "Zigbee COB Driver",
-    image: "/products/catalog/driver-oc-ld02.png",
+    image: "/products/catalog/light-lls03.png",
     shortDesc:
       "Zigbee COB driver with 15W–36W power range and DIP-adjustable current.",
     description:
@@ -3101,7 +3101,7 @@ quickSpecs: [
     id: "motion-pir01",
     slug: "wall-mounted-motion-sensor-pir-oc-pir01",
     title: "Wall-Mounted Motion Sensor PIR",
-    model: "OC-PIR01",
+    model: "OC-P1",
     category: "Motion Sensors",
     categorySlug: "motion-sensors",
     subcategory: "Microwave & PIR Sensors",
@@ -3173,7 +3173,7 @@ quickSpecs: [
     id: "motion-battery-light",
     slug: "battery-operated-motion-sensor-light",
     title: "Battery operated motion sensor light",
-    model: "OC-MSL1",
+    model: "OC-LB2",
     category: "Motion Sensors",
     categorySlug: "motion-sensors",
     subcategory: "Motion Lights",
@@ -3202,7 +3202,7 @@ quickSpecs: [
     id: "motion-rechargeable-light-01",
     slug: "rechargeable-motion-sensor-light-oc-rmsl01",
     title: "Rechargeable Motion Sensor Light",
-    model: "OC-RMSL 01",
+    model: "OC-LR1",
     category: "Motion Sensors",
     categorySlug: "motion-sensors",
     subcategory: "Motion Lights",
@@ -3943,7 +3943,7 @@ quickSpecs: [
     id: "day-night-sensor",
     slug: "day-night-sensor-oc-pc01",
     title: "Day Night Sensor",
-    model: "OC-PC01",
+    model: "OC-PC1",
     category: "Timer Switches",
     categorySlug: "timer-switches",
     subcategory: "Photocell Sensors",
@@ -4318,7 +4318,7 @@ quickSpecs: [
   {
     id: "zigbee-4gang-12scene",
     slug: "zigbee-4-gang-12-scene-creator-oc-ssm-4g",
-    title: "Zigbee - 4 Gang 12 Scene Creator with Megnetic Wall Plate",
+    title: "Zigbee - 4 Gang 12 Scene Creator with Magnetic Wall Plate",
     model: "OC-SSM-4G",
     category: "Smart Control Panels",
     categorySlug: "smart-control-panels",
@@ -4378,7 +4378,7 @@ quickSpecs: [
   {
     id: "zircon-4gang-display",
     slug: "zircon-4-gang-with-display-oc-ssm-dis",
-    title: "Zircon - 4 gang with Display",
+    title: "Zircon - 4 Gang with Display",
     model: "OC-SSM-Dis.",
     category: "Smart Control Panels",
     categorySlug: "smart-control-panels",
@@ -4406,7 +4406,7 @@ quickSpecs: [
   {
     id: "smart-zigbee-touch-3-5",
     slug: "35-smart-zigbee-touch-controlscreen-oc-cp-35",
-    title: '3.5" Smart Zigbee Touch ControlScreen + 4 Gang Relay Support Curtain, Dimming and Scene',
+    title: '3.5" Smart Zigbee Touch Control Screen + 4 Gang Relay Support Curtain, Dimming and Scene',
     model: 'OC-CP-3.5"',
     category: "Smart Control Panels",
     categorySlug: "smart-control-panels",
@@ -4438,7 +4438,7 @@ quickSpecs: [
   {
     id: "infinity-6-smart-panel",
     slug: "infinity-6-smart-wifi-touch-control-panel-oc-cp-6",
-    title: 'Infinity - 6" Smart Wi-Fi Touch Control Panel With Knob Control + Zigbee Gateway + Video Calling + Built in 2 Relay Switch',
+    title: '(Infinity) - 6" Smart Wi-Fi Touch Control Panel With Knob Control + Zigbee Gateway + Video Calling + Built in 2 Relay Switch',
     model: 'OC-CP-6"',
     category: "Smart Control Panels",
     categorySlug: "smart-control-panels",
@@ -4473,7 +4473,7 @@ quickSpecs: [
   {
     id: "homesync-pro-4-smart-panel",
     slug: "homesync-pro-4-smart-wifi-touch-control-panel-oc-cp-4",
-    title: 'HomeSync Pro - 4" Smart Wi-Fi Touch Control Panel With Built In Alexa + Zigbee + BLE Mesh Gateway + Video Calling',
+    title: '(HomeSync Pro) - 4" Smart Wi-Fi Touch Control Panel With Built In Alexa + Zigbee + BLE Mesh Gateway + Video Calling',
     model: 'OC-CP-4"',
     category: "Smart Control Panels",
     categorySlug: "smart-control-panels",
