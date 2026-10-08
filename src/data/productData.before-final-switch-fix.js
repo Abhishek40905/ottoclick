@@ -180,235 +180,231 @@ export const productsData = [
   {
     id: "luxe-2m-2s",
     slug: "luxe-series-2-gang-switch",
-title: "Luxe Series : 2 Gang Switch",
+    title: "Luxe Series : 2 Gang Switch",
     model: "LSW/Z-2M-2S",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Luxe",
     badge: "Luxe Frame",
     image: "/products/catalog/luxe-2m-2s.png",
-shortDesc: "Luxe Series 2 Gang Switch.",
-description: "Luxe Series 2 Gang Switch.",
-specs: {
-  "Plate Size": "2 Module",
-  "Touch Gangs": "2",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Luxe Series 2 Gang Switch.",
+    description:
+      "Luxe Series 2 Gang smart touch switch.",
+    specs: {
+      "Plate Size": "2 Module",
+    
+    "Touch Gangs": "2",
+    
+    "Panel Material": "Tempered Glass",},
     highlights: [
       "2 touch controls",
     ],
     idealFor: "General room lighting control",
     catalogueSource: "Master Catalogue Page 13",
-
-quickSpecs: [
-  "2 Module",
-  "2 Touch Gangs",
-  "Tempered Glass"
-]},
+  },
 
   {
     id: "luxe-4m-4s",
     slug: "luxe-series-4-gang-switch",
-title: "Luxe Series : 4 Gang Switch",
+    title: "Luxe Series : 4 Gang Switch",
     model: "LSW/Z-4M-4S",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Luxe",
     badge: "Luxe Frame",
     image: "/products/catalog/luxe-4m-4s.png",
-shortDesc: "Luxe Series 4 Gang Switch.",
-description: "Luxe Series 4 Gang Switch.",
-specs: {
-  "Plate Size": "4 Module",
-  "Touch Gangs": "4",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Luxe Series 4 Gang Switch.",
+    description:
+      "Luxe Series 4 Gang smart touch switch.",
+    specs: {
+      "Plate Size": "4 Module",
+    
+    "Touch Gangs": "4",
+    
+    "Panel Material": "Tempered Glass",},
     highlights: [
       "4 touch controls",
     ],
     idealFor: "Bedrooms, living rooms and workspaces",
     catalogueSource: "Master Catalogue Page 13",
-
-quickSpecs: [
-  "4 Module",
-  "4 Touch Gangs",
-  "Tempered Glass"
-]},
+  },
 
   {
     id: "luxe-4m-2s1u",
     slug: "luxe-series-2-gang-1-socket",
-title: "Luxe Series : 2 Gang + 1 Socket",
+    title: "Luxe Series : 2 Gang + 1 Socket",
     model: "LSW/Z-4M-2S1U",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Luxe",
     badge: "Luxe Frame",
     image: "/products/catalog/luxe-4m-2s1u.png",
-shortDesc: "Luxe Series 2 Gang + 1 Socket.",
-description: "Luxe Series 2 Gang + 1 Socket.",
-specs: {
-  "Plate Size": "4 Module",
-  "Touch Gangs": "2",
-  "Sockets": "1 Universal Socket",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Luxe Series 2 Gang + 1 Socket.",
+    description:
+      "Luxe Series combination panel with two touch switches and one universal socket.",
+    specs: {
+      "Plate Size": "4 Module",
+      "Switch Count": "2",
+      "Socket Count": "1 Universal Socket",
+    
+    "Touch Gangs": "2",
+    
+    "Sockets": "1 Universal Socket",
+    
+    "Panel Material": "Tempered Glass",},
     highlights: [
       "2 touch controls",
       "1 universal socket",
     ],
     idealFor: "Bedside tables and study areas",
     catalogueSource: "Master Catalogue Page 13",
-
-quickSpecs: [
-  "4 Module",
-  "2 Touch Gangs",
-  "1 Universal Socket"
-]},
+  },
 
   {
     id: "luxe-6m-8s",
-    slug: "luxe-series-6-gang-1-socket",
-title: "Luxe Series : 6 Gang + 1 Socket",
+    slug: "luxe-series-6-gang-switch",
+    title: "Luxe Series : 6 Gang Switch",
     model: "LSW/Z-6M-8S",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Luxe",
     badge: "Luxe Frame",
     image: "/products/catalog/luxe-6m-8s.png",
-shortDesc: "Luxe Series 6 Gang + 1 Socket.",
-description: "Luxe Series 6 Gang + 1 Socket.",
-specs: {
-  "Plate Size": "6 Module",
-  "Touch Gangs": "6",
-  "Sockets": "1 Universal Socket",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Luxe Series 6 Gang Switch.",
+    description:
+      "Luxe Series six-gang smart touch panel in a 6-module format.",
+    specs: {
+      "Plate Size": "6 Module",
+      "Switch Count": "6",
+    
+    "Touch Gangs": "6",
+    
+    "Panel Material": "Tempered Glass",},
     highlights: [
       "6 touch controls",
-      "1 universal socket",
       "Tempered glass panel",
       "Metal frame",
     ],
     idealFor: "Living rooms, master suites and larger spaces",
     catalogueSource: "Master Catalogue Page 13",
-
-quickSpecs: [
-  "6 Module",
-  "6 Touch Gangs",
-  "1 Universal Socket",
-  "Tempered Glass"
-]},
+  },
 
   {
     id: "luxe-8m-8s",
     slug: "luxe-series-8-gang-switch",
-title: "Luxe Series : 8 Gang Switch",
+    title: "Luxe Series : 8 Gang Switch",
     model: "LSW/Z-8M-8S",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Luxe",
     badge: "Luxe Frame",
     image: "/products/catalog/luxe-8m-8s.png",
-shortDesc: "Luxe Series 8 Gang Switch.",
-description: "Luxe Series 8 Gang Switch.",
-specs: {
-  "Plate Size": "8 Module",
-  "Touch Gangs": "8",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Luxe Series 8 Gang Switch.",
+    description:
+      "Luxe Series eight-gang smart touch panel.",
+    specs: {
+      "Plate Size": "8 Module",
+      "Switch Count": "8",
+    
+    "Touch Gangs": "8",
+    
+    "Panel Material": "Tempered Glass",},
     highlights: [
       "8 touch controls",
       "Wide-format panel",
     ],
     idealFor: "Living and dining areas",
     catalogueSource: "Master Catalogue Page 13",
-
-quickSpecs: [
-  "8 Module",
-  "8 Touch Gangs",
-  "Tempered Glass"
-]},
+  },
 
   {
     id: "luxe-6m-2s2u",
     slug: "luxe-series-2-gang-2-socket",
-title: "Luxe Series : 2 Gang + 2 Socket",
+    title: "Luxe Series : 2 Gang + 2 Socket",
     model: "LSW/Z-6M-2S2U",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Luxe",
     badge: "Luxe Frame",
     image: "/products/catalog/luxe-6m-2s2u.png",
-shortDesc: "Luxe Series 2 Gang + 2 Socket.",
-description: "Luxe Series 2 Gang + 2 Socket.",
-specs: {
-  "Plate Size": "6 Module",
-  "Touch Gangs": "2",
-  "Sockets": "2 Universal Sockets",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Luxe Series 2 Gang + 2 Socket.",
+    description:
+      "Luxe Series combination panel with two touch switches and two universal sockets.",
+    specs: {
+      "Plate Size": "6 Module",
+      "Switch Count": "2",
+      "Socket Count": "2 Universal Sockets",
+    
+    "Touch Gangs": "2",
+    
+    "Sockets": "2 Universal Sockets",
+    
+    "Panel Material": "Tempered Glass",},
     highlights: [
       "2 touch controls",
       "2 universal sockets",
     ],
     idealFor: "Bedside areas and workstations",
     catalogueSource: "Master Catalogue Page 13",
-
-quickSpecs: [
-  "6 Module",
-  "2 Touch Gangs",
-  "2 Universal Sockets"
-]},
+  },
 
   {
     id: "luxe-12m-12s2f",
-    slug: "luxe-series-12-gang-switch",
-title: "Luxe Series : 12 Gang Switch",
+    slug: "luxe-series-12-gang-2-fan",
+    title: "Luxe Series : 12 Gang + 2 Fan",
     model: "LSW/Z-12M-12S2F",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Luxe",
     badge: "Luxe Frame",
     image: "/products/catalog/luxe-12m-12s2f.png",
-shortDesc: "Luxe Series 12 Gang Switch.",
-description: "Luxe Series 12 Gang Switch.",
-specs: {
-  "Plate Size": "12 Module",
-  "Touch Gangs": "12",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Luxe Series 12 Gang + 2 Fan.",
+    description:
+      "Luxe Series 12 Gang panel with two fan controllers.",
+    specs: {
+      "Plate Size": "12 Module",
+      "Switch Count": "12",
+      "Fan Controllers": "2",
+    
+    "Touch Gangs": "12",
+    
+    "Fan Controls": "2 Digital Capacitive Dimmers",
+    
+    "Panel Material": "Tempered Glass",},
     highlights: [
       "12 touch controls",
+      "2 fan controls",
     ],
     idealFor: "Large living spaces and master suites",
     catalogueSource: "Master Catalogue Page 13",
-
-quickSpecs: [
-  "12 Module",
-  "12 Touch Gangs",
-  "Tempered Glass"
-]},
+  },
 
   {
     id: "luxe-12m-8s1f2u",
     slug: "luxe-series-8-gang-1-fan-2-socket",
-title: "Luxe Series : 8 Gang + 1 Fan + 2 Socket",
+    title: "Luxe Series : 8 Gang + 1 Fan + 2 Socket",
     model: "LSW/Z-12M-8S1F2U",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Luxe",
     badge: "Luxe Frame",
     image: "/products/catalog/luxe-12m-8s1f2u.png",
-shortDesc: "Luxe Series 8 Gang + 1 Fan + 2 Socket.",
-description: "Luxe Series 8 Gang + 1 Fan + 2 Socket.",
-specs: {
-  "Plate Size": "12 Module",
-  "Touch Gangs": "8",
-  "Fan Controls": "1",
-  "Sockets": "2 Universal Sockets",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Luxe Series 8 Gang + 1 Fan + 2 Socket.",
+    description:
+      "Luxe Series combination panel with eight touch switches, one fan controller and two sockets.",
+    specs: {
+      "Plate Size": "12 Module",
+      "Switch Count": "8",
+      "Fan Controllers": "1",
+      "Socket Count": "2 Universal Sockets",
+    
+    "Touch Gangs": "8",
+    
+    "Fan Controls": "1 Digital Regulator",
+    
+    "Sockets": "2 Universal Sockets",
+    
+    "Panel Material": "Tempered Glass",},
     highlights: [
       "8 touch controls",
       "1 fan control",
@@ -416,12 +412,7 @@ specs: {
     ],
     idealFor: "Master bedrooms and hospitality rooms",
     catalogueSource: "Master Catalogue Page 13",
-
-quickSpecs: [
-  "12 Module",
-  "8 Touch Gangs",
-  "1 Fan + 2 Universal Sockets"
-]},
+  },
 
   /* =========================================================
      AURA SERIES
@@ -429,250 +420,241 @@ quickSpecs: [
 
   {
     id: "aura-2m-2s",
-    slug: "aura-series-4-gang-2-socket",
-title: "Aura Series : 4 Gang + 2 Socket",
+    slug: "aura-series-2-gang-switch",
+    title: "Aura Series : 2 Gang Switch",
     model: "ASW/Z-2M-2S",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Aura",
     badge: "Aura",
     image: "/products/catalog/aura-2m-2s.png",
-shortDesc: "Aura Series 4 Gang + 2 Socket.",
-description: "Aura Series 4 Gang + 2 Socket.",
-specs: {
-  "Plate Size": "2 Module",
-  "Touch Gangs": "4",
-  "Sockets": "2 Universal Sockets",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Aura Series 2 Gang Switch.",
+    description:
+      "Aura Series frameless 2 Gang smart touch switch.",
+    specs: {
+      "Plate Size": "2 Module",
+      "Switch Count": "2",
+      "Panel Material": "Tempered Glass",
+    
+    "Touch Gangs": "2",},
     highlights: [
-      "4 touch controls",
-      "2 universal sockets",
+      "2 touch controls",
       "Frameless glass design",
     ],
     idealFor: "Passages, bedrooms and entrance areas",
     catalogueSource: "Master Catalogue Page 15",
-
-quickSpecs: [
-  "2 Module",
-  "4 Touch Gangs",
-  "2 Universal Sockets",
-  "Tempered Glass"
-]},
+  },
 
   {
     id: "aura-4m-4s",
-    slug: "aura-series-12-gang-2-fan",
-title: "Aura Series : 12 Gang + 2 Fan",
+    slug: "aura-series-4-gang-switch",
+    title: "Aura Series : 4 Gang Switch",
     model: "ASW/Z-4M-4S",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Aura",
     badge: "Aura",
     image: "/products/catalog/aura-4m-4s.png",
-shortDesc: "Aura Series 12 Gang + 2 Fan.",
-description: "Aura Series 12 Gang + 2 Fan.",
-specs: {
-  "Plate Size": "4 Module",
-  "Touch Gangs": "12",
-  "Fan Controls": "2",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Aura Series 4 Gang Switch.",
+    description:
+      "Aura Series frameless 4 Gang smart touch switch.",
+    specs: {
+      "Plate Size": "4 Module",
+      "Switch Count": "4",
+      "Panel Material": "Tempered Glass",
+    
+    "Touch Gangs": "4",},
     highlights: [
-      "12 touch controls",
-      "2 fan controls",
+      "4 touch controls",
       "Frameless glass",
     ],
     idealFor: "Bedrooms and study rooms",
     catalogueSource: "Master Catalogue Page 15",
-
-quickSpecs: [
-  "4 Module",
-  "12 Touch Gangs",
-  "2 Fan Controls",
-  "Tempered Glass"
-]},
+  },
 
   {
     id: "aura-4m-2s1u",
-    slug: "aura-series-16-gang-switch",
-title: "Aura Series : 16 Gang Switch",
+    slug: "aura-series-2-gang-1-socket",
+    title: "Aura Series : 2 Gang + 1 Socket",
     model: "ASW/Z-4M-2S1U",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Aura",
     badge: "Aura",
     image: "/products/catalog/aura-4m-2s1u.png",
-shortDesc: "Aura Series 16 Gang Switch.",
-description: "Aura Series 16 Gang Switch.",
-specs: {
-  "Plate Size": "4 Module",
-  "Touch Gangs": "16",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Aura Series 2 Gang + 1 Socket.",
+    description:
+      "Aura Series frameless combination panel with two touch switches and one socket.",
+    specs: {
+      "Plate Size": "4 Module",
+      "Switch Count": "2",
+      "Socket Count": "1 Universal Socket",
+    
+    "Touch Gangs": "2",
+    
+    "Sockets": "1 Universal Socket",
+    
+    "Panel Material": "Tempered Glass",},
     highlights: [
-      "16 touch controls",
+      "2 touch controls",
+      "1 universal socket",
       "Frameless design",
     ],
     idealFor: "Bedside and study areas",
     catalogueSource: "Master Catalogue Page 15",
-
-quickSpecs: [
-  "4 Module",
-  "16 Touch Gangs",
-  "Tempered Glass"
-]},
+  },
 
   {
     id: "aura-6m-8s",
-    slug: "aura-series-2-gang-switch",
-title: "Aura Series : 2 Gang Switch",
+    slug: "aura-series-6-gang-switch",
+    title: "Aura Series : 6 Gang Switch",
     model: "ASW/Z-6M-8S",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Aura",
     badge: "Aura",
     image: "/products/catalog/aura-6m-8s.png",
-shortDesc: "Aura Series 2 Gang Switch.",
-description: "Aura Series 2 Gang Switch.",
-specs: {
-  "Plate Size": "6 Module",
-  "Touch Gangs": "2",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Aura Series 6 Gang Switch.",
+    description:
+      "Aura Series six-gang smart touch switch in a 6-module frameless panel.",
+    specs: {
+      "Plate Size": "6 Module",
+      "Switch Count": "6",
+      "Panel Material": "Tempered Glass",
+    
+    "Touch Gangs": "6",},
     highlights: [
-      "2 touch controls",
+      "6 touch controls",
       "Frameless tempered glass",
     ],
     idealFor: "Living spaces and master bedrooms",
     catalogueSource: "Master Catalogue Page 15",
-
-quickSpecs: [
-  "6 Module",
-  "2 Touch Gangs",
-  "Tempered Glass"
-]},
+  },
 
   {
     id: "aura-8m-8s",
-    slug: "aura-series-6-gang-switch",
-title: "Aura Series : 6 Gang Switch",
+    slug: "aura-series-8-gang-switch",
+    title: "Aura Series : 8 Gang Switch",
     model: "ASW/Z-8M-8S",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Aura",
     badge: "Aura",
     image: "/products/catalog/aura-8m-8s.png",
-shortDesc: "Aura Series 6 Gang Switch.",
-description: "Aura Series 6 Gang Switch.",
-specs: {
-  "Plate Size": "8 Module",
-  "Touch Gangs": "6",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Aura Series 8 Gang Switch.",
+    description:
+      "Aura Series eight-gang frameless smart touch switch.",
+    specs: {
+      "Plate Size": "8 Module",
+      "Switch Count": "8",
+      "Panel Material": "Tempered Glass",
+    
+    "Touch Gangs": "8",},
     highlights: [
-      "6 touch controls",
+      "8 touch controls",
       "Wide horizontal layout",
     ],
     idealFor: "Living and dining areas",
     catalogueSource: "Master Catalogue Page 15",
-
-quickSpecs: [
-  "8 Module",
-  "6 Touch Gangs",
-  "Tempered Glass"
-]},
+  },
 
   {
     id: "aura-6m-2s2u",
-    slug: "aura-series-1-gang-ac-switch",
-title: "Aura Series : 1 Gang AC Switch",
+    slug: "aura-series-2-gang-2-socket",
+    title: "Aura Series : 2 Gang + 2 Socket",
     model: "ASW/Z-6M-2S2U",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Aura",
     badge: "Aura",
     image: "/products/catalog/aura-6m-2s2u.png",
-shortDesc: "Aura Series 1 Gang AC Switch.",
-description: "Aura Series 1 Gang AC Switch.",
-specs: {
-  "Plate Size": "6 Module",
-  "Touch Gangs": "1",
-  "Special Feature": "High-Load AC Switch",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Aura Series 2 Gang + 2 Socket.",
+    description:
+      "Aura Series frameless panel with two touch switches and two universal sockets.",
+    specs: {
+      "Plate Size": "6 Module",
+      "Switch Count": "2",
+      "Socket Count": "2 Universal Sockets",
+    
+    "Touch Gangs": "2",
+    
+    "Sockets": "2 Universal Sockets",
+    
+    "Panel Material": "Tempered Glass",},
     highlights: [
-      "1 gang AC control",
+      "2 touch controls",
+      "2 universal sockets",
       "Frameless design",
     ],
-    idealFor: "Air conditioning units and heavy loads",
+    idealFor: "Workspaces and master suites",
     catalogueSource: "Master Catalogue Page 15",
-
-quickSpecs: [
-  "6 Module",
-  "1 Gang AC Switch",
-  "High Load Capacity"
-]},
+  },
 
   {
     id: "aura-12m-12s2f",
-    slug: "aura-series-6-gang-1-fan",
-title: "Aura Series : 6 Gang + 1 Fan",
+    slug: "aura-series-12-gang-2-fan",
+    title: "Aura Series : 12 Gang + 2 Fan",
     model: "ASW/Z-12M-12S2F",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Aura",
     badge: "Aura",
     image: "/products/catalog/aura-12m-12s2f.png",
-shortDesc: "Aura Series 6 Gang + 1 Fan.",
-description: "Aura Series 6 Gang + 1 Fan.",
-specs: {
-  "Plate Size": "12 Module",
-  "Touch Gangs": "6",
-  "Fan Controls": "1",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Aura Series 12 Gang + 2 Fan.",
+    description:
+      "Aura Series 12 Gang panel with two fan controllers.",
+    specs: {
+      "Plate Size": "12 Module",
+      "Switch Count": "12",
+      "Fan Controllers": "2",
+    
+    "Touch Gangs": "12",
+    
+    "Fan Controls": "2 Digital Capacitive Dimmers",
+    
+    "Panel Material": "Tempered Glass",},
     highlights: [
-      "6 touch controls",
-      "1 fan control",
+      "12 touch controls",
+      "2 fan controls",
     ],
     idealFor: "Large living spaces and master suites",
     catalogueSource: "Master Catalogue Page 15",
-
-quickSpecs: [
-  "12 Module",
-  "6 Touch Gangs",
-  "1 Fan Control"
-]},
+  },
 
   {
     id: "aura-12m-8s1f2u",
-    slug: "aura-series-10-gang-switch",
-title: "Aura Series : 10 Gang Switch",
+    slug: "aura-series-8-gang-1-fan-2-socket",
+    title: "Aura Series : 8 Gang + 1 Fan + 2 Socket",
     model: "ASW/Z-12M-8S1F2U",
     category: "Smart Touch Panels",
     categorySlug: "smart-touch-panels",
     subcategory: "Aura",
     badge: "Aura",
     image: "/products/catalog/aura-12m-8s1f2u.png",
-shortDesc: "Aura Series 10 Gang Switch.",
-description: "Aura Series 10 Gang Switch.",
-specs: {
-  "Plate Size": "12 Module",
-  "Touch Gangs": "10",
-  "Panel Material": "Tempered Glass"
-},
+    shortDesc: "Aura Series 8 Gang + 1 Fan + 2 Socket.",
+    description:
+      "Aura Series combination panel with eight touch switches, one fan controller and two sockets.",
+    specs: {
+      "Plate Size": "12 Module",
+      "Switch Count": "8",
+      "Fan Controllers": "1",
+      "Socket Count": "2 Universal Sockets",
+    
+    "Touch Gangs": "8",
+    
+    "Fan Controls": "1 Digital Regulator",
+    
+    "Sockets": "2 Universal Sockets",
+    
+    "Panel Material": "Tempered Glass",},
     highlights: [
-      "10 touch controls",
+      "8 touch controls",
+      "1 fan control",
+      "2 universal sockets",
     ],
     idealFor: "Master suites and hospitality spaces",
     catalogueSource: "Master Catalogue Page 15",
-
-quickSpecs: [
-  "12 Module",
-  "10 Touch Gangs",
-  "Tempered Glass"
-]},
+  },
 
   /* =========================================================
      CANVAS SERIES
