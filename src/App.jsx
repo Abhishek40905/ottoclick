@@ -166,13 +166,13 @@ function Navbar({ onSearchOpen }) {
 /* ─── Routing ─── */
 const pageRoutes = ['/', '/about-us/', '/product/', '/blog/', '/contact-us/', '/home-automation/', '/hotel-automation/', '/industrial-automation/', '/institutional-automation/'];
 const getRoute = () => {
-  const path = window.location.pathname;
-  if (path.includes('/about-us')) return 'about';
-  if (path.match(/^\/product\/[a-z0-9-]+\/?$/)) return 'product-detail';
-  if (path.includes('/product')) return 'products';
-  if (path.match(/^\/blog\/[a-z0-9-]+\/?$/)) return 'blog-post';
-  if (path.includes('/blog')) return 'blogs';
-  if (path.includes('/contact-us') || path.includes('/any-problem')) return 'contact';
+  const path = (window.location.pathname || '/').toLowerCase().replace(/\/+$/, '') || '/';
+  if (path === '/about-us' || path.startsWith('/about-us/')) return 'about';
+  if (path.startsWith('/product/') && path !== '/product') return 'product-detail';
+  if (path === '/product') return 'products';
+  if (path.startsWith('/blog/') && path !== '/blog') return 'blog-post';
+  if (path === '/blog') return 'blogs';
+  if (path === '/contact-us' || path.startsWith('/contact-us/') || path.includes('/any-problem')) return 'contact';
   if (path.includes('/home-automation')) return 'solution-home';
   if (path.includes('/hotel-automation')) return 'solution-hotel';
   if (path.includes('/institutional-automation')) return 'solution-institutional';
@@ -180,12 +180,14 @@ const getRoute = () => {
   return 'home';
 };
 const getProductSlug = () => {
-  const match = window.location.pathname.match(/^\/product\/([a-z0-9-]+)\/?$/);
-  return match ? match[1] : null;
+  const path = (window.location.pathname || '').replace(/\/+$/, '');
+  const match = path.match(/^\/product\/([^/?#]+)/i);
+  return match ? decodeURIComponent(match[1]) : null;
 };
 const getBlogSlug = () => {
-  const match = window.location.pathname.match(/^\/blog\/([a-z0-9-]+)\/?$/);
-  return match ? match[1] : null;
+  const path = (window.location.pathname || '').replace(/\/+$/, '');
+  const match = path.match(/^\/blog\/([^/?#]+)/i);
+  return match ? decodeURIComponent(match[1]) : null;
 };
 function usePageRoute() {
   const [route, setRoute] = useState(getRoute);
@@ -278,6 +280,7 @@ const legacySlugMap = {
   'lighting-controllers': 'zigbee-cob-driver-7w-13-5w',
   'curtain-controllers': 'curtain-motor-2-5nm',
   'hvac-controllers': 'wifi-ir-rf-blaster',
+  'climate-controller': 'wifi-ir-rf-blaster',
   'sensors': 'ceiling-360-degree-microwave-motion-sensor',
   'multi-sensor-pro': 'ceiling-360-degree-microwave-motion-sensor',
   'access-control': 'series-1-smart-door-lock',
@@ -1457,14 +1460,24 @@ function SearchOverlay({ open, onClose }) {
    PRODUCT DETAIL PAGE
    ═══════════════════════════════════════════════════════════════ */
 function ProductDetailPage({ slug }) {
-  const resolvedSlug = legacySlugMap[slug] || slug;
-  const product = productCatalog.find(p =>
-    p.slug === resolvedSlug ||
-    p.id === resolvedSlug ||
-    p.slug === slug ||
-    p.id === slug ||
-    (p.model && p.model.toLowerCase() === (slug || '').toLowerCase())
-  );
+  const cleanSlug = (slug || '').toLowerCase().trim();
+  const resolvedSlug = (legacySlugMap[cleanSlug] || cleanSlug).toLowerCase();
+  const product = productCatalog.find(p => {
+    const pSlug = (p.slug || '').toLowerCase();
+    const pId = (p.id || '').toLowerCase();
+    const pModel = (p.model || '').toLowerCase();
+    const pTitleSlug = (p.title || '').toLowerCase().replace(/[/\s_:+-]+/g, '-');
+    return (
+      pSlug === resolvedSlug ||
+      pId === resolvedSlug ||
+      pSlug === cleanSlug ||
+      pId === cleanSlug ||
+      pModel === cleanSlug ||
+      pModel.replace(/[/\s_-]+/g, '-') === cleanSlug.replace(/[/\s_-]+/g, '-') ||
+      pTitleSlug === cleanSlug ||
+      pTitleSlug === resolvedSlug
+    );
+  });
 
   if (!product) return <div className="reference-site inner-page" style={{ padding: '120px 24px', textAlign: 'center' }}>
     <h2>Product not found</h2>
@@ -1814,15 +1827,27 @@ export default function App() {
       frameId = requestAnimationFrame(raf);
 
       const handleAnchorClick = (e) => {
-        const target = e.currentTarget.getAttribute('href');
-        if (target) {
-          if (target.startsWith('/') || target === '/') {
-            e.preventDefault();
+        const anchor = e.target.closest('a');
+        if (!anchor) return;
+        const target = anchor.getAttribute('href');
+        if (!target) return;
+        if (anchor.target === '_blank' || anchor.hasAttribute('download')) return;
+
+        if (target.startsWith('/') || target === '/') {
+          if (target.startsWith('//')) return;
+          e.preventDefault();
+          if (window.location.pathname !== target) {
             window.history.pushState({}, '', target);
             window.dispatchEvent(new PopStateEvent('popstate'));
+          }
+          if (lenisInstance) {
             lenisInstance.scrollTo(0, { immediate: true });
-          } else if (target.startsWith('#')) {
-            e.preventDefault();
+          } else {
+            window.scrollTo(0, 0);
+          }
+        } else if (target.startsWith('#')) {
+          e.preventDefault();
+          if (lenisInstance) {
             lenisInstance.scrollTo(target, { offset: -76 });
           }
         }
@@ -1832,13 +1857,12 @@ export default function App() {
         lenisInstance.scrollTo(220, { duration: 1.5 });
       };
 
-      const anchors = document.querySelectorAll('a[href^="#"], a[href^="/"]');
-      anchors.forEach(a => a.addEventListener('click', handleAnchorClick));
+      document.addEventListener('click', handleAnchorClick);
       window.addEventListener('scroll-to-enter', handleScrollToEnter);
 
       return () => {
         lenisInstance.destroy();
-        anchors.forEach(a => a.removeEventListener('click', handleAnchorClick));
+        document.removeEventListener('click', handleAnchorClick);
         window.removeEventListener('scroll-to-enter', handleScrollToEnter);
         cancelAnimationFrame(frameId);
       };
