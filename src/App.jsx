@@ -245,13 +245,12 @@ const beliefs = [
 ];
 
 const capabilities = [
-  [Search, 'Consultation'],
-  [Settings, 'System Design'],
-  [Layers, 'Integration'],
-  [Wrench, 'Installation'],
-  [Cpu, 'Programming'],
-  [Check, 'Commissioning'],
-  [Phone, 'AMC & Support'],
+  [Search, 'Consultation & Planning', 'We assess your space and design an automation strategy perfectly aligned with your lifestyle and requirements.'],
+  [Settings, 'System Design & Engineering', 'Creating tailored blueprints that unify lighting, climate, security, and AV into a cohesive ecosystem.'],
+  [Wrench, 'Professional Installation', 'Flawless execution by certified engineers, ensuring clean wiring and zero disruption to your interiors.'],
+  [Cpu, 'Custom Programming', 'Setting up intuitive scenes, automated schedules, and intelligent sensor logic that just works.'],
+  [Check, 'Commissioning', 'Rigorous testing of every node, switch, and gateway before handover to ensure rock-solid stability.'],
+  [Phone, 'Lifelong AMC & Support', 'Dedicated after-sales support, remote troubleshooting, and comprehensive annual maintenance contracts.']
 ];
 
 
@@ -529,7 +528,7 @@ function ReferenceHome() {
       </div>
     </section>
 
-    {/* 14. Trust of Ottoclick - 2 Years Warranty (Master Catalogue p. 43) */}
+    {/* 14. Trust of Ottoclick - 5 Years Warranty (Master Catalogue p. 43) */}
     <WarrantyBanner />
 
     {/* 15. CTA */}
@@ -568,12 +567,12 @@ function AboutPage() {
     <div className="reference-stat-row">
       <div><strong>118+</strong><span>Catalogue Products</span></div>
       <div><strong>11</strong><span>Product Categories</span></div>
-      <div><strong>2 Years</strong><span>Official Warranty</span></div>
+      <div><strong>5 Years</strong><span>Official Warranty</span></div>
       <div><strong>Zigbee &amp; Wi-Fi</strong><span>Dual Architecture</span></div>
     </div>
 
     {/* Catalogue Story from Page 4 */}
-    <section className="reference-copy-section">
+    <section className="reference-copy-section" style={{ paddingBottom: '40px' }}>
       <RefEyebrow>OUR VISION &amp; PERSPECTIVE • CATALOGUE PAGE 04</RefEyebrow>
       <h2>From luxury to <em>functional necessity.</em></h2>
       <div className="reference-copy-columns">
@@ -583,7 +582,7 @@ function AboutPage() {
     </section>
 
     {/* Catalogue Portfolio Summary */}
-    <section className="reference-split">
+    <section className="reference-split" style={{ paddingTop: '20px' }}>
       <div>
         <RefEyebrow>COMPREHENSIVE PORTFOLIO</RefEyebrow>
         <h2>Everything unified under <em>one ecosystem.</em></h2>
@@ -598,25 +597,33 @@ function AboutPage() {
     <CatalogueNinePillars />
 
     {/* Capabilities */}
-    <section className="reference-section">
-      <div className="reference-section-heading">
-        <div>
-          <RefEyebrow>OUR CAPABILITIES</RefEyebrow>
-          <h2>Full-spectrum automation <em>expertise.</em></h2>
+    <section className="reference-split" style={{ paddingTop: '10px', marginTop: '-60px', alignItems: 'center' }}>
+      <div>
+        <RefEyebrow>OUR CAPABILITIES</RefEyebrow>
+        <h2>Full-spectrum automation <em>expertise.</em></h2>
+        <p style={{ maxWidth: '420px', color: 'var(--muted)', fontSize: '14px', lineHeight: 1.75, margin: '20px 0 35px' }}>
+          We handle everything in-house — consultation, hardware selection, configuration, and lifelong support.
+        </p>
+        <div style={{ display: 'grid', gap: '22px' }}>
+          {capabilities.map(([Icon, label, desc], i) => (
+            <motion.div key={label} initial={{ opacity: 0, x: -15 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * .05 }} style={{ display: 'flex', gap: '15px', alignItems: 'flex-start' }}>
+              <div style={{ display: 'grid', placeItems: 'center', width: '42px', height: '42px', borderRadius: '10px', background: 'rgba(158,140,252,0.1)', color: 'var(--purple)', flexShrink: 0 }}>
+                <Icon size={20} strokeWidth={1.8} />
+              </div>
+              <div>
+                <h4 style={{ margin: '0 0 4px', fontSize: '14px', fontWeight: 650, color: 'var(--ink)' }}>{label}</h4>
+                <p style={{ margin: 0, fontSize: '12px', color: 'var(--muted)', lineHeight: 1.6 }}>{desc}</p>
+              </div>
+            </motion.div>
+          ))}
         </div>
-        <p>We handle everything in-house — consultation, hardware selection, configuration, and lifelong support.</p>
       </div>
-      <div className="capability-grid">
-        {capabilities.map(([Icon, label], i) => (
-          <motion.div className="capability-item" key={label} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * .05 }}>
-            <Icon size={22} strokeWidth={1.6} />
-            <span>{label}</span>
-          </motion.div>
-        ))}
+      <div>
+        <RefImage src="/assets/catalogue/scene-creation-p42.png" variant="about" alt="Ottoclick Engineering and Support" />
       </div>
     </section>
 
-    {/* 2 Years Warranty Banner */}
+    {/* 5 Years Warranty Banner */}
     <WarrantyBanner />
 
     <ReferenceCTA />
@@ -1324,7 +1331,7 @@ function ReferenceFooter() {
           <a href="/home-automation/">Solutions</a>
           <a href="/product/">Products</a>
           <a href="/blog/">Blogs</a>
-          <a href="/about-us/#warranty">2-Year Warranty</a>
+          <a href="/about-us/#warranty">5-Year Warranty</a>
         </div>
         <div>
           <strong>Solutions</strong>
@@ -1354,7 +1361,7 @@ function ReferenceFooter() {
       <span>© {new Date().getFullYear()} Ottoclick. All rights reserved.</span>
       <span style={{ display: 'flex', gap: 16 }}>
         <a href="#" style={{ color: '#98949e' }}>Privacy Policy</a>
-        <a href="/about-us/#warranty" style={{ color: '#98949e' }}>2-Year Warranty Terms</a>
+        <a href="/about-us/#warranty" style={{ color: '#98949e' }}>5-Year Warranty Terms</a>
       </span>
       <span>Kanpur, Uttar Pradesh, India</span>
     </div>
@@ -1539,7 +1546,7 @@ function ProductDetailPage({ slug }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 22, padding: '12px 16px', background: 'rgba(158,140,252,0.08)', borderRadius: 10, border: '1px solid rgba(158,140,252,0.22)' }}>
           <ShieldCheck size={22} color="#9E8CFC" style={{ flexShrink: 0 }} />
           <div style={{ fontSize: 12, lineHeight: 1.45, color: 'var(--ink)' }}>
-            <strong>2-Year Warranty Included:</strong> Genuine Ottoclick hardware includes free parts, labor &amp; pan-India service support (Catalogue Page 43).
+            <strong>5-Year Warranty Included:</strong> Genuine Ottoclick hardware includes free parts, labor &amp; pan-India service support (Catalogue Page 43).
           </div>
         </div>
       </motion.div>
@@ -1599,7 +1606,7 @@ function ProductDetailPage({ slug }) {
       </section>
     )}
 
-    {/* 2-Year Warranty Showcase */}
+    {/* 5-Year Warranty Showcase */}
     <div style={{ marginTop: 40 }}>
       <WarrantyBanner />
     </div>

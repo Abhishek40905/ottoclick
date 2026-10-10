@@ -60,7 +60,7 @@ export function FloorplanShowcase() {
       eyebrow: 'ZONE 04 • HAZARD PREVENTION',
       title: 'Combustible Gas & Smoke Safeguards',
       desc: 'Continuous monitoring of invisible hazards. If an LPG leak is detected, Ottoclick alerts you and automatically cuts off the gas supply.',
-      image: '/products/catalog/sensor-oc-m5.png',
+      image: '/products/catalog/gas-zigbee-lpg.png',
       features: [
         { title: 'Combustible Gas Leak Detector', text: 'Sniffs LPG, PNG, and methane leaks with a piercing local siren.', icon: Flame },
         { title: 'Emergency Solenoid Shutoff Valve', text: 'Mechanically shuts off the main gas valve instantly upon leak alert.', icon: Shield },
@@ -456,7 +456,7 @@ export function CatalogueNinePillars() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   6. TRUST OF OTTOCLICK: 2 YEARS WARRANTY (Catalogue Page 43)
+   6. TRUST OF OTTOCLICK: 5 Years Warranty (Catalogue Page 43)
    ═══════════════════════════════════════════════════════════════ */
 export function WarrantyBanner() {
   const [showModal, setShowModal] = useState(false);
@@ -464,9 +464,7 @@ export function WarrantyBanner() {
   return (
     <section id="warranty" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 60px' }}>
       <div className="warranty-banner-card">
-        <div className="warranty-number-badge">
-          2
-          <span>Years of Warranty</span>
+        <div className="warranty-number-badge">5<span>Years of Warranty</span>
         </div>
 
         <div className="warranty-content">
@@ -475,7 +473,7 @@ export function WarrantyBanner() {
           </span>
           <h3>Trusted Performance for a Better Tomorrow</h3>
           <p>
-            Every Ottoclick product is engineered to uncompromising standards. Enjoy peace of mind with our comprehensive 2-Year Warranty covering defects in materials and manufacturing faults.
+            Every Ottoclick product is engineered to uncompromising standards. Enjoy peace of mind with our comprehensive 5-Year Warranty covering defects in materials and manufacturing faults.
           </p>
 
           <div className="warranty-points-grid">
@@ -536,7 +534,7 @@ export function WarrantyBanner() {
               onClick={(e) => e.stopPropagation()}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 24px', borderBottom: '1px solid var(--line)' }}>
-                <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>Ottoclick 2-Year Warranty Terms &amp; Conditions</h3>
+                <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>Ottoclick 5-Year Warranty Terms &amp; Conditions</h3>
                 <button type="button" onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4 }}>
                   <X size={18} />
                 </button>
@@ -561,3 +559,4 @@ export function WarrantyBanner() {
     </section>
   );
 }
+
