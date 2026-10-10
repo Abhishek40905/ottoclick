@@ -40,3 +40,35 @@
 @media (max-width: 900px) {
   .reference-home-hero { background: #fff !important; }
 }
+
+/* Reuse the Home hero experience on the About page without changing its copy layout. */
+.reference-page-hero-slideshow {
+  position: relative;
+  min-height: 560px;
+}
+
+.reference-page-hero-slideshow .hero-slideshow-container,
+.reference-page-hero-slideshow .hero-slideshow-viewport {
+  min-height: 560px;
+}
+
+.reference-page-hero-slideshow .hero-slideshow-container {
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(30, 26, 45, .12);
+}
+
+@media (max-width: 900px) {
+  .reference-page-hero-slideshow,
+  .reference-page-hero-slideshow .hero-slideshow-container,
+  .reference-page-hero-slideshow .hero-slideshow-viewport {
+    min-height: 330px;
+  }
+}
+
+@media (max-width: 560px) {
+  .reference-page-hero-slideshow,
+  .reference-page-hero-slideshow .hero-slideshow-container,
+  .reference-page-hero-slideshow .hero-slideshow-viewport {
+    min-height: 360px;
+  }
+}

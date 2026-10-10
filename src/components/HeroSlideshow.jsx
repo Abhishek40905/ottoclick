@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Sparkles, Shield, Sliders, Moon } from 'lucide-react';
 
-const slides = [
+const homeSlides = [
   {
     image: '/assets/slideshow/slide-1-living.jpg',
     space: 'Smart Living Space',
@@ -37,7 +37,42 @@ const slides = [
   }
 ];
 
-export function HeroSlideshow() {
+export const aboutSlides = [
+  {
+    image: '/products/all_extracted/mc_p4_img0_1713x911.png',
+    space: 'Whole-Home Comfort',
+    highlight: 'Lighting, media and climate working together',
+    badge: 'Ottoclick Ecosystem',
+    tag: 'Family Living',
+    icon: Sliders
+  },
+  {
+    image: '/products/all_extracted/mc_p40_img1_1766x724.png',
+    space: 'Ambient Evening Scenes',
+    highlight: 'Warm architectural lighting for relaxed evenings',
+    badge: 'Smart Lighting',
+    tag: 'Living & Dining',
+    icon: Sparkles
+  },
+  {
+    image: '/products/all_extracted/mc_p12_img7_1246x767.png',
+    space: 'Designed Touch Control',
+    highlight: 'Beautiful switches that blend into your interiors',
+    badge: 'Luxe & Aura Series',
+    tag: 'Interior Details',
+    icon: Shield
+  },
+  {
+    image: '/products/all_extracted/mc_p8_img0_1754x695.png',
+    space: 'Control From Anywhere',
+    highlight: 'Simple app control for every room and routine',
+    badge: 'Connected Living',
+    tag: 'Everyday Automation',
+    icon: Moon
+  }
+];
+
+export function HeroSlideshow({ slides = homeSlides, ariaLabel = 'Smart spaces showcase slideshow' }) {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef(null);
@@ -67,7 +102,7 @@ export function HeroSlideshow() {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       role="region"
-      aria-label="Smart spaces showcase slideshow"
+      aria-label={ariaLabel}
     >
       <div className="hero-slideshow-viewport">
         <AnimatePresence mode="wait">

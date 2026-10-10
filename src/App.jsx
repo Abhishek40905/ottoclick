@@ -1,4 +1,4 @@
-/* oxlint-disable no-unused-vars -- legacy motion modules remain available for future campaign variants */
+﻿/* oxlint-disable no-unused-vars -- legacy motion modules remain available for future campaign variants */
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 import { Activity, ArrowRight, BarChart3, Bell, Box, Building2, Check, CheckCircle2, ChevronDown, CircleGauge, Clock, Cpu, Eye, Factory, GraduationCap, Heart, Hotel, House, Layers, Lightbulb, Lock, Mail, MapPin, Menu, MessageCircle, Monitor, Moon, Phone, Play, Search, Settings, ShieldCheck, Sliders, Smartphone, Sparkles, Sun, Thermometer, Users, Wifi, Wrench, X, Zap } from 'lucide-react';
@@ -14,10 +14,10 @@ import {
   CatalogueNinePillars,
   WarrantyBanner
 } from './components/CatalogueSections.jsx';
-import { HeroSlideshow } from './components/HeroSlideshow.jsx';
+import { HeroSlideshow, aboutSlides } from './components/HeroSlideshow.jsx';
 import { blogCategories, blogsData } from './data/blogsData.js';
 
-/* ─── Constants ─── */
+/* â”€â”€â”€ Constants â”€â”€â”€ */
 const ease = [0.16, 1, 0.3, 1];
 const STOCK = {
   hero: 'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1400&q=80',
@@ -29,12 +29,12 @@ const STOCK = {
   blogs: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
 };
 
-/* ─── Utility Components ─── */
+/* â”€â”€â”€ Utility Components â”€â”€â”€ */
 const Logo = ({ compact = false }) => <img className={`brand-logo ${compact ? 'brand-logo-compact' : ''}`} src={logo} alt="Ottoclick" />;
 const Button = ({ children, className = '', ...props }) => <a className={`button ${className}`} {...props}>{children}</a>;
 const SectionHeading = ({ eyebrow, title, text }) => <div className="section-heading"><span className="eyebrow">{eyebrow}</span><h2>{title}</h2>{text && <p>{text}</p>}</div>;
 
-/* ─── Animated Logo (SVG) ─── */
+/* â”€â”€â”€ Animated Logo (SVG) â”€â”€â”€ */
 function AnimatedLogo({ scrollYProgress }) {
   const idleProgress = useMotionValue(0);
   const progress = scrollYProgress || idleProgress;
@@ -67,7 +67,7 @@ function AnimatedLogo({ scrollYProgress }) {
   </motion.svg>;
 }
 
-/* ─── Intro Screen ─── */
+/* â”€â”€â”€ Intro Screen â”€â”€â”€ */
 function Intro() {
   const [dismissed, setDismissed] = useState(false);
   const { scrollY } = useScroll();
@@ -98,7 +98,7 @@ function Intro() {
   </motion.div>;
 }
 
-/* ─── Navbar ─── */
+/* â”€â”€â”€ Navbar â”€â”€â”€ */
 function Navbar({ onSearchOpen }) {
   const [open, setOpen] = useState(false);
   const { scrollY, scrollYProgress } = useScroll();
@@ -163,7 +163,7 @@ function Navbar({ onSearchOpen }) {
   </motion.header>;
 }
 
-/* ─── Routing ─── */
+/* â”€â”€â”€ Routing â”€â”€â”€ */
 const pageRoutes = ['/', '/about-us/', '/product/', '/blog/', '/contact-us/', '/home-automation/', '/hotel-automation/', '/industrial-automation/', '/institutional-automation/'];
 const getRoute = () => {
   const path = (window.location.pathname || '/').toLowerCase().replace(/\/+$/, '') || '/';
@@ -197,7 +197,7 @@ function usePageRoute() {
   return { route, productSlug, blogSlug };
 }
 
-/* ─── Data ─── */
+/* â”€â”€â”€ Data â”€â”€â”€ */
 const solutionCategories = [
   [House, 'Home Automation', 'Comfort. Security. Control.', 'home'],
   [Hotel, 'Hotel Automation', 'Better experiences. Smarter operations.', 'hotel'],
@@ -311,7 +311,7 @@ const featuredCatalogueProducts = featuredHomeSlugs
   .filter(Boolean);
 
 
-/* ─── Shared UI Components ─── */
+/* â”€â”€â”€ Shared UI Components â”€â”€â”€ */
 function RefEyebrow({ children }) { return <span className="ref-eyebrow">{children}</span>; }
 function RefButton({ children, className = '', ...props }) { return <Button className={`ref-button ${className}`} {...props}>{children} <ArrowRight size={15} /></Button>; }
 
@@ -330,9 +330,9 @@ function CategoryStrip() {
   </div>;
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    HOME PAGE
-   ═══════════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function ReferenceHome() {
   const homeRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: homeRef, offset: ['start start', 'end start'] });
@@ -342,7 +342,7 @@ function ReferenceHome() {
       <div className="reference-hero-copy">
         <RefEyebrow>YOUR COMFORT, OUR PRIORITY.</RefEyebrow>
         <h1>Automation<br />for a Smarter<br /><em>World</em></h1>
-        <p>We design and deliver intelligent automation solutions for homes, hotels, institutions and industries — engineered for performance, built for life.</p>
+        <p>We design and deliver intelligent automation solutions for homes, hotels, institutions and industries â€” engineered for performance, built for life.</p>
         <div className="reference-actions">
           <RefButton href="/home-automation/">Explore Solutions</RefButton>
           <RefButton href="/contact-us/" className="ref-button-soft">Talk to an Expert</RefButton>
@@ -363,12 +363,12 @@ function ReferenceHome() {
         <h2>Technology that makes spaces feel <em>effortless.</em></h2>
       </div>
       <div>
-        <p>OTTOCLICK is not just a product company — we are an automation partner. We bring together consultation, system design, product integration and ongoing support to create spaces that are safer, more efficient, and deeply intuitive.</p>
+        <p>OTTOCLICK is not just a product company â€” we are an automation partner. We bring together consultation, system design, product integration and ongoing support to create spaces that are safer, more efficient, and deeply intuitive.</p>
         <RefButton href="/about-us/" className="ref-button-soft">About Ottoclick</RefButton>
       </div>
     </section>
 
-    {/* 4. Complete Home Automation Floorplan (Master Catalogue pp. 6–7) */}
+    {/* 4. Complete Home Automation Floorplan (Master Catalogue pp. 6â€“7) */}
     <FloorplanShowcase />
 
     {/* 5. What We Automate */}
@@ -378,7 +378,7 @@ function ReferenceHome() {
           <RefEyebrow>WHAT WE AUTOMATE</RefEyebrow>
           <h2>Every system, <em>unified.</em></h2>
         </div>
-        <p>From lighting and climate to security and access — we automate the systems that matter most, all working together seamlessly.</p>
+        <p>From lighting and climate to security and access â€” we automate the systems that matter most, all working together seamlessly.</p>
       </div>
       <div className="automate-grid">
         {automationItems.map(([Icon, title, desc], i) => (
@@ -410,7 +410,7 @@ function ReferenceHome() {
           <RefEyebrow>INDUSTRIES WE SERVE</RefEyebrow>
           <h2>Automation for <em>every sector.</em></h2>
         </div>
-        <p>From cozy apartments to sprawling campuses — our solutions scale to match any environment.</p>
+        <p>From cozy apartments to sprawling campuses â€” our solutions scale to match any environment.</p>
       </div>
       <div className="industry-grid">
         {industries.map(([Icon, title, desc], i) => (
@@ -466,7 +466,7 @@ function ReferenceHome() {
                 <div className="product-specs-chips">
                   {Object.entries(p.specs).slice(0, 3).map(([k, v]) => (
                     <span key={k} className="product-spec-pill" title={`${k}: ${v}`}>
-                      {v.length > 28 ? v.slice(0, 26) + '…' : v}
+                      {v.length > 28 ? v.slice(0, 26) + 'â€¦' : v}
                     </span>
                   ))}
                 </div>
@@ -536,10 +536,10 @@ function ReferenceHome() {
   </div>;
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    ABOUT PAGE
-   ═══════════════════════════════════════════════════════════════ */
-function PageHero({ eyebrow, title, body, variant = 'home', src, children }) {
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+function PageHero({ eyebrow, title, body, variant = 'home', src, slideshow = false, children }) {
   return <section className={`reference-page-hero ${variant}`}>
     <div>
       <RefEyebrow>{eyebrow}</RefEyebrow>
@@ -547,7 +547,13 @@ function PageHero({ eyebrow, title, body, variant = 'home', src, children }) {
       {body && <p>{body}</p>}
       {children}
     </div>
-    <RefImage src={src} variant={variant} alt="Ottoclick premium smart space" />
+    {slideshow ? (
+      <div className="reference-page-hero-slideshow">
+        <HeroSlideshow slides={aboutSlides} ariaLabel="About Ottoclick showcase slideshow" />
+      </div>
+    ) : (
+      <RefImage src={src} variant={variant} alt="Ottoclick premium smart space" />
+    )}
   </section>;
 }
 
@@ -558,7 +564,7 @@ function AboutPage() {
       title={<>Redefining<br />Smart Home<br /><em>Automation.</em></>}
       body="Welcome to OTTOCLICK, a forward-thinking automation brand delivering intelligent, energy-efficient solutions for modern homes and spaces. We specialize in designing and deploying smart automation systems that transform everyday environments into seamless, connected, and future-ready living experiences."
       variant="about"
-      src="/assets/catalogue/about-family-room.png"
+      slideshow
     >
       <RefButton href="/contact-us/">Talk to an Expert</RefButton>
     </PageHero>
@@ -573,7 +579,7 @@ function AboutPage() {
 
     {/* Catalogue Story from Page 4 */}
     <section className="reference-copy-section" style={{ paddingBottom: '40px' }}>
-      <RefEyebrow>OUR VISION &amp; PERSPECTIVE • CATALOGUE PAGE 04</RefEyebrow>
+      <RefEyebrow>OUR VISION &amp; PERSPECTIVE â€¢ CATALOGUE PAGE 04</RefEyebrow>
       <h2>From luxury to <em>functional necessity.</em></h2>
       <div className="reference-copy-columns">
         <p>In today's rapidly evolving lifestyle landscape, home automation in India is transitioning from an exclusive luxury offering to a functional necessity. Growing expectations around comfort, convenience, safety, security, and energy efficiency are driving the adoption of smart automation solutions across residential and commercial spaces.</p>
@@ -588,8 +594,8 @@ function AboutPage() {
         <h2>Everything unified under <em>one ecosystem.</em></h2>
       </div>
       <div>
-        <p>Our product portfolio includes smart touch switches (Luxe, Aura &amp; Canvas), smart lighting &amp; architectural drivers, motorized curtains/blinds, digital door locks, safety &amp; surveillance systems, and centralized control systems — fully app-based and voice-enabled with Amazon Alexa and Google Home.</p>
-        <p>With scene-based control and automation workflows, Ottoclick makes smart living intuitive, efficient, and accessible. Experience convenience, control, and innovation — designed to fit your lifestyle.</p>
+        <p>Our product portfolio includes smart touch switches (Luxe, Aura &amp; Canvas), smart lighting &amp; architectural drivers, motorized curtains/blinds, digital door locks, safety &amp; surveillance systems, and centralized control systems â€” fully app-based and voice-enabled with Amazon Alexa and Google Home.</p>
+        <p>With scene-based control and automation workflows, Ottoclick makes smart living intuitive, efficient, and accessible. Experience convenience, control, and innovation â€” designed to fit your lifestyle.</p>
       </div>
     </section>
 
@@ -602,7 +608,7 @@ function AboutPage() {
         <RefEyebrow>OUR CAPABILITIES</RefEyebrow>
         <h2>Full-spectrum automation <em>expertise.</em></h2>
         <p style={{ maxWidth: '420px', color: 'var(--muted)', fontSize: '14px', lineHeight: 1.75, margin: '20px 0 35px' }}>
-          We handle everything in-house — consultation, hardware selection, configuration, and lifelong support.
+          We handle everything in-house â€” consultation, hardware selection, configuration, and lifelong support.
         </p>
         <div style={{ display: 'grid', gap: '22px' }}>
           {capabilities.map(([Icon, label, desc], i) => (
@@ -630,13 +636,13 @@ function AboutPage() {
   </div>;
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    SOLUTIONS PAGE
-   ═══════════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 const solutionDetails = {
   home: {
     hero: 'Your Home. Your Rules. Automated.',
-    desc: 'From lighting scenes to security systems — we make your home respond to your life, not the other way around.',
+    desc: 'From lighting scenes to security systems â€” we make your home respond to your life, not the other way around.',
     features: [
       [Lightbulb, 'Lighting', 'Scenes, dimming, colour tuning & scheduling.'],
       [Sun, 'Curtains', 'Motorised curtains that respond to daylight.'],
@@ -653,7 +659,7 @@ const solutionDetails = {
   },
   hotel: {
     hero: 'Smarter Hotels. Better Guest Experiences.',
-    desc: 'Automate guest rooms, manage energy, and deliver a premium brand experience — all from one dashboard.',
+    desc: 'Automate guest rooms, manage energy, and deliver a premium brand experience â€” all from one dashboard.',
     features: [
       [Monitor, 'Guest Room Automation', 'Personalised room settings for every guest.'],
       [Lightbulb, 'Lighting Control', 'Mood scenes & occupancy-based automation.'],
@@ -669,7 +675,7 @@ const solutionDetails = {
   },
   institutional: {
     hero: 'Intelligent Spaces for Brighter Futures.',
-    desc: 'Schools, hospitals, offices and campuses — managed from one centralised, intelligent platform.',
+    desc: 'Schools, hospitals, offices and campuses â€” managed from one centralised, intelligent platform.',
     features: [
       [Lightbulb, 'Lighting', 'Automated lighting for classrooms & corridors.'],
       [Thermometer, 'HVAC', 'Centralised climate for large facilities.'],
@@ -683,7 +689,7 @@ const solutionDetails = {
   },
   industrial: {
     hero: 'Intelligent Control for Industrial Environments.',
-    desc: 'Monitoring, safety, energy optimisation and process control — engineered for the toughest environments.',
+    desc: 'Monitoring, safety, energy optimisation and process control â€” engineered for the toughest environments.',
     features: [
       [Eye, 'Monitoring & Control', 'Real-time system visibility & alerts.'],
       [Zap, 'Energy Management', 'Optimise consumption across all operations.'],
@@ -743,7 +749,7 @@ function SolutionsPage() {
           <RefEyebrow>WHY AUTOMATION?</RefEyebrow>
           <h2>The case for <em>intelligent spaces.</em></h2>
         </div>
-        <p>Automation isn't a luxury — it's an investment in comfort, safety, efficiency, and the future value of your property.</p>
+        <p>Automation isn't a luxury â€” it's an investment in comfort, safety, efficiency, and the future value of your property.</p>
       </div>
       <div className="reference-value-grid">
         {['Up to 30% energy savings', 'Enhanced security & safety', '24/7 remote monitoring', 'Increased property value'].map((item, i) => (
@@ -760,9 +766,9 @@ function SolutionsPage() {
   </div>;
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    PRODUCTS PAGE
-   ═══════════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function ProductsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
@@ -841,7 +847,7 @@ function ProductsPage() {
           </p>
         </div>
 
-        {/* ─── 11 Primary Buttons as Specified by Layout ─── */}
+        {/* â”€â”€â”€ 11 Primary Buttons as Specified by Layout â”€â”€â”€ */}
         <div className="category-buttons-wrapper">
           <div className="category-buttons-scroll" role="tablist" aria-label="Catalogue Categories">
             <button
@@ -849,7 +855,7 @@ function ProductsPage() {
               className={`category-btn ${activeCategory === 'all' ? 'is-active' : ''}`}
               onClick={() => handleCategorySelect('all')}
             >
-              <span className="category-btn-num">★</span>
+              <span className="category-btn-num">â˜…</span>
               <span>All Products</span>
               <span className="category-btn-count">({productCatalog.length})</span>
             </button>
@@ -873,7 +879,7 @@ function ProductsPage() {
           </div>
         </div>
 
-        {/* ─── Subcategory Filters Ribbon ─── */}
+        {/* â”€â”€â”€ Subcategory Filters Ribbon â”€â”€â”€ */}
         {currentCategoryData && currentCategoryData.subcategories && currentCategoryData.subcategories.length > 1 && (
           <div className="subcategory-filters-bar">
             <span className="subcategory-label">
@@ -897,7 +903,7 @@ function ProductsPage() {
           </div>
         )}
 
-        {/* ─── Status & Active Filters Bar ─── */}
+        {/* â”€â”€â”€ Status & Active Filters Bar â”€â”€â”€ */}
         <div className="catalog-status-bar">
           <span className="catalog-status-text">
             {activeCategory === 'all' ? (
@@ -923,7 +929,7 @@ function ProductsPage() {
           )}
         </div>
 
-        {/* ─── Product Cards Grid ─── */}
+        {/* â”€â”€â”€ Product Cards Grid â”€â”€â”€ */}
         {filteredProducts.length > 0 ? (
           <div className="product-category-grid">
             {filteredProducts.map((p, i) => (
@@ -959,7 +965,7 @@ function ProductsPage() {
                     <div className="product-specs-chips">
                       {Object.entries(p.specs).slice(0, 3).map(([k, v]) => (
                         <span key={k} className="product-spec-pill" title={`${k}: ${v}`}>
-                          {v.length > 28 ? v.slice(0, 26) + '…' : v}
+                          {v.length > 28 ? v.slice(0, 26) + 'â€¦' : v}
                         </span>
                       ))}
                     </div>
@@ -996,7 +1002,7 @@ function ProductsPage() {
         )}
       </section>
 
-      {/* ─── Interactive Quick Specs Modal ─── */}
+      {/* â”€â”€â”€ Interactive Quick Specs Modal â”€â”€â”€ */}
       <AnimatePresence>
         {quickViewProduct && (
           <motion.div
@@ -1116,9 +1122,9 @@ function ProductsPage() {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    BLOGS PAGE
-   ═══════════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function BlogsPage() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
@@ -1176,9 +1182,9 @@ function BlogsPage() {
           <div className="blogs-featured-content">
             <div className="blogs-meta-row">
               <span className="blogs-meta-pill">{featured.category}</span>
-              <span>•</span>
+              <span>â€¢</span>
               <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><Clock size={12} /> {featured.readTime}</span>
-              <span>•</span>
+              <span>â€¢</span>
               <span>{featured.date}</span>
             </div>
             <h2 className="blogs-featured-title">{featured.title}</h2>
@@ -1207,7 +1213,7 @@ function BlogsPage() {
             <div className="blog-card-body">
               <div className="blog-card-meta">
                 <span>{blog.date}</span>
-                <span>•</span>
+                <span>â€¢</span>
                 <span>{blog.readTime}</span>
               </div>
               <h3 className="blog-card-title">{blog.title}</h3>
@@ -1225,15 +1231,15 @@ function BlogsPage() {
     {/* Bottom CTA */}
     <section className="insights-bottom-cta">
       <h3>Want to automate your space?</h3>
-      <p>Talk to OTTOCLICK — our engineering specialists design solutions tailored to your floorplan.</p>
+      <p>Talk to OTTOCLICK â€” our engineering specialists design solutions tailored to your floorplan.</p>
       <RefButton href="/contact-us/">Get in Touch</RefButton>
     </section>
   </div>;
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    CONTACT PAGE
-   ═══════════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function ContactPage() {
   const [sent, setSent] = useState(false);
   return <div className="reference-site inner-page">
@@ -1248,12 +1254,12 @@ function ContactPage() {
           <span><MessageCircle size={16} /> <a href="https://wa.me/918423466267" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>+91 842 346 6267 (WhatsApp)</a></span>
           <span><Mail size={16} /> <a href="mailto:support@ottoclick.in" style={{ color: 'inherit', textDecoration: 'none' }}>support@ottoclick.in</a></span>
           <span><MapPin size={16} /> CSJMIF Shopping Complex, Kalyanpur, Kanpur, Uttar Pradesh 208024</span>
-          <span><Clock size={16} /> Mon – Sat &nbsp;|&nbsp; 10:00 AM – 6:00 PM</span>
+          <span><Clock size={16} /> Mon â€“ Sat &nbsp;|&nbsp; 10:00 AM â€“ 6:00 PM</span>
         </div>
         <div className="reference-socials">
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">in</a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">◎</a>
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">▶</a>
+          <a href="https://www.linkedin.com/company/ottoclick-pvt-ltd/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+          <a href="https://www.instagram.com/ottoclick.in/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+          
         </div>
       </div>
       <form className="reference-contact-form" onSubmit={e => { e.preventDefault(); setSent(true); }}>
@@ -1276,13 +1282,13 @@ function ContactPage() {
         </select>
         <select>
           <option>Estimated Budget</option>
-          <option>Under ₹1 Lakh</option>
-          <option>₹1–3 Lakhs</option>
-          <option>₹3–10 Lakhs</option>
-          <option>₹10+ Lakhs</option>
+          <option>Under â‚¹1 Lakh</option>
+          <option>â‚¹1â€“3 Lakhs</option>
+          <option>â‚¹3â€“10 Lakhs</option>
+          <option>â‚¹10+ Lakhs</option>
         </select>
         <textarea placeholder="Tell us about your project..." rows="4" />
-        <button type="submit">{sent ? 'Enquiry Sent ✓' : <>Submit Enquiry <ArrowRight size={15} /></>}</button>
+        <button type="submit">{sent ? 'Enquiry Sent âœ“' : <>Submit Enquiry <ArrowRight size={15} /></>}</button>
       </form>
     </section>
 
@@ -1297,7 +1303,7 @@ function ContactPage() {
   </div>;
 }
 
-/* ─── Shared CTA ─── */
+/* â”€â”€â”€ Shared CTA â”€â”€â”€ */
 function ReferenceCTA() {
   return <section className="reference-cta">
     <div>
@@ -1311,7 +1317,7 @@ function ReferenceCTA() {
   </section>;
 }
 
-/* ─── Footer ─── */
+/* â”€â”€â”€ Footer â”€â”€â”€ */
 function ReferenceFooter() {
   return <footer className="reference-footer">
     <div className="reference-footer-top">
@@ -1319,9 +1325,9 @@ function ReferenceFooter() {
         <Logo />
         <p>Your comfort, our priority. Engineered in Kanpur, deployed everywhere.</p>
         <div className="reference-socials" style={{ marginTop: 24, fontSize: 13, gap: 16 }}>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--purple)', textDecoration: 'none', fontWeight: 600 }}>LinkedIn</a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--purple)', textDecoration: 'none', fontWeight: 600 }}>Instagram</a>
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--purple)', textDecoration: 'none', fontWeight: 600 }}>YouTube</a>
+          <a href="https://www.linkedin.com/company/ottoclick-pvt-ltd/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--purple)', textDecoration: 'none', fontWeight: 600 }}>LinkedIn</a>
+          <a href="https://www.instagram.com/ottoclick.in/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--purple)', textDecoration: 'none', fontWeight: 600 }}>Instagram</a>
+          
         </div>
       </div>
       <div className="reference-footer-links">
@@ -1358,7 +1364,7 @@ function ReferenceFooter() {
       </div>
     </div>
     <div className="reference-footer-bottom">
-      <span>© {new Date().getFullYear()} Ottoclick. All rights reserved.</span>
+      <span>Â© {new Date().getFullYear()} Ottoclick. All rights reserved.</span>
       <span style={{ display: 'flex', gap: 16 }}>
         <a href="#" style={{ color: '#98949e' }}>Privacy Policy</a>
         <a href="/about-us/#warranty" style={{ color: '#98949e' }}>5-Year Warranty Terms</a>
@@ -1368,9 +1374,9 @@ function ReferenceFooter() {
   </footer>;
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    SEARCH OVERLAY
-   ═══════════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function SearchOverlay({ open, onClose }) {
   const [query, setQuery] = useState('');
   const [prevOpen, setPrevOpen] = useState(open);
@@ -1402,7 +1408,7 @@ function SearchOverlay({ open, onClose }) {
       description: p.shortDesc || p.description,
       href: `/product/${p.slug}/`,
       icon: p.Icon,
-      meta: `${p.category}${p.model ? ` • ${p.model}` : ''}`
+      meta: `${p.category}${p.model ? ` â€¢ ${p.model}` : ''}`
     })),
     ...solutionCategories.map(([Icon, title, text, variant]) => ({ type: 'Solution', title, description: text, href: '/home-automation/', icon: Icon, meta: 'Solutions' })),
     ...blogsData.map(b => ({ type: 'Blog', title: b.title, description: b.summary, href: `/blog/${b.slug}/`, icon: Play, meta: b.category })),
@@ -1463,9 +1469,9 @@ function SearchOverlay({ open, onClose }) {
   </AnimatePresence>;
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    PRODUCT DETAIL PAGE
-   ═══════════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function ProductDetailPage({ slug }) {
   const cleanSlug = (slug || '').toLowerCase().trim();
   const resolvedSlug = (legacySlugMap[cleanSlug] || cleanSlug).toLowerCase();
@@ -1517,7 +1523,7 @@ function ProductDetailPage({ slug }) {
       </div>
 
       <motion.div className="pdp-hero-copy" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .15, ease }}>
-        <RefEyebrow>{product.category.toUpperCase()}{product.subcategory ? ` • ${product.subcategory.toUpperCase()}` : ''}</RefEyebrow>
+        <RefEyebrow>{product.category.toUpperCase()}{product.subcategory ? ` â€¢ ${product.subcategory.toUpperCase()}` : ''}</RefEyebrow>
         <h1>{product.title}</h1>
         {product.model && <span className="pdp-model-pill">Model: {product.model}</span>}
         <p className="pdp-description">{product.description || product.detail}</p>
@@ -1644,9 +1650,9 @@ function ProductDetailPage({ slug }) {
   </div>;
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    INDIVIDUAL SOLUTION PAGE
-   ═══════════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function SolutionDetailPage({ variant }) {
   const detail = solutionDetails[variant];
   const categoryData = solutionCategories.find(c => c[3] === variant);
@@ -1701,9 +1707,9 @@ function SolutionDetailPage({ variant }) {
   </div>;
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    BLOG POST PAGE
-   ═══════════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function BlogPostPage({ slug }) {
   const article = blogsData.find(b => b.slug === slug) || blogsData[0];
   const relatedArticles = blogsData.filter(b => b.id !== article.id).slice(0, 3);
@@ -1718,7 +1724,7 @@ function BlogPostPage({ slug }) {
         <span style={{ fontSize: 13, color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: 5 }}>
           <Clock size={13} /> {article.readTime}
         </span>
-        <span style={{ fontSize: 13, color: 'var(--muted)' }}>•</span>
+        <span style={{ fontSize: 13, color: 'var(--muted)' }}>â€¢</span>
         <span style={{ fontSize: 13, color: 'var(--muted)' }}>{article.date}</span>
       </div>
 
@@ -1789,7 +1795,7 @@ function BlogPostPage({ slug }) {
             <div className="blog-card-body">
               <div className="blog-card-meta">
                 <span>{b.date}</span>
-                <span>•</span>
+                <span>â€¢</span>
                 <span>{b.readTime}</span>
               </div>
               <h3 className="blog-card-title">{b.title}</h3>
@@ -1808,9 +1814,9 @@ function BlogPostPage({ slug }) {
   </div>;
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    SEO HANDLER
-   ═══════════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function SEO({ title, description, url = 'https://ottoclick.in' }) {
   useEffect(() => {
     document.title = title;
@@ -1832,9 +1838,9 @@ function SEO({ title, description, url = 'https://ottoclick.in' }) {
   return null;
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    APP ROOT
-   ═══════════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 export default function App() {
   const { route, productSlug, blogSlug, solutionVariant } = usePageRoute();
 
@@ -1956,5 +1962,8 @@ export default function App() {
     <ReferenceFooter />
   </>;
 }
+
+
+
 
 
