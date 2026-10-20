@@ -4,7 +4,6 @@ import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTrans
 import { Activity, ArrowRight, BarChart3, Bell, Box, Building2, Check, CheckCircle2, ChevronDown, CircleGauge, Clock, Cpu, Eye, Factory, GraduationCap, Heart, Hotel, House, Layers, Lightbulb, Lock, Mail, MapPin, Menu, MessageCircle, Monitor, Moon, Phone, Play, Search, Settings, ShieldCheck, Sliders, Smartphone, Sparkles, Sun, Thermometer, Users, Wifi, Wrench, X, Zap } from 'lucide-react';
 import logo from '../ottoclick-logo.svg';
 import livingRoom from './assets/ottoclick-living-room.png';
-import smartProducts from './assets/ottoclick-smart-products.png';
 import { productCategories, productsData } from './data/productsData.js';
 import {
   FloorplanShowcase,
@@ -27,6 +26,13 @@ const STOCK = {
   about: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80',
   products: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=800&q=80',
   blogs: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+};
+
+const SOLUTION_IMAGES = {
+  home: '/assets/catalogue/about-family-room.png',
+  hotel: STOCK.hotel,
+  institutional: STOCK.institutional,
+  industrial: STOCK.industrial,
 };
 
 /* ─── Utility Components ─── */
@@ -93,7 +99,7 @@ function Intro() {
   if (dismissed) return null;
   return <motion.div className="intro" initial={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }} style={{ opacity: introOpacity, scale: introScale, y: introY, filter: introBlur, pointerEvents: hasScrolled ? 'none' : 'auto' }}>
     <motion.div className="intro-mark"><AnimatedLogo scrollYProgress={hasScrolled ? introProgress : undefined} /></motion.div>
-    <motion.span initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .7, duration: .45, ease }}>YOUR COMFORT, OUR PRIORITY.</motion.span>
+    <motion.span className="intro-tagline" style={{ fontSize: 'clamp(11px, 1.3vw, 13.5px)' }} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .7, duration: .45, ease }}>YOUR COMFORT, OUR PRIORITY.</motion.span>
     <motion.div className="intro-scroll-hint" style={{ cursor: 'pointer' }} onClick={() => window.dispatchEvent(new CustomEvent('scroll-to-enter'))} animate={{ opacity: hasScrolled ? 0 : [0.35, 1, 0.35], y: hasScrolled ? 8 : [0, 5, 0] }} transition={{ duration: 2.4, repeat: hasScrolled ? 0 : Infinity, ease: 'easeInOut' }}><span>Scroll to enter</span><ChevronDown size={15} /></motion.div>
   </motion.div>;
 }
@@ -274,21 +280,21 @@ const categoryIconMap = {
 const legacySlugMap = {
   'smart-switches': 'luxe-series-2-gang-switch',
   'smart-touch-switches': 'luxe-series-2-gang-switch',
-  'smart-controllers': 'infinity-6-smart-touch-control-panel',
-  'control-panels': 'homesync-pro-4-smart-touch-panel',
-  'lighting-controllers': 'zigbee-cob-driver-7w-13-5w',
-  'curtain-controllers': 'curtain-motor-2-5nm',
-  'hvac-controllers': 'wifi-ir-rf-blaster',
-  'climate-controller': 'wifi-ir-rf-blaster',
-  'sensors': 'ceiling-360-degree-microwave-motion-sensor',
-  'multi-sensor-pro': 'ceiling-360-degree-microwave-motion-sensor',
+  'smart-controllers': 'infinity-6-smart-wifi-touch-control-panel',
+  'control-panels': 'homesync-pro-4-smart-wifi-touch-panel',
+  'lighting-controllers': 'zigbee-cob-driver-dimming-cct-adjustable-7-13-5w',
+  'curtain-controllers': 'zigbee-wifi-curtain-motor-2-5nm',
+  'hvac-controllers': 'wifi-ir-rf-blaster-oc-ir-w',
+  'climate-controller': 'wifi-ir-rf-blaster-oc-ir-w',
+  'sensors': 'ceiling-360-degree-sensor-oc-m3',
+  'multi-sensor-pro': 'ceiling-360-degree-sensor-oc-m3',
   'access-control': 'series-1-smart-door-lock',
   'biometric-smart-lock': 'series-1-smart-door-lock',
-  'security-systems': 'series-3-pro-smart-door-lock',
-  'series-3-smart-door-lock': 'series-3-pro-smart-door-lock',
+  'security-systems': 'series-3-smart-door-lock',
+  'series-3-smart-door-lock': 'series-3-smart-door-lock',
   'gate-automation': 'automated-door-motor',
   'shutter-automation': 'garage-shutter-motor',
-  'energy-management': 'wifi-circuit-breaker-63a'
+  'energy-management': 'wifi-circuit-breaker-63a-oc-w-pcm'
 };
 
 const productCatalog = productsData.map(p => ({
@@ -299,11 +305,11 @@ const productCatalog = productsData.map(p => ({
 
 const featuredHomeSlugs = [
   'luxe-series-2-gang-switch',
-  'series-3-pro-smart-door-lock',
-  'curtain-motor-2-5nm',
-  'magnetic-track-linear-diffused-light',
-  'ceiling-360-degree-microwave-motion-sensor',
-  'infinity-6-smart-touch-control-panel'
+  'series-3-smart-door-lock',
+  'zigbee-wifi-curtain-motor-2-5nm',
+  'cct-magnetic-track-linear-diffused-light',
+  'ceiling-360-degree-sensor-oc-m3',
+  'infinity-6-smart-wifi-touch-control-panel-oc-cp-6'
 ];
 
 const featuredCatalogueProducts = featuredHomeSlugs
@@ -311,12 +317,11 @@ const featuredCatalogueProducts = featuredHomeSlugs
   .filter(Boolean);
 
 
-/* ─── Shared UI Components ─── */
-function RefEyebrow({ children }) { return <span className="ref-eyebrow">{children}</span>; }
+function RefEyebrow({ children, className = '', style, ...props }) { return <span className={`ref-eyebrow ${className}`} style={style} {...props}>{children}</span>; }
 function RefButton({ children, className = '', ...props }) { return <Button className={`ref-button ${className}`} {...props}>{children} <ArrowRight size={15} /></Button>; }
 
 function RefImage({ src, variant = 'home', className = '', alt = '' }) {
-  const imgSrc = src || (variant === 'home' ? livingRoom : STOCK[variant] || livingRoom);
+  const imgSrc = src || SOLUTION_IMAGES[variant] || (variant === 'home' ? livingRoom : STOCK[variant] || livingRoom);
   return <div className={`ref-image ${variant} ${className}`}><img src={imgSrc} alt={alt} /></div>;
 }
 
@@ -340,7 +345,7 @@ function ReferenceHome() {
     {/* 1. Hero */}
     <section className="reference-hero reference-home-hero">
       <div className="reference-hero-copy">
-        <RefEyebrow>YOUR COMFORT, OUR PRIORITY.</RefEyebrow>
+        <RefEyebrow className="hero-tagline" style={{ fontSize: 'clamp(12px, 1.2vw, 14.5px)', fontWeight: 700, letterSpacing: '0.14em', marginBottom: '10px', display: 'inline-block' }}>YOUR COMFORT, OUR PRIORITY.</RefEyebrow>
         <h1>Automation<br />for a Smarter<br /><em>World</em></h1>
         <p>We design and deliver intelligent automation solutions for homes, hotels, institutions and industries — engineered for performance, built for life.</p>
         <div className="reference-actions">
@@ -424,7 +429,7 @@ function ReferenceHome() {
     </section>
 
     {/* 11. Featured Products from Master Catalogue */}
-    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 80px' }}>
+    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 50px' }}>
       <div className="reference-section-heading">
         <div>
           <RefEyebrow>FLAGSHIP HARDWARE</RefEyebrow>
@@ -446,7 +451,6 @@ function ReferenceHome() {
             <div className="product-card-visual" style={{ height: 210 }}>
               {p.badge && <span className="product-floating-badge">{p.badge}</span>}
               <img src={p.image} alt={p.title} className="product-card-img-element" loading="lazy" />
-              {p.model && <span className="product-card-model-tag">{p.model}</span>}
             </div>
 
             <div className="product-card-content">
@@ -482,7 +486,7 @@ function ReferenceHome() {
         ))}
       </div>
 
-      <div style={{ textAlign: 'center', marginTop: 36 }}>
+      <div style={{ textAlign: 'center', marginTop: 24 }}>
         <RefButton href="/product/">Browse Complete 118-Product Catalogue</RefButton>
       </div>
     </section>
@@ -539,7 +543,28 @@ function ReferenceHome() {
 /* ═══════════════════════════════════════════════════════════════
    ABOUT PAGE
    ═══════════════════════════════════════════════════════════════ */
-function PageHero({ eyebrow, title, body, variant = 'home', src, slideshow = false, children }) {
+function ProductHeroVisual() {
+  return <div className="product-hero-visual" aria-label="Featured Ottoclick products">
+    <div className="product-hero-display-glow" aria-hidden="true" />
+    <div className="product-hero-display-plinth" aria-hidden="true" />
+    <span className="product-hero-kicker">OTTOCLICK PRODUCT SYSTEM</span>
+    <a className="product-hero-product product-hero-control" href="/product/infinity-6-smart-wifi-touch-control-panel/" aria-label="Explore Infinity 6 smart control panel">
+      <img src="/products/catalog/panel-oc-cp-6.png" alt="Ottoclick Infinity smart touch control panel and controller" />
+      <span className="product-hero-product-caption"><small>SMART CONTROL</small><strong>Infinity 6 Panel</strong></span>
+    </a>
+    <a className="product-hero-product product-hero-switch" href="/product/luxe-series-4-gang-switch/" aria-label="Explore Luxe Series four gang switch">
+      <img src="/products/catalog/luxe-4m-4s.png" alt="Ottoclick Luxe four gang smart switch" />
+      <span className="product-hero-product-caption"><small>LIGHTING</small><strong>Luxe Touch Switch</strong></span>
+    </a>
+    <a className="product-hero-product product-hero-lock" href="/product/series-3-smart-door-lock/" aria-label="Explore Series 3 Pro smart door lock">
+      <img src="/products/catalog/lock-series-3-pro.png" alt="Ottoclick Series 3 Pro smart door lock" />
+      <span className="product-hero-product-caption"><small>SECURITY</small><strong>Series 3 Pro Lock</strong></span>
+    </a>
+    <span className="product-hero-footnote">REAL PRODUCTS FROM THE OTTOCLICK CATALOGUE</span>
+  </div>;
+}
+
+function PageHero({ eyebrow, title, body, variant = 'home', src, slideshow = false, heroVisual, children }) {
   return <section className={`reference-page-hero ${variant}`}>
     <div>
       <RefEyebrow>{eyebrow}</RefEyebrow>
@@ -550,6 +575,10 @@ function PageHero({ eyebrow, title, body, variant = 'home', src, slideshow = fal
     {slideshow ? (
       <div className="reference-page-hero-slideshow">
         <HeroSlideshow slides={aboutSlides} ariaLabel="About Ottoclick showcase slideshow" />
+      </div>
+    ) : heroVisual ? (
+      <div className="reference-page-hero-custom-visual">
+        {heroVisual}
       </div>
     ) : (
       <RefImage src={src} variant={variant} alt="Ottoclick premium smart space" />
@@ -578,8 +607,8 @@ function AboutPage() {
     </div>
 
     {/* Catalogue Story from Page 4 */}
-    <section className="reference-copy-section" style={{ paddingBottom: '40px' }}>
-      <RefEyebrow>OUR VISION &amp; PERSPECTIVE • CATALOGUE PAGE 04</RefEyebrow>
+    <section className="reference-copy-section" style={{ paddingBottom: '24px' }}>
+      <RefEyebrow>OUR VISION &amp; PERSPECTIVE</RefEyebrow>
       <h2>From luxury to <em>functional necessity.</em></h2>
       <div className="reference-copy-columns">
         <p>In today's rapidly evolving lifestyle landscape, home automation in India is transitioning from an exclusive luxury offering to a functional necessity. Growing expectations around comfort, convenience, safety, security, and energy efficiency are driving the adoption of smart automation solutions across residential and commercial spaces.</p>
@@ -588,7 +617,7 @@ function AboutPage() {
     </section>
 
     {/* Catalogue Portfolio Summary */}
-    <section className="reference-split" style={{ paddingTop: '20px' }}>
+    <section className="reference-split" style={{ paddingTop: '10px' }}>
       <div>
         <RefEyebrow>COMPREHENSIVE PORTFOLIO</RefEyebrow>
         <h2>Everything unified under <em>one ecosystem.</em></h2>
@@ -603,7 +632,7 @@ function AboutPage() {
     <CatalogueNinePillars />
 
     {/* Capabilities */}
-    <section className="reference-split" style={{ paddingTop: '10px', marginTop: '-60px', alignItems: 'center' }}>
+    <section className="reference-split" style={{ paddingTop: '0', marginTop: '-40px', alignItems: 'center' }}>
       <div>
         <RefEyebrow>OUR CAPABILITIES</RefEyebrow>
         <h2>Full-spectrum automation <em>expertise.</em></h2>
@@ -643,6 +672,12 @@ const solutionDetails = {
   home: {
     hero: 'Your Home. Your Rules. Automated.',
     desc: 'From lighting scenes to security systems — we make your home respond to your life, not the other way around.',
+    overview: {
+      eyebrow: 'DESIGNED AROUND YOUR ROUTINE',
+      title: 'A smarter home should feel effortless.',
+      body: 'We bring lighting, climate, security, entertainment and access together into one calm, intuitive experience. Every scene is designed around the way your family actually lives.',
+      outcomes: [['Comfort in every room', 'Scenes that adapt to the moment.'], ['Security when away', 'Clear alerts and confident access.'], ['Energy that works harder', 'Smarter schedules with less waste.']]
+    },
     features: [
       [Lightbulb, 'Lighting', 'Scenes, dimming, colour tuning & scheduling.'],
       [Sun, 'Curtains', 'Motorised curtains that respond to daylight.'],
@@ -656,10 +691,17 @@ const solutionDetails = {
     ],
     useCases: ['Smart Villa', 'Luxury Apartment', 'Second Home', 'Penthouse'],
     capabilities: ['Centralised Control', 'App Control', 'Voice Control', 'Scenes & Scheduling', 'Remote Monitoring'],
+    steps: [['Understand', 'We map your routines, rooms and priorities.'], ['Design', 'We create scenes and a system plan around your lifestyle.'], ['Integrate', 'Lighting, climate, security and access work as one.'], ['Support', 'We keep your home running beautifully over time.']],
   },
   hotel: {
     hero: 'Smarter Hotels. Better Guest Experiences.',
     desc: 'Automate guest rooms, manage energy, and deliver a premium brand experience — all from one dashboard.',
+    overview: {
+      eyebrow: 'DESIGNED FOR HOSPITALITY',
+      title: 'Every room ready for the right experience.',
+      body: 'Give guests a personalised arrival, effortless control and a consistently premium stay while your team gains a clearer view of rooms, energy and operations.',
+      outcomes: [['Personalised arrival', 'Welcome scenes prepared before check-in.'], ['Efficient operations', 'Less manual intervention for every room.'], ['Visibility at a glance', 'Live status for teams and management.']]
+    },
     features: [
       [Monitor, 'Guest Room Automation', 'Personalised room settings for every guest.'],
       [Lightbulb, 'Lighting Control', 'Mood scenes & occupancy-based automation.'],
@@ -672,10 +714,17 @@ const solutionDetails = {
     ],
     useCases: ['Boutique Hotels', 'Luxury Resorts', 'Business Hotels', 'Heritage Properties'],
     capabilities: ['Better Guest Experience', 'Energy Savings', 'Operational Efficiency', 'Reduced Manual Intervention', 'Premium Brand'],
+    steps: [['Plan', 'We align the system with your property and brand standards.'], ['Prepare', 'Room scenes, access rules and staff workflows are configured.'], ['Connect', 'Guest rooms and back-of-house systems share one platform.'], ['Optimise', 'Live data helps teams improve comfort and operating cost.']],
   },
   institutional: {
     hero: 'Intelligent Spaces for Brighter Futures.',
     desc: 'Schools, hospitals, offices and campuses — managed from one centralised, intelligent platform.',
+    overview: {
+      eyebrow: 'DESIGNED FOR EVERY COMMUNITY',
+      title: 'One intelligent platform for every space.',
+      body: 'Bring learning, care, work and public environments together with systems that are easier to manage, safer to use and more efficient every day.',
+      outcomes: [['Better environments', 'Comfort and clarity for every occupant.'], ['Simpler management', 'Central visibility across the campus.'], ['Responsible efficiency', 'Use energy and resources intelligently.']]
+    },
     features: [
       [Lightbulb, 'Lighting', 'Automated lighting for classrooms & corridors.'],
       [Thermometer, 'HVAC', 'Centralised climate for large facilities.'],
@@ -686,10 +735,17 @@ const solutionDetails = {
     ],
     useCases: ['Schools & Colleges', 'Hospitals', 'Corporate Campuses', 'Government Buildings'],
     capabilities: ['Energy Efficiency', 'Centralised Management', 'Security', 'Operational Control', 'Scalability'],
+    steps: [['Assess', 'We map people, spaces, systems and operational goals.'], ['Plan', 'We create a scalable architecture for the facility.'], ['Integrate', 'Lighting, climate, access and security work together.'], ['Support', 'Your team gets dependable service as the site evolves.']],
   },
   industrial: {
     hero: 'Intelligent Control for Industrial Environments.',
     desc: 'Monitoring, safety, energy optimisation and process control — engineered for the toughest environments.',
+    overview: {
+      eyebrow: 'BUILT FOR PERFORMANCE',
+      title: 'Control that keeps production moving.',
+      body: 'Connect the systems that keep your facility safe, efficient and visible. Ottoclick helps teams see what is happening, respond sooner and make every operation more accountable.',
+      outcomes: [['Fewer blind spots', 'Live visibility across critical zones.'], ['Safer operations', 'Controlled access and faster alerts.'], ['Lower operating cost', 'Energy and equipment data in one view.']]
+    },
     features: [
       [Eye, 'Monitoring & Control', 'Real-time system visibility & alerts.'],
       [Zap, 'Energy Management', 'Optimise consumption across all operations.'],
@@ -700,6 +756,7 @@ const solutionDetails = {
     ],
     useCases: ['Manufacturing Plants', 'Warehouses', 'Data Centres', 'Processing Facilities'],
     capabilities: ['Efficiency', 'Safety', 'Reduced Downtime', 'Energy Optimisation', 'Centralised Visibility'],
+    steps: [['Survey', 'We understand the facility, processes and operating constraints.'], ['Engineer', 'We define a resilient control and monitoring architecture.'], ['Integrate', 'New automation connects with existing systems and teams.'], ['Improve', 'Data supports safer decisions and continuous optimisation.']],
   },
 };
 
@@ -817,7 +874,7 @@ function ProductsPage() {
         title={<>Smart Automation<br />Engineered for <em>Every Space</em></>}
         body="Explore our complete hardware range: Smart Touch Panels, Digital Door Locks, Motorized Curtains & Blinds, Architectural Lighting, and Advanced Sensors."
         variant="products"
-        src={smartProducts}
+        heroVisual={<ProductHeroVisual />}
       >
         <form className="reference-search product-search-shell" role="search" onSubmit={e => e.preventDefault()}>
           <button type="submit" className="product-search-submit" aria-label="Search catalogue"><Search size={16} /></button>
@@ -943,7 +1000,6 @@ function ProductsPage() {
               >
                 <div className="product-card-visual">
                   {p.badge && <span className="product-floating-badge">{p.badge}</span>}
-                  {p.model && <span className="product-model-chip">{p.model}</span>}
                   <img
                     src={p.image}
                     alt={p.title}
@@ -1241,7 +1297,57 @@ function BlogsPage() {
    CONTACT PAGE
    ═══════════════════════════════════════════════════════════════ */
 function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    company: '',
+    email: '',
+    phone: '',
+    city: '',
+    project_type: '',
+    solution_required: 'Home Automation',
+    budget: 'Under ₹1 Lakh',
+    message: '',
+  });
+  const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setErrorMsg('');
+
+    const apiUrl = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/$/, '') + '/inquiries';
+
+    try {
+      const res = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setSent(true);
+      } else {
+        setErrorMsg(data.message || 'Failed to submit enquiry. Please check your inputs and try again.');
+      }
+    } catch (err) {
+      setErrorMsg('Could not connect to the server. Please verify the backend is running or contact us via WhatsApp.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return <div className="reference-site inner-page">
     <section className="reference-contact">
       <div className="reference-contact-copy">
@@ -1262,38 +1368,48 @@ function ContactPage() {
           
         </div>
       </div>
-      <form className="reference-contact-form" onSubmit={e => { e.preventDefault(); setSent(true); }}>
+      <form className="reference-contact-form" onSubmit={handleSubmit}>
         <h3>Send Us a Message</h3>
-        <input required placeholder="Your Name*" />
-        <input placeholder="Company (optional)" />
-        <input required type="email" placeholder="Email Address*" />
-        <input required placeholder="Phone Number*" />
-        <input placeholder="City" />
-        <input placeholder="Project Type (e.g., Villa, Hotel, Corporate)" />
-        <select>
-          <option>Solution Required</option>
-          <option>Home Automation</option>
-          <option>Hotel Automation</option>
-          <option>Institutional Automation</option>
-          <option>Industrial Automation</option>
-          <option>Product Enquiry</option>
-          <option>Partnership</option>
-          <option>Other</option>
-        </select>
-        <select>
-          <option>Estimated Budget</option>
-          <option>Under ₹1 Lakh</option>
-          <option>₹1–3 Lakhs</option>
-          <option>₹3–10 Lakhs</option>
-          <option>₹10+ Lakhs</option>
-        </select>
-        <textarea placeholder="Tell us about your project..." rows="4" />
-        <button type="submit">{sent ? 'Enquiry Sent ✓' : <>Submit Enquiry <ArrowRight size={15} /></>}</button>
+        {errorMsg && <div style={{ background: '#fee2e2', color: '#b91c1c', padding: '10px 14px', borderRadius: 8, fontSize: 13, marginBottom: 12 }}>{errorMsg}</div>}
+        {sent ? (
+          <div style={{ background: '#ecfdf5', color: '#047857', padding: '20px', borderRadius: 10, textAlign: 'center' }}>
+            <h4 style={{ margin: '0 0 8px', fontSize: 18, color: '#065f46' }}>Enquiry Received!</h4>
+            <p style={{ margin: 0, fontSize: 14 }}>Thank you for reaching out. Our engineering team will get back to you within 24 hours.</p>
+          </div>
+        ) : (
+          <>
+            <input required name="name" value={formData.name} onChange={handleChange} placeholder="Your Name*" />
+            <input name="company" value={formData.company} onChange={handleChange} placeholder="Company (optional)" />
+            <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email Address*" />
+            <input required name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number*" />
+            <input name="city" value={formData.city} onChange={handleChange} placeholder="City" />
+            <input name="project_type" value={formData.project_type} onChange={handleChange} placeholder="Project Type (e.g., Villa, Hotel, Corporate)" />
+            <select name="solution_required" value={formData.solution_required} onChange={handleChange}>
+              <option value="Home Automation">Home Automation</option>
+              <option value="Hotel Automation">Hotel Automation</option>
+              <option value="Institutional Automation">Institutional Automation</option>
+              <option value="Industrial Automation">Industrial Automation</option>
+              <option value="Product Enquiry">Product Enquiry</option>
+              <option value="Partnership">Partnership</option>
+              <option value="Other">Other</option>
+            </select>
+            <select name="budget" value={formData.budget} onChange={handleChange}>
+              <option value="Under ₹1 Lakh">Under ₹1 Lakh</option>
+              <option value="₹1–3 Lakhs">₹1–3 Lakhs</option>
+              <option value="₹3–10 Lakhs">₹3–10 Lakhs</option>
+              <option value="₹10+ Lakhs">₹10+ Lakhs</option>
+            </select>
+            <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Tell us about your project..." rows="4" />
+            <button type="submit" disabled={submitting}>
+              {submitting ? 'Submitting...' : <>Submit Enquiry <ArrowRight size={15} /></>}
+            </button>
+          </>
+        )}
       </form>
     </section>
 
     {/* Map placeholder */}
-    <section style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 60px', height: 280, background: 'var(--soft)', borderRadius: 12, border: '1px solid var(--line)', display: 'grid', placeItems: 'center', color: 'var(--muted)', fontSize: 13 }}>
+    <section style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 40px', height: 240, background: 'var(--soft)', borderRadius: 12, border: '1px solid var(--line)', display: 'grid', placeItems: 'center', color: 'var(--muted)', fontSize: 13 }}>
       <div style={{ textAlign: 'center' }}>
         <MapPin size={28} strokeWidth={1.5} style={{ marginBottom: 8, color: 'var(--purple)' }} />
         <p style={{ margin: 0, fontWeight: 600, color: 'var(--ink)' }}>CSJMIF Shopping Complex, Kalyanpur, Kanpur, Uttar Pradesh 208024</p>
@@ -1307,7 +1423,7 @@ function ContactPage() {
 function ReferenceCTA() {
   return <section className="reference-cta">
     <div>
-      <RefEyebrow>YOUR COMFORT, OUR PRIORITY.</RefEyebrow>
+      <RefEyebrow className="cta-tagline">YOUR COMFORT, OUR PRIORITY.</RefEyebrow>
       <h2>Ready to automate <em>your space?</em></h2>
     </div>
     <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
@@ -1323,7 +1439,7 @@ function ReferenceFooter() {
     <div className="reference-footer-top">
       <div>
         <Logo />
-        <p>Your comfort, our priority. Engineered in Kanpur, deployed everywhere.</p>
+        <p className="footer-tagline">Your comfort, our priority. Engineered in Kanpur, deployed everywhere.</p>
         <div className="reference-socials" style={{ marginTop: 24, fontSize: 13, gap: 16 }}>
           <a href="https://www.linkedin.com/company/ottoclick-pvt-ltd/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--purple)', textDecoration: 'none', fontWeight: 600 }}>LinkedIn</a>
           <a href="https://www.instagram.com/ottoclick.in/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--purple)', textDecoration: 'none', fontWeight: 600 }}>Instagram</a>
@@ -1348,10 +1464,10 @@ function ReferenceFooter() {
         </div>
         <div>
           <strong>Products</strong>
-          <a href="/product/smart-touch-switches/">Smart Switches</a>
-          <a href="/product/multi-sensor-pro/">Sensors</a>
-          <a href="/product/climate-controller/">HVAC Control</a>
-          <a href="/product/biometric-smart-lock/">Security</a>
+          <a href="/product/luxe-series-4-gang-switch/">Smart Switches</a>
+          <a href="/product/ceiling-360-degree-sensor-oc-m3/">Sensors</a>
+          <a href="/product/infinity-6-smart-wifi-touch-control-panel/">HVAC Control</a>
+          <a href="/product/series-3-smart-door-lock/">Security</a>
         </div>
         <div>
           <strong>Connect</strong>
@@ -1661,7 +1777,7 @@ function SolutionDetailPage({ variant }) {
   const [Icon, title] = categoryData;
 
   return <div className="reference-site inner-page">
-    <PageHero eyebrow={title.toUpperCase()} title={<>{detail.hero}</>} body={detail.desc} variant={variant} />
+    <PageHero eyebrow={title.toUpperCase()} title={<>{detail.hero}</>} body={detail.desc} variant={variant} src={SOLUTION_IMAGES[variant]} />
 
     <section className="solution-detail-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto', paddingTop: 80, borderBottom: 0 }}>
       <RefEyebrow>FEATURES</RefEyebrow>
@@ -1673,6 +1789,24 @@ function SolutionDetailPage({ variant }) {
             <div><h4>{fname}</h4><p>{fdesc}</p></div>
           </div>
         ))}
+      </div>
+    </section>
+
+    <section className="reference-split solution-overview" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto' }}>
+      <div>
+        <RefEyebrow>{detail.overview.eyebrow}</RefEyebrow>
+        <h2>{detail.overview.title}</h2>
+      </div>
+      <div>
+        <p>{detail.overview.body}</p>
+        <div className="solution-outcome-list">
+          {detail.overview.outcomes.map(([label, text]) => (
+            <div className="solution-outcome" key={label}>
+              <strong>{label}</strong>
+              <span>{text}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
 
@@ -1702,6 +1836,20 @@ function SolutionDetailPage({ variant }) {
         </div>
       </section>
     )}
+
+    <section className="reference-process solution-process" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto' }}>
+      <RefEyebrow>HOW IT COMES TOGETHER</RefEyebrow>
+      <h2>From brief to better everyday performance.</h2>
+      <div className="process-stepper">
+        {detail.steps.map(([step, text], i) => (
+          <div className="process-step" key={step}>
+            <div className="step-number">0{i + 1}</div>
+            <h4>{step}</h4>
+            <p>{text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
 
     <ReferenceCTA />
   </div>;

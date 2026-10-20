@@ -99,10 +99,10 @@ export function FloorplanShowcase() {
   const current = zones[activeZone];
 
   return (
-    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 60px' }}>
+    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto' }}>
       <div className="reference-section-heading">
         <div>
-          <span className="ref-eyebrow">CATALOGUE PAGES 06–07 • COMPLETE ARCHITECTURE</span>
+          <span className="ref-eyebrow">WHOLE-HOME AUTOMATION</span>
           <h2>Complete Home <em>Automation.</em></h2>
         </div>
         <p>Smarter living starts at your door. Explore how Ottoclick transforms every room into an intelligent, interconnected environment.</p>
@@ -193,10 +193,10 @@ export function ZigbeeWifiComparison() {
   ];
 
   return (
-    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 60px' }}>
+    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto' }}>
       <div className="reference-section-heading">
         <div>
-          <span className="ref-eyebrow">CATALOGUE PAGE 08 • CONNECTIVITY ARCHITECTURE</span>
+          <span className="ref-eyebrow">CONNECTED HOME ECOSYSTEM</span>
           <h2>Choose Your Connection, <em>Enjoy Total Control.</em></h2>
         </div>
         <p>Designed for flexibility, Ottoclick products offer both Wi-Fi and Zigbee connectivity options, ensuring reliable performance and secure communication tailored to your needs.</p>
@@ -250,14 +250,14 @@ export function AppAndVoiceShowcase() {
   ];
 
   return (
-    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 60px' }}>
+    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto' }}>
       <div className="catalogue-app-shell">
         <div className="catalogue-app-media">
           <img src="/assets/catalogue/app-phones.png" alt="Ottoclick Mobile Application" />
         </div>
 
         <div className="catalogue-app-content">
-          <span className="ref-eyebrow">CATALOGUE PAGE 09 • SMARTPHONE & VOICE ECOSYSTEM</span>
+          <span className="ref-eyebrow">SMART CONTROL, ANYWHERE</span>
           <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 700, letterSpacing: '-0.05em', margin: '10px 0 14px' }}>
             Multiple Ways to <em>Stay in Control.</em>
           </h2>
@@ -325,10 +325,10 @@ export function SceneCreationShowcase() {
   const current = moods[activeMood];
 
   return (
-    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 60px' }}>
+    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto' }}>
       <div className="reference-section-heading">
         <div>
-          <span className="ref-eyebrow">CATALOGUE PAGE 42 • SCENE CREATION</span>
+          <span className="ref-eyebrow">SCENE-BASED AUTOMATION</span>
           <h2>One Space, <em>Many Moods.</em></h2>
         </div>
         <p>Transform everyday moments into perfect scenes. From morning energy to relaxing evening or a restful night — create the right ambience with a single touch.</p>
@@ -420,10 +420,10 @@ export function CatalogueNinePillars() {
   ];
 
   return (
-    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 60px' }}>
+    <section className="reference-section" style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto' }}>
       <div className="reference-section-heading">
         <div>
-          <span className="ref-eyebrow">CATALOGUE PAGE 05 • OUR FOUNDATIONAL COMMITMENT</span>
+          <span className="ref-eyebrow">WHY OTTOCLICK</span>
           <h2>Why Choose <em>Ottoclick Automation?</em></h2>
         </div>
         <p>At OTTOCLICK, we are committed to delivering an outstanding smart living experience. Engineered for performance, built for life.</p>
@@ -469,7 +469,7 @@ export function WarrantyBanner() {
 
         <div className="warranty-content">
           <span style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9E8CFC', fontWeight: 700 }}>
-            TRUST OF OTTOCLICK • CATALOGUE PAGE 43
+            OTTOCLICK WARRANTY &amp; SUPPORT
           </span>
           <h3>Trusted Performance for a Better Tomorrow</h3>
           <p>

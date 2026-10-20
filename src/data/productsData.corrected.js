@@ -1708,7 +1708,7 @@ export const productsData = [
     "highlights": [
       "Circular anti-glare cone baffle",
       "Smooth dimming without flicker",
-      "Tunable white ambiance"
+      "Tunable white ambience"
     ],
     "idealFor": "Bedrooms, corridors, dining table spotlights",
     "catalogueSource": "Master Catalogue Page 30"
@@ -1782,7 +1782,7 @@ export const productsData = [
     },
     "highlights": [
       "Completely invisible trimless bezel",
-      "Warm gold reflector option creates luxurious ambiance",
+      "Warm gold reflector option creates luxurious ambience",
       "High CRI 95 for authentic color reproduction"
     ],
     "idealFor": "Luxury villa ceilings, designer lobbies, boutique retail",
@@ -2296,7 +2296,7 @@ export const productsData = [
       "Standalone Wi-Fi connectivity without gateway",
       "Smooth transition between color and warm daylight"
     ],
-    "idealFor": "Living room coves, false ceiling ambiance",
+    "idealFor": "Living room coves, false ceiling ambience",
     "catalogueSource": "Master Catalogue Page 35"
   },
   {

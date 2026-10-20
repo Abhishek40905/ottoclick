@@ -7,36 +7,74 @@ const homeSlides = [
     image: '/assets/slideshow/slide-1-living.jpg',
     space: 'Smart Living Space',
     highlight: 'Scene Control & Tunable CCT',
-    badge: 'Luxe & Aura Series',
+    badge: 'OLED Knob',
     tag: 'Living & Dining',
+    imageStyle: { objectPosition: '72% center', transform: 'scale(1.05)' },
+    focus: { x: 88, y: 51, position: 'left' },
+    product: {
+      image: '/products/catalog/panel-oc-ssm-cct.png',
+      name: 'Zigbee Smart CCT Controller',
+      detail: 'Tunable knob, display + 2 scene switches',
+      source: 'Master Catalogue · Page 41',
+      href: '/product/zigbee-smart-cct-dimming-tunable-knob-with-display/'
+    },
     icon: Sliders
   },
   {
     image: '/assets/slideshow/slide-2-bedroom.jpg',
-    space: 'Circadian Master Suite',
-    highlight: 'Automated Drapes & Warm Ambiance',
-    badge: 'Circadian Automation',
+    space: 'Master Bedroom Scenes',
+    highlight: 'Automated Curtains & Warm Lighting',
+    badge: 'Zircon Series',
     tag: 'Master Bedroom',
+    imageStyle: { objectPosition: '18% center', transform: 'scale(1.05)' },
+    focus: { x: 8, y: 53, position: 'right' },
+    product: {
+      image: '/products/catalog/panel-oc-ssm-dis.png',
+      name: 'Zircon 4 Gang Display Panel',
+      detail: 'Room scenes + climate control',
+      source: 'Master Catalogue · Page 41',
+      href: '/product/zircon-4-gang-with-display/'
+    },
     icon: Moon
   },
   {
-    image: '/assets/slideshow/slide-3-entrance.jpg',
+    image: '/assets/slideshow/slide-3-entrance-balanced.png',
     space: 'Villa Keyless Arrival',
     highlight: 'Biometric Access & 3D Face Unlock',
     badge: 'Series 3 Pro Security',
     tag: 'Entrance & Perimeter',
+    imageStyle: { objectPosition: '56% center', transform: 'scale(1.06)' },
+    focus: { x: 55, y: 52, position: 'left' },
+    product: {
+      image: '/products/catalog/lock-series-3-pro.png',
+      name: 'Series 3 Pro Smart Door Lock',
+      detail: 'Face, fingerprint & app access',
+      source: 'Door Locks Catalogue · Page 6',
+      href: '/product/series-3-smart-door-lock/'
+    },
     icon: Shield
   },
   {
     image: '/assets/slideshow/slide-4-dining.jpg',
     space: 'Designer Dining & Kitchen',
     highlight: 'Magnetic Track Spots & Mood Dials',
-    badge: 'Architectural Lighting',
+    badge: 'Luxe Series',
     tag: 'Dining & Kitchen',
+    imageStyle: { objectPosition: '64% center', transform: 'scale(1.05)' },
+    focus: { x: 65, y: 53, position: 'left' },
+    product: {
+      image: '/products/catalog/luxe-4m-4s.png',
+      name: 'Luxe Series 4 Gang Switch',
+      detail: 'Four-touch scene control',
+      source: 'Master Catalogue · Page 13',
+      href: '/product/luxe-series-4-gang-switch/'
+    },
     icon: Sparkles
   }
 ];
 
+// Shared slide data is kept beside the component so Home and About use the same showcase format.
+// oxlint-disable-next-line react/only-export-components
 export const aboutSlides = [
   {
     image: '/products/all_extracted/mc_p4_img0_1713x911.png',
@@ -44,6 +82,14 @@ export const aboutSlides = [
     highlight: 'Lighting, media and climate working together',
     badge: 'Ottoclick Ecosystem',
     tag: 'Family Living',
+    focus: { x: 40, y: 66, position: 'right' },
+    product: {
+      image: '/products/catalog/panel-oc-cp-6.png',
+      name: 'Infinity 6 Smart Control Panel',
+      detail: 'Scenes, climate & whole-home control',
+      source: 'Master Catalogue · Page 41',
+      href: '/product/infinity-6-smart-wifi-touch-control-panel/'
+    },
     icon: Sliders
   },
   {
@@ -52,6 +98,14 @@ export const aboutSlides = [
     highlight: 'Warm architectural lighting for relaxed evenings',
     badge: 'Smart Lighting',
     tag: 'Living & Dining',
+    focus: { x: 53, y: 36, position: 'left' },
+    product: {
+      image: '/products/catalog/luxe-4m-4s.png',
+      name: 'Luxe Series 4 Gang Switch',
+      detail: 'Four-touch ambient scene control',
+      source: 'Master Catalogue · Page 13',
+      href: '/product/luxe-series-4-gang-switch/'
+    },
     icon: Sparkles
   },
   {
@@ -60,6 +114,14 @@ export const aboutSlides = [
     highlight: 'Beautiful switches that blend into your interiors',
     badge: 'Luxe & Aura Series',
     tag: 'Interior Details',
+    focus: { x: 38, y: 35, position: 'right' },
+    product: {
+      image: '/products/catalog/luxe-6m-8s.png',
+      name: 'Luxe Series 6 Gang Switch',
+      detail: 'Multi-scene lighting control',
+      source: 'Master Catalogue · Page 13',
+      href: '/product/luxe-series-6-gang-1-socket/'
+    },
     icon: Shield
   },
   {
@@ -68,6 +130,14 @@ export const aboutSlides = [
     highlight: 'Simple app control for every room and routine',
     badge: 'Connected Living',
     tag: 'Everyday Automation',
+    focus: { x: 48, y: 45, position: 'right' },
+    product: {
+      image: '/assets/catalogue/app-phones.png',
+      name: 'Ottoclick Smart Home App',
+      detail: 'Scenes, energy & remote control',
+      source: 'Master Catalogue · Page 9',
+      href: '/product/'
+    },
     icon: Moon
   }
 ];
@@ -83,7 +153,7 @@ export function HeroSlideshow({ slides = homeSlides, ariaLabel = 'Smart spaces s
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 5500);
     return () => clearInterval(timerRef.current);
-  }, [isPaused]);
+  }, [isPaused, slides.length]);
 
   const nextSlide = () => {
     setCurrent((prev) => (prev + 1) % slides.length);
@@ -94,7 +164,6 @@ export function HeroSlideshow({ slides = homeSlides, ariaLabel = 'Smart spaces s
   };
 
   const activeSlide = slides[current];
-  const ActiveIcon = activeSlide.icon;
 
   return (
     <div
@@ -118,34 +187,32 @@ export function HeroSlideshow({ slides = homeSlides, ariaLabel = 'Smart spaces s
               src={activeSlide.image}
               alt={activeSlide.space}
               className="hero-slide-image"
+              style={activeSlide.imageStyle}
               loading="eager"
             />
             <div className="hero-slide-overlay-gradient" />
+            {activeSlide.product && activeSlide.focus && (
+              <div
+                className={`hero-slide-product-focus is-${activeSlide.focus.position}`}
+                style={{ '--focus-x': `${activeSlide.focus.x}%`, '--focus-y': `${activeSlide.focus.y}%` }}
+              >
+                <span className="hero-slide-focus-ring" aria-hidden="true" />
+                <span className="hero-slide-focus-line" aria-hidden="true" />
+                <a className="hero-slide-product-card" href={activeSlide.product.href} aria-label={`View ${activeSlide.product.name}`}>
+                  <span className="hero-slide-product-image">
+                    <img src={activeSlide.product.image} alt="" />
+                  </span>
+                  <span className="hero-slide-product-copy">
+                    <small>OTTOCLICK PRODUCT</small>
+                    <strong>{activeSlide.product.name}</strong>
+                    <span>{activeSlide.product.detail}</span>
+                    <em>{activeSlide.product.source}</em>
+                  </span>
+                </a>
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
-
-        {/* Floating Context Pill */}
-        <motion.div
-          key={`pill-${current}`}
-          className="hero-slide-info-pill"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.15 }}
-        >
-          <div className="hero-slide-pill-icon">
-            <ActiveIcon size={14} />
-          </div>
-          <div className="hero-slide-pill-text">
-            <div className="hero-slide-pill-top">
-              <span className="hero-slide-pill-tag">{activeSlide.badge}</span>
-              <span className="hero-slide-counter">
-                {String(current + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
-              </span>
-            </div>
-            <strong className="hero-slide-pill-title">{activeSlide.space}</strong>
-            <span className="hero-slide-pill-sub">{activeSlide.highlight}</span>
-          </div>
-        </motion.div>
 
         {/* Navigation Arrows */}
         <button

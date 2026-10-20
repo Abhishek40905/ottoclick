@@ -18,8 +18,14 @@
   color: #52515d !important;
 }
 
-.reference-home-hero .ref-eyebrow {
+.reference-home-hero .ref-eyebrow,
+.hero-tagline {
   color: var(--purple) !important;
+  font-size: clamp(12px, 1.2vw, 14.5px) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  margin-bottom: 10px !important;
+  display: inline-block !important;
 }
 
 .reference-home-hero .ref-button-soft {
