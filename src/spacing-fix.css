@@ -789,13 +789,34 @@
     padding: 16px 12px;
   }
 
+  .catalogue-app-shell {
+    padding: 24px 16px !important;
+  }
+
+  .catalogue-app-features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .catalogue-app-feat-item {
+    min-width: 0 !important;
+  }
+
+  .catalogue-app-content {
+    min-width: 0 !important;
+  }
+
+  .catalogue-scene-shell {
+    padding: 24px 16px !important;
+  }
+
   .catalogue-app-media {
-    min-height: 310px;
-    padding: 18px;
+    min-height: 260px;
+    padding: 14px;
   }
 
   .catalogue-app-media img {
-    max-height: 310px;
+    max-height: 260px;
   }
 
   .reference-hero-copy {
