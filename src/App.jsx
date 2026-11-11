@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTrans
 import { Activity, ArrowRight, BarChart3, Bell, Box, Building2, Check, CheckCircle2, ChevronDown, CircleGauge, Clock, Cpu, Eye, Factory, GraduationCap, Heart, Hotel, House, Layers, Lightbulb, Lock, Mail, MapPin, Menu, MessageCircle, Monitor, Moon, Phone, Play, Search, Settings, ShieldCheck, Sliders, Smartphone, Sparkles, Sun, Thermometer, Users, Wifi, Wrench, X, Zap } from 'lucide-react';
 import logo from '../ottoclick-logo.svg';
 import livingRoom from './assets/ottoclick-living-room.png';
-import { productCategories, productsData } from './data/productsData.js';
+import { productCategories, productsData } from './data/productsData.corrected.js';
 import {
   FloorplanShowcase,
   ZigbeeWifiComparison,
@@ -170,10 +170,10 @@ function Navbar({ onSearchOpen }) {
 }
 
 /* ─── Routing ─── */
-const pageRoutes = ['/', '/about-us/', '/product/', '/blog/', '/contact-us/', '/home-automation/', '/hotel-automation/', '/industrial-automation/', '/institutional-automation/'];
 const getRoute = () => {
   const path = (window.location.pathname || '/').toLowerCase().replace(/\/+$/, '') || '/';
   if (path === '/about-us' || path.startsWith('/about-us/')) return 'about';
+  if (path === '/privacy-policy' || path.startsWith('/privacy-policy/')) return 'privacy';
   if (path.startsWith('/product/') && path !== '/product') return 'product-detail';
   if (path === '/product') return 'products';
   if (path.startsWith('/blog/') && path !== '/blog') return 'blog-post';
@@ -234,6 +234,17 @@ const industries = [
   [CircleGauge, 'Commercial', 'Large-scale facilities'],
 ];
 
+const industryLinks = {
+  Residential: '/home-automation/',
+  Hospitality: '/hotel-automation/',
+  Education: '/institutional-automation/',
+  Healthcare: '/institutional-automation/',
+  Corporate: '/institutional-automation/',
+  Retail: '/institutional-automation/',
+  Manufacturing: '/industrial-automation/',
+  Commercial: '/institutional-automation/',
+};
+
 const processSteps = [
   ['Understand', 'We listen, assess your space, and define your automation goals.'],
   ['Design', 'Our engineers create a bespoke system blueprint.'],
@@ -280,21 +291,21 @@ const categoryIconMap = {
 const legacySlugMap = {
   'smart-switches': 'luxe-series-2-gang-switch',
   'smart-touch-switches': 'luxe-series-2-gang-switch',
-  'smart-controllers': 'infinity-6-smart-wifi-touch-control-panel',
-  'control-panels': 'homesync-pro-4-smart-wifi-touch-panel',
-  'lighting-controllers': 'zigbee-cob-driver-dimming-cct-adjustable-7-13-5w',
-  'curtain-controllers': 'zigbee-wifi-curtain-motor-2-5nm',
-  'hvac-controllers': 'wifi-ir-rf-blaster-oc-ir-w',
-  'climate-controller': 'wifi-ir-rf-blaster-oc-ir-w',
-  'sensors': 'ceiling-360-degree-sensor-oc-m3',
-  'multi-sensor-pro': 'ceiling-360-degree-sensor-oc-m3',
+  'smart-controllers': 'infinity-6-smart-touch-control-panel',
+  'control-panels': 'homesync-pro-4-smart-touch-panel',
+  'lighting-controllers': 'zigbee-cob-driver-7w-13-5w',
+  'curtain-controllers': 'curtain-motor-2-5nm',
+  'hvac-controllers': 'wifi-ir-rf-blaster',
+  'climate-controller': 'wifi-ir-rf-blaster',
+  'sensors': 'ceiling-360-degree-microwave-motion-sensor',
+  'multi-sensor-pro': 'ceiling-360-degree-microwave-motion-sensor',
   'access-control': 'series-1-smart-door-lock',
   'biometric-smart-lock': 'series-1-smart-door-lock',
-  'security-systems': 'series-3-smart-door-lock',
-  'series-3-smart-door-lock': 'series-3-smart-door-lock',
+  'security-systems': 'series-3-pro-smart-door-lock',
+  'series-3-smart-door-lock': 'series-3-pro-smart-door-lock',
   'gate-automation': 'automated-door-motor',
   'shutter-automation': 'garage-shutter-motor',
-  'energy-management': 'wifi-circuit-breaker-63a-oc-w-pcm'
+  'energy-management': 'wifi-circuit-breaker-63a'
 };
 
 const productCatalog = productsData.map(p => ({
@@ -305,11 +316,11 @@ const productCatalog = productsData.map(p => ({
 
 const featuredHomeSlugs = [
   'luxe-series-2-gang-switch',
-  'series-3-smart-door-lock',
-  'zigbee-wifi-curtain-motor-2-5nm',
-  'cct-magnetic-track-linear-diffused-light',
-  'ceiling-360-degree-sensor-oc-m3',
-  'infinity-6-smart-wifi-touch-control-panel-oc-cp-6'
+  'series-3-pro-smart-door-lock',
+  'curtain-motor-2-5nm',
+  'magnetic-track-linear-diffused-light',
+  'ceiling-360-degree-microwave-motion-sensor',
+  'infinity-6-smart-touch-control-panel'
 ];
 
 const featuredCatalogueProducts = featuredHomeSlugs
@@ -327,7 +338,7 @@ function RefImage({ src, variant = 'home', className = '', alt = '' }) {
 
 function CategoryStrip() {
   return <div className="reference-category-strip">
-    {solutionCategories.map(([Icon, title, text]) => <a className="reference-category" key={title} href="/home-automation/">
+    {solutionCategories.map(([Icon, title, text, variant]) => <a className="reference-category" key={title} href={`/${variant}-automation/`}>
       <Icon size={22} strokeWidth={1.7} />
       <div><strong>{title}</strong><span>{text}</span></div>
       <ArrowRight size={15} />
@@ -419,7 +430,7 @@ function ReferenceHome() {
       </div>
       <div className="industry-grid">
         {industries.map(([Icon, title, desc], i) => (
-          <motion.a href="/home-automation/" className="industry-card" key={title} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .05 }}>
+          <motion.a href={industryLinks[title]} className="industry-card" key={title} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .05 }}>
             <Icon size={22} strokeWidth={1.6} />
             <h4>{title}</h4>
             <p>{desc}</p>
@@ -548,7 +559,7 @@ function ProductHeroVisual() {
     <div className="product-hero-display-glow" aria-hidden="true" />
     <div className="product-hero-display-plinth" aria-hidden="true" />
     <span className="product-hero-kicker">OTTOCLICK PRODUCT SYSTEM</span>
-    <a className="product-hero-product product-hero-control" href="/product/infinity-6-smart-wifi-touch-control-panel/" aria-label="Explore Infinity 6 smart control panel">
+    <a className="product-hero-product product-hero-control" href="/product/infinity-6-smart-touch-control-panel/" aria-label="Explore Infinity 6 smart control panel">
       <img src="/products/catalog/panel-oc-cp-6.png" alt="Ottoclick Infinity smart touch control panel and controller" />
       <span className="product-hero-product-caption"><small>SMART CONTROL</small><strong>Infinity 6 Panel</strong></span>
     </a>
@@ -556,7 +567,7 @@ function ProductHeroVisual() {
       <img src="/products/catalog/luxe-4m-4s.png" alt="Ottoclick Luxe four gang smart switch" />
       <span className="product-hero-product-caption"><small>LIGHTING</small><strong>Luxe Touch Switch</strong></span>
     </a>
-    <a className="product-hero-product product-hero-lock" href="/product/series-3-smart-door-lock/" aria-label="Explore Series 3 Pro smart door lock">
+    <a className="product-hero-product product-hero-lock" href="/product/series-3-pro-smart-door-lock/" aria-label="Explore Series 3 Pro smart door lock">
       <img src="/products/catalog/lock-series-3-pro.png" alt="Ottoclick Series 3 Pro smart door lock" />
       <span className="product-hero-product-caption"><small>SECURITY</small><strong>Series 3 Pro Lock</strong></span>
     </a>
@@ -767,14 +778,14 @@ function SolutionsPage() {
     {/* Solution Cards Grid */}
     <section className="reference-section reference-solutions-grid">
       {solutionCategories.map(([Icon, title, text, variant], i) => (
-        <motion.div className="reference-solution-card" key={title} initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .08 }}>
+        <motion.a href={`/${variant}-automation/`} className="reference-solution-card" key={title} aria-label={`Explore ${title}`} initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .08 }}>
           <RefImage variant={variant} />
           <div className="reference-solution-copy">
             <Icon size={21} />
             <h3>{title}</h3>
             <p>{text}</p>
           </div>
-        </motion.div>
+        </motion.a>
       ))}
     </section>
 
@@ -1408,14 +1419,45 @@ function ContactPage() {
       </form>
     </section>
 
-    {/* Map placeholder */}
-    <section style={{ width: 'min(1160px, calc(100% - 48px))', margin: '0 auto 40px', height: 240, background: 'var(--soft)', borderRadius: 12, border: '1px solid var(--line)', display: 'grid', placeItems: 'center', color: 'var(--muted)', fontSize: 13 }}>
-      <div style={{ textAlign: 'center' }}>
-        <MapPin size={28} strokeWidth={1.5} style={{ marginBottom: 8, color: 'var(--purple)' }} />
-        <p style={{ margin: 0, fontWeight: 600, color: 'var(--ink)' }}>CSJMIF Shopping Complex, Kalyanpur, Kanpur, Uttar Pradesh 208024</p>
-        <small>Ottoclick Head Office &amp; Experience Studio (Master Catalogue Page 44)</small>
+    <section className="contact-map" aria-label="Ottoclick location">
+      <iframe
+        title="Ottoclick location map"
+        src="https://www.google.com/maps?q=CSJMIF+Shopping+Complex,+Kalyanpur,+Kanpur,+Uttar+Pradesh+208024&output=embed"
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+      />
+      <div className="contact-map-card">
+        <MapPin size={20} strokeWidth={1.7} />
+        <div>
+          <strong>Ottoclick Head Office &amp; Experience Studio</strong>
+          <span>CSJMIF Shopping Complex, Kalyanpur, Kanpur, Uttar Pradesh 208024</span>
+          <a href="https://www.google.com/maps/search/?api=1&query=CSJMIF+Shopping+Complex,+Kalyanpur,+Kanpur,+Uttar+Pradesh+208024" target="_blank" rel="noopener noreferrer">Open in Google Maps <ArrowRight size={13} /></a>
+        </div>
       </div>
     </section>
+  </div>;
+}
+
+function PrivacyPage() {
+  return <div className="reference-site inner-page">
+    <section className="reference-copy-section privacy-page">
+      <RefEyebrow>PRIVACY POLICY</RefEyebrow>
+      <h1>Respecting your information.</h1>
+      <p style={{ margin: '0 0 34px', color: 'var(--muted)', fontSize: 12 }}>Last updated: 20 October 2026</p>
+      <div className="reference-copy-columns">
+        <div>
+          <h2>Information you choose to share.</h2>
+          <p>When you contact Ottoclick, we may receive the details you submit such as your name, company, contact information, project requirements, and message. We use this information to respond to your enquiry, prepare a consultation, and provide relevant product or solution guidance.</p>
+          <p>We do not ask for passwords, payment details, or sensitive personal information through this website contact form. Please avoid including information that is not needed for your enquiry.</p>
+        </div>
+        <div>
+          <h2>Questions or requests.</h2>
+          <p>If you want to review, correct, or remove information you have sent to us, contact our team at <a href="mailto:support@ottoclick.in" style={{ color: 'var(--purple)', fontWeight: 650 }}>support@ottoclick.in</a>. We will use reasonable steps to verify the request and respond through the contact details you provide.</p>
+          <p>For questions about this policy or how an enquiry is handled, call <a href="tel:+918423466267" style={{ color: 'var(--purple)', fontWeight: 650 }}>+91 842 346 6267</a> or use the <a href="/contact-us/" style={{ color: 'var(--purple)', fontWeight: 650 }}>contact page</a>.</p>
+        </div>
+      </div>
+    </section>
+    <ReferenceCTA />
   </div>;
 }
 
@@ -1465,9 +1507,9 @@ function ReferenceFooter() {
         <div>
           <strong>Products</strong>
           <a href="/product/luxe-series-4-gang-switch/">Smart Switches</a>
-          <a href="/product/ceiling-360-degree-sensor-oc-m3/">Sensors</a>
-          <a href="/product/infinity-6-smart-wifi-touch-control-panel/">HVAC Control</a>
-          <a href="/product/series-3-smart-door-lock/">Security</a>
+          <a href="/product/ceiling-360-degree-microwave-motion-sensor/">Sensors</a>
+          <a href="/product/wifi-ir-rf-blaster/">HVAC Control</a>
+          <a href="/product/series-3-pro-smart-door-lock/">Security</a>
         </div>
         <div>
           <strong>Connect</strong>
@@ -1482,7 +1524,7 @@ function ReferenceFooter() {
     <div className="reference-footer-bottom">
       <span>© {new Date().getFullYear()} Ottoclick. All rights reserved.</span>
       <span style={{ display: 'flex', gap: 16 }}>
-        <a href="#" style={{ color: '#98949e' }}>Privacy Policy</a>
+        <a href="/privacy-policy/" style={{ color: '#98949e' }}>Privacy Policy</a>
         <a href="/about-us/#warranty" style={{ color: '#98949e' }}>5-Year Warranty Terms</a>
       </span>
       <span>Kanpur, Uttar Pradesh, India</span>
@@ -1526,7 +1568,7 @@ function SearchOverlay({ open, onClose }) {
       icon: p.Icon,
       meta: `${p.category}${p.model ? ` • ${p.model}` : ''}`
     })),
-    ...solutionCategories.map(([Icon, title, text, variant]) => ({ type: 'Solution', title, description: text, href: '/home-automation/', icon: Icon, meta: 'Solutions' })),
+    ...solutionCategories.map(([Icon, title, text, variant]) => ({ type: 'Solution', title, description: text, href: `/${variant}-automation/`, icon: Icon, meta: 'Solutions' })),
     ...blogsData.map(b => ({ type: 'Blog', title: b.title, description: b.summary, href: `/blog/${b.slug}/`, icon: Play, meta: b.category })),
     { type: 'Page', title: 'About Us', description: 'Learn about our story, values and vision.', href: '/about-us/', icon: Users, meta: 'Company' },
     { type: 'Page', title: 'Contact Us', description: 'Get in touch for consultations and enquiries.', href: '/contact-us/', icon: Mail, meta: 'Company' },
@@ -1859,7 +1901,12 @@ function SolutionDetailPage({ variant }) {
    BLOG POST PAGE
    ═══════════════════════════════════════════════════════════════ */
 function BlogPostPage({ slug }) {
-  const article = blogsData.find(b => b.slug === slug) || blogsData[0];
+  const article = blogsData.find(b => b.slug === slug);
+  if (!article) return <div className="reference-site inner-page" style={{ padding: '120px 24px', textAlign: 'center' }}>
+    <h2>Article not found</h2>
+    <p style={{ color: 'var(--muted)', margin: '12px 0 24px' }}>The article you’re looking for doesn’t exist.</p>
+    <RefButton href="/blog/">Browse All Articles</RefButton>
+  </div>;
   const relatedArticles = blogsData.filter(b => b.id !== article.id).slice(0, 3);
 
   return <div className="reference-site inner-page">
@@ -1990,10 +2037,11 @@ function SEO({ title, description, url = 'https://ottoclick.in' }) {
    APP ROOT
    ═══════════════════════════════════════════════════════════════ */
 export default function App() {
-  const { route, productSlug, blogSlug, solutionVariant } = usePageRoute();
+  const { route, productSlug, blogSlug } = usePageRoute();
 
   let seo = { title: 'Ottoclick | Your Comfort, Our Priority', description: 'Premium smart home, hotel, and industrial automation solutions in Kanpur. Engineered for performance, built for life.' };
   if (route === 'about') seo = { title: 'About Us | Ottoclick', description: 'Learn about Ottoclick\'s mission to make spaces smarter, safer, and more efficient with cutting-edge automation.' };
+  else if (route === 'privacy') seo = { title: 'Privacy Policy | Ottoclick', description: 'Learn how Ottoclick handles information submitted through its website and enquiry forms.' };
   else if (route === 'contact') seo = { title: 'Contact Us | Ottoclick', description: 'Get in touch with Ottoclick to discuss your automation project, request a consultation, or talk to an expert.' };
   else if (route === 'products') seo = { title: 'Smart Products | Ottoclick', description: 'Explore our range of premium smart touch switches, sensors, climate controllers, and security systems.' };
   else if (route === 'product-detail') {
@@ -2006,15 +2054,17 @@ export default function App() {
   else if (route === 'solution-industrial') seo = { title: 'Industrial Automation | Ottoclick', description: 'Improve efficiency and safety in factories and plants with robust industrial automation.' };
   else if (route === 'blogs') seo = { title: 'Insights & Articles | Ottoclick', description: 'Read the latest insights on smart home technology, energy management, and automation trends.' };
   else if (route === 'blog-post') {
-    const article = insightCards.find(c => c[1].toLowerCase().replace(/\s+/g, '-') === blogSlug) || insightCards[0];
-    if (article) seo = { title: `${article[1]} | Ottoclick`, description: article[2] };
+    const article = blogsData.find(item => item.slug === blogSlug);
+    if (article) seo = { title: `${article.title} | Ottoclick`, description: article.summary };
   }
 
   useEffect(() => {
     let lenisInstance;
     let frameId;
+    let cancelled = false;
 
     import('lenis').then(({ default: Lenis }) => {
+      if (cancelled) return;
       lenisInstance = new Lenis({
         duration: 1.4,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -2039,11 +2089,22 @@ export default function App() {
         if (target.startsWith('/') || target === '/') {
           if (target.startsWith('//')) return;
           e.preventDefault();
-          if (window.location.pathname !== target) {
-            window.history.pushState({}, '', target);
+          const destination = new URL(target, window.location.origin);
+          const nextUrl = `${destination.pathname}${destination.search}${destination.hash}`;
+          const routeChanged = window.location.pathname !== destination.pathname || window.location.search !== destination.search;
+          if (window.location.href !== destination.href) {
+            window.history.pushState({}, '', nextUrl);
+          }
+          if (routeChanged) {
             window.dispatchEvent(new PopStateEvent('popstate'));
           }
-          if (lenisInstance) {
+          if (destination.hash && document.querySelector(destination.hash)) {
+            if (lenisInstance) {
+              lenisInstance.scrollTo(destination.hash, { offset: -76 });
+            } else {
+              document.querySelector(destination.hash)?.scrollIntoView();
+            }
+          } else if (lenisInstance) {
             lenisInstance.scrollTo(0, { immediate: true });
           } else {
             window.scrollTo(0, 0);
@@ -2072,12 +2133,14 @@ export default function App() {
     });
 
     return () => {
+      cancelled = true;
       if (lenisInstance) lenisInstance.destroy();
       if (frameId) cancelAnimationFrame(frameId);
     };
   }, []);
 
   const page = route === 'about' ? <AboutPage />
+    : route === 'privacy' ? <PrivacyPage />
     : route === 'solution-home' ? <SolutionDetailPage variant="home" />
     : route === 'solution-hotel' ? <SolutionDetailPage variant="hotel" />
     : route === 'solution-institutional' ? <SolutionDetailPage variant="institutional" />
