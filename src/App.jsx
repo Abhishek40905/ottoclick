@@ -1,5 +1,6 @@
 /* oxlint-disable no-unused-vars -- legacy motion modules remain available for future campaign variants */
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 import { Activity, ArrowRight, BarChart3, Bell, Box, Building2, Check, CheckCircle2, ChevronDown, CircleGauge, Clock, Cpu, Eye, Factory, GraduationCap, Heart, Hotel, House, Layers, Lightbulb, Lock, Mail, MapPin, Menu, MessageCircle, Monitor, Moon, Phone, Play, Search, Settings, ShieldCheck, Sliders, Smartphone, Sparkles, Sun, Thermometer, Users, Wifi, Wrench, X, Zap } from 'lucide-react';
 import logo from '../ottoclick-logo.svg';
@@ -75,32 +76,61 @@ function AnimatedLogo({ scrollYProgress }) {
 
 /* ─── Intro Screen ─── */
 function Intro() {
-  const [dismissed, setDismissed] = useState(false);
+  const [dismissed, setDismissed] = useState(() => {
+    try {
+      return sessionStorage.getItem('ottoclick_intro_seen') === '1';
+    } catch {
+      return false;
+    }
+  });
   const { scrollY } = useScroll();
   const [hasScrolled, setHasScrolled] = useState(false);
-  const smoothScroll = useSpring(scrollY, { stiffness: 115, damping: 25, mass: .55 });
-  const introOpacity = useTransform(smoothScroll, [0, 180], [1, 0]);
-  const introScale = useTransform(smoothScroll, [0, 180], [1, .965]);
-  const introY = useTransform(smoothScroll, [0, 180], [0, -34]);
-  const introBlur = useTransform(smoothScroll, [0, 180], ['blur(0px)', 'blur(9px)']);
-  const introProgress = useTransform(smoothScroll, [0, 180], [0, 1]);
+  const smoothScroll = useSpring(scrollY, { stiffness: 120, damping: 25, mass: .5 });
+  const introOpacity = useTransform(smoothScroll, [0, 80], [1, 0]);
+  const introScale = useTransform(smoothScroll, [0, 80], [1, .965]);
+  const introY = useTransform(smoothScroll, [0, 80], [0, -34]);
+  const introBlur = useTransform(smoothScroll, [0, 80], ['blur(0px)', 'blur(9px)']);
+  const introProgress = useTransform(smoothScroll, [0, 80], [0, 1]);
+
+  const dismiss = () => {
+    setDismissed(true);
+    try { sessionStorage.setItem('ottoclick_intro_seen', '1'); } catch {}
+  };
 
   useEffect(() => {
-    try { sessionStorage.removeItem('ottoclick_intro_seen'); } catch {}
     if ('scrollRestoration' in window.history) { window.history.scrollRestoration = 'manual'; }
     window.scrollTo(0, 0);
     const unsubscribe = scrollY.on('change', value => {
       if (value > 8) setHasScrolled(true);
-      if (value > 160) setDismissed(true);
+      if (value > 50) dismiss();
     });
-    return () => unsubscribe();
+    const handleScrollToEnterEvent = () => dismiss();
+    window.addEventListener('scroll-to-enter', handleScrollToEnterEvent);
+    return () => {
+      unsubscribe();
+      window.removeEventListener('scroll-to-enter', handleScrollToEnterEvent);
+    };
   }, [scrollY]);
 
   if (dismissed) return null;
-  return <motion.div className="intro" initial={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }} style={{ opacity: introOpacity, scale: introScale, y: introY, filter: introBlur, pointerEvents: hasScrolled ? 'none' : 'auto' }}>
+  return <motion.div
+    className="intro"
+    initial={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+    exit={{ opacity: 0, filter: 'blur(8px)', transition: { duration: .35 } }}
+    style={{ opacity: introOpacity, scale: introScale, y: introY, filter: introBlur, pointerEvents: (hasScrolled || dismissed) ? 'none' : 'auto' }}
+    onClick={dismiss}
+  >
     <motion.div className="intro-mark"><AnimatedLogo scrollYProgress={hasScrolled ? introProgress : undefined} /></motion.div>
     <motion.span className="intro-tagline" style={{ fontSize: 'clamp(11px, 1.3vw, 13.5px)' }} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .7, duration: .45, ease }}>YOUR COMFORT, OUR PRIORITY.</motion.span>
-    <motion.div className="intro-scroll-hint" style={{ cursor: 'pointer' }} onClick={() => window.dispatchEvent(new CustomEvent('scroll-to-enter'))} animate={{ opacity: hasScrolled ? 0 : [0.35, 1, 0.35], y: hasScrolled ? 8 : [0, 5, 0] }} transition={{ duration: 2.4, repeat: hasScrolled ? 0 : Infinity, ease: 'easeInOut' }}><span>Scroll to enter</span><ChevronDown size={15} /></motion.div>
+    <motion.div
+      className="intro-scroll-hint"
+      style={{ cursor: 'pointer' }}
+      onClick={(e) => { e.stopPropagation(); dismiss(); }}
+      animate={{ opacity: hasScrolled ? 0 : [0.35, 1, 0.35], y: hasScrolled ? 8 : [0, 5, 0] }}
+      transition={{ duration: 2.4, repeat: hasScrolled ? 0 : Infinity, ease: 'easeInOut' }}
+    >
+      <span>Scroll to enter</span><ChevronDown size={15} />
+    </motion.div>
   </motion.div>;
 }
 
@@ -124,11 +154,11 @@ function Navbar({ onSearchOpen }) {
       const prev = lastScrollY.current;
       lastScrollY.current = latest;
 
-      if (latest <= 20) {
+      if (latest <= 60) {
         setHidden(false);
-      } else if (latest > prev + 4) {
+      } else if (latest > prev + 16) {
         setHidden(true);
-      } else if (latest < prev - 4) {
+      } else if (latest < prev - 10) {
         setHidden(false);
       }
     });
@@ -171,14 +201,15 @@ function Navbar({ onSearchOpen }) {
 
 /* ─── Routing ─── */
 const getRoute = () => {
-  const path = (window.location.pathname || '/').toLowerCase().replace(/\/+$/, '') || '/';
-  if (path === '/about-us' || path.startsWith('/about-us/')) return 'about';
-  if (path === '/privacy-policy' || path.startsWith('/privacy-policy/')) return 'privacy';
-  if (path.startsWith('/product/') && path !== '/product') return 'product-detail';
-  if (path === '/product') return 'products';
-  if (path.startsWith('/blog/') && path !== '/blog') return 'blog-post';
-  if (path === '/blog') return 'blogs';
-  if (path === '/contact-us' || path.startsWith('/contact-us/') || path.includes('/any-problem')) return 'contact';
+  const raw = (window.location.pathname || '/').toLowerCase();
+  const path = raw.replace(/\/+$/, '') || '/';
+  if (path === '/about' || path === '/about-us' || path.startsWith('/about-us/')) return 'about';
+  if (path === '/privacy' || path === '/privacy-policy' || path.startsWith('/privacy-policy/')) return 'privacy';
+  if (path === '/product' || path === '/products') return 'products';
+  if (path.startsWith('/product/') || path.startsWith('/products/')) return 'product-detail';
+  if (path === '/blog' || path === '/blogs') return 'blogs';
+  if (path.startsWith('/blog/') || path.startsWith('/blogs/')) return 'blog-post';
+  if (path === '/contact' || path === '/contact-us' || path.startsWith('/contact-us/') || path.includes('/any-problem')) return 'contact';
   if (path.includes('/home-automation')) return 'solution-home';
   if (path.includes('/hotel-automation')) return 'solution-hotel';
   if (path.includes('/institutional-automation')) return 'solution-institutional';
@@ -187,12 +218,12 @@ const getRoute = () => {
 };
 const getProductSlug = () => {
   const path = (window.location.pathname || '').replace(/\/+$/, '');
-  const match = path.match(/^\/product\/([^/?#]+)/i);
+  const match = path.match(/^\/products?\/([^/?#]+)/i);
   return match ? decodeURIComponent(match[1]) : null;
 };
 const getBlogSlug = () => {
   const path = (window.location.pathname || '').replace(/\/+$/, '');
-  const match = path.match(/^\/blog\/([^/?#]+)/i);
+  const match = path.match(/^\/blogs?\/([^/?#]+)/i);
   return match ? decodeURIComponent(match[1]) : null;
 };
 function usePageRoute() {
@@ -614,7 +645,7 @@ function AboutPage() {
       <div><strong>118+</strong><span>Catalogue Products</span></div>
       <div><strong>11</strong><span>Product Categories</span></div>
       <div><strong>5 Years</strong><span>Official Warranty</span></div>
-      <div><strong>Zigbee &amp; Wi-Fi</strong><span>Dual Architecture</span></div>
+      <div><strong>Zigbee &amp; <span style={{ whiteSpace: 'nowrap' }}>Wi-Fi</span></strong><span>Dual Architecture</span></div>
     </div>
 
     {/* Catalogue Story from Page 4 */}
@@ -853,6 +884,18 @@ function ProductsPage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Prevent background scrolling while modal is open
+  useEffect(() => {
+    if (quickViewProduct) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [quickViewProduct]);
+
   const normalizedSearch = searchTerm.trim().toLowerCase();
   const currentCategoryData = productCategories.find(c => c.id === activeCategory);
 
@@ -1070,119 +1113,122 @@ function ProductsPage() {
       </section>
 
       {/* ─── Interactive Quick Specs Modal ─── */}
-      <AnimatePresence>
-        {quickViewProduct && (
-          <motion.div
-            className="product-modal-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: .2 }}
-            onClick={() => setQuickViewProduct(null)}
-          >
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {quickViewProduct && (
             <motion.div
-              className="product-modal-container"
-              initial={{ opacity: 0, scale: .94, y: 16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: .94, y: 16 }}
-              transition={{ duration: .25, ease }}
-              onClick={e => e.stopPropagation()}
+              className="product-modal-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: .2 }}
+              onClick={() => setQuickViewProduct(null)}
             >
-              <button
-                type="button"
-                className="product-modal-close"
-                onClick={() => setQuickViewProduct(null)}
-                aria-label="Close product modal"
+              <motion.div
+                className="product-modal-container"
+                initial={{ opacity: 0, scale: .94, y: 16 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: .94, y: 16 }}
+                transition={{ duration: .25, ease }}
+                onClick={e => e.stopPropagation()}
               >
-                <X size={18} />
-              </button>
+                <button
+                  type="button"
+                  className="product-modal-close"
+                  onClick={() => setQuickViewProduct(null)}
+                  aria-label="Close product modal"
+                >
+                  <X size={18} />
+                </button>
 
-              <div className="product-modal-scroll">
-                <div className="product-modal-visual">
-                  {quickViewProduct.badge && (
-                    <span className="product-floating-badge" style={{ position: 'absolute', top: 18, left: 18 }}>
-                      {quickViewProduct.badge}
-                    </span>
-                  )}
-                  <img
-                    src={quickViewProduct.image}
-                    alt={quickViewProduct.title}
-                    className="product-modal-img"
-                  />
-                  {quickViewProduct.catalogueSource && (
-                    <span className="product-modal-source-tag">
-                      {quickViewProduct.catalogueSource}
-                    </span>
-                  )}
-                </div>
+                <div className="product-modal-scroll">
+                  <div className="product-modal-visual">
+                    {quickViewProduct.badge && (
+                      <span className="product-floating-badge" style={{ position: 'absolute', top: 18, left: 18 }}>
+                        {quickViewProduct.badge}
+                      </span>
+                    )}
+                    <img
+                      src={quickViewProduct.image}
+                      alt={quickViewProduct.title}
+                      className="product-modal-img"
+                    />
+                    {quickViewProduct.catalogueSource && (
+                      <span className="product-modal-source-tag">
+                        {quickViewProduct.catalogueSource}
+                      </span>
+                    )}
+                  </div>
 
-                <div className="product-modal-body">
-                  <span className="product-modal-category-crumb">
-                    {quickViewProduct.category} &rsaquo; {quickViewProduct.subcategory}
-                  </span>
-                  <h3 className="product-modal-title">{quickViewProduct.title}</h3>
-                  {quickViewProduct.model && (
-                    <span className="product-modal-model-badge">
-                      Model: {quickViewProduct.model}
+                  <div className="product-modal-body">
+                    <span className="product-modal-category-crumb">
+                      {quickViewProduct.category} &rsaquo; {quickViewProduct.subcategory}
                     </span>
-                  )}
-                  <p className="product-modal-desc">{quickViewProduct.description}</p>
+                    <h3 className="product-modal-title">{quickViewProduct.title}</h3>
+                    {quickViewProduct.model && (
+                      <span className="product-modal-model-badge">
+                        Model: {quickViewProduct.model}
+                      </span>
+                    )}
+                    <p className="product-modal-desc">{quickViewProduct.description}</p>
 
-                  {/* Specifications Table */}
-                  {quickViewProduct.specs && (
-                    <>
-                      <div className="product-specs-table-title">
-                        <Sliders size={14} /> Technical Specifications
-                      </div>
-                      <table className="product-specs-table">
-                        <tbody>
-                          {Object.entries(quickViewProduct.specs).map(([key, val]) => (
-                            <tr key={key}>
-                              <td className="product-specs-key">{key}</td>
-                              <td className="product-specs-val">{val}</td>
-                            </tr>
+                    {/* Specifications Table */}
+                    {quickViewProduct.specs && (
+                      <>
+                        <div className="product-specs-table-title">
+                          <Sliders size={14} /> Technical Specifications
+                        </div>
+                        <table className="product-specs-table">
+                          <tbody>
+                            {Object.entries(quickViewProduct.specs).map(([key, val]) => (
+                              <tr key={key}>
+                                <td className="product-specs-key">{key}</td>
+                                <td className="product-specs-val">{val}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </>
+                    )}
+
+                    {/* Key Highlights */}
+                    {quickViewProduct.highlights && quickViewProduct.highlights.length > 0 && (
+                      <div className="product-modal-highlights">
+                        <div className="product-specs-table-title">
+                          <CheckCircle2 size={14} /> Key Highlights
+                        </div>
+                        <ul>
+                          {quickViewProduct.highlights.map(h => (
+                            <li key={h}>
+                              <Check size={14} /> <span>{h}</span>
+                            </li>
                           ))}
-                        </tbody>
-                      </table>
-                    </>
-                  )}
-
-                  {/* Key Highlights */}
-                  {quickViewProduct.highlights && quickViewProduct.highlights.length > 0 && (
-                    <div className="product-modal-highlights">
-                      <div className="product-specs-table-title">
-                        <CheckCircle2 size={14} /> Key Highlights
+                        </ul>
                       </div>
-                      <ul>
-                        {quickViewProduct.highlights.map(h => (
-                          <li key={h}>
-                            <Check size={14} /> <span>{h}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                    )}
 
-                  <div className="product-modal-actions">
-                    <Button
-                      href={`/contact-us/?product=${encodeURIComponent(quickViewProduct.title)}`}
-                      className="ref-button"
-                    >
-                      Request a Quote <ArrowRight size={14} />
-                    </Button>
-                    <a
-                      href={`/product/${quickViewProduct.slug}/`}
-                      className="button ref-button-soft"
-                    >
-                      View Full Page
-                    </a>
+                    <div className="product-modal-actions">
+                      <Button
+                        href={`/contact-us/?product=${encodeURIComponent(quickViewProduct.title)}`}
+                        className="ref-button"
+                      >
+                        Request a Quote <ArrowRight size={14} />
+                      </Button>
+                      <a
+                        href={`/product/${quickViewProduct.slug}/`}
+                        className="button ref-button-soft"
+                      >
+                        View Full Page
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
 
       <ReferenceCTA />
     </div>
@@ -2118,7 +2164,11 @@ export default function App() {
       };
 
       const handleScrollToEnter = () => {
-        lenisInstance.scrollTo(220, { duration: 1.5 });
+        if (lenisInstance) {
+          lenisInstance.scrollTo(0, { duration: 0.8 });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       };
 
       document.addEventListener('click', handleAnchorClick);
@@ -2156,7 +2206,9 @@ export default function App() {
 
   return <>
     <SEO {...seo} />
-    {route === 'home' && <Intro />}
+    <AnimatePresence>
+      {route === 'home' && <Intro />}
+    </AnimatePresence>
     <Navbar onSearchOpen={() => setSearchOpen(true)} />
     <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     <main className="reference-app-main">

@@ -50,7 +50,7 @@ const homeSlides = [
       name: 'Series 3 Pro Smart Door Lock',
       detail: 'Face, fingerprint & app access',
       source: 'Door Locks Catalogue · Page 6',
-      href: '/product/series-3-smart-door-lock/'
+      href: '/product/series-3-pro-smart-door-lock/'
     },
     icon: Shield
   },

@@ -429,7 +429,7 @@ export function CatalogueNinePillars() {
         <p>At OTTOCLICK, we are committed to delivering an outstanding smart living experience. Engineered for performance, built for life.</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 16 }}>
+      <div className="nine-pillars-grid">
         {pillars.map((item, i) => {
           const ItemIcon = item.icon;
           return (
