@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTrans
 import { Activity, ArrowRight, BarChart3, Bell, Box, Building2, Check, CheckCircle2, ChevronDown, CircleGauge, Clock, Cpu, Eye, Factory, GraduationCap, Heart, Hotel, House, Layers, Lightbulb, Lock, Mail, MapPin, Menu, MessageCircle, Monitor, Moon, Phone, Play, Search, Settings, ShieldCheck, Sliders, Smartphone, Sparkles, Sun, Thermometer, Users, Wifi, Wrench, X, Zap } from 'lucide-react';
 import logo from '../ottoclick-logo.svg';
 import livingRoom from './assets/ottoclick-living-room.png';
-import { productCategories, productsData } from './data/productsData.corrected.js';
+import { productCategories, productsData } from './data/productsData.js';
 import {
   FloorplanShowcase,
   ZigbeeWifiComparison,
@@ -16,6 +16,7 @@ import {
 } from './components/CatalogueSections.jsx';
 import { HeroSlideshow, aboutSlides } from './components/HeroSlideshow.jsx';
 import { blogCategories, blogsData } from './data/blogsData.js';
+import { FaqSection, FaqsPage } from './components/FaqSection.jsx';
 
 /* ─── Constants ─── */
 const ease = [0.16, 1, 0.3, 1];
@@ -164,7 +165,7 @@ function Navbar({ onSearchOpen }) {
     });
   }, [scrollY, open]);
 
-  const links = [['Home', '/'], ['About', '/about-us/'], ['Products', '/product/'], ['Blogs', '/blog/']];
+  const links = [['Home', '/'], ['About', '/about-us/'], ['Products', '/product/'], ['Blogs', '/blog/'], ['FAQs', '/faqs/']];
   const solutionLinks = [['Home Automation', '/home-automation/'], ['Hotel Automation', '/hotel-automation/'], ['Institutional Automation', '/institutional-automation/'], ['Industrial Automation', '/industrial-automation/']];
   return <motion.header className={`nav-shell ${scrolled ? 'nav-scrolled' : ''} ${hidden ? 'nav-hidden' : ''}`}>
     <motion.div className="nav-progress" style={{ scaleX: scrollYProgress }} />
@@ -181,6 +182,7 @@ function Navbar({ onSearchOpen }) {
         <a href="/about-us/">About</a>
         <a href="/product/">Products</a>
         <a href="/blog/">Blogs</a>
+        <a href="/faqs/">FAQs</a>
       </div>
       <div className="nav-right">
         <button type="button" className="nav-search-trigger" aria-label="Open search" onClick={onSearchOpen}><Search size={16} /></button>
@@ -209,6 +211,7 @@ const getRoute = () => {
   if (path.startsWith('/product/') || path.startsWith('/products/')) return 'product-detail';
   if (path === '/blog' || path === '/blogs') return 'blogs';
   if (path.startsWith('/blog/') || path.startsWith('/blogs/')) return 'blog-post';
+  if (path === '/faqs' || path === '/faq' || path.startsWith('/faqs/') || path.startsWith('/faq/')) return 'faqs';
   if (path === '/contact' || path === '/contact-us' || path.startsWith('/contact-us/') || path.includes('/any-problem')) return 'contact';
   if (path.includes('/home-automation')) return 'solution-home';
   if (path.includes('/hotel-automation')) return 'solution-hotel';
@@ -576,6 +579,9 @@ function ReferenceHome() {
 
     {/* 14. Trust of Ottoclick - 5 Years Warranty (Master Catalogue p. 43) */}
     <WarrantyBanner />
+
+    {/* 14.5 GEO FAQ Pack - Kanpur & Uttar Pradesh */}
+    <FaqSection variant="home-brand" />
 
     {/* 15. CTA */}
     <ReferenceCTA />
@@ -1541,6 +1547,7 @@ function ReferenceFooter() {
           <a href="/home-automation/">Solutions</a>
           <a href="/product/">Products</a>
           <a href="/blog/">Blogs</a>
+          <a href="/faqs/">FAQs</a>
           <a href="/about-us/#warranty">5-Year Warranty</a>
         </div>
         <div>
@@ -1939,6 +1946,9 @@ function SolutionDetailPage({ variant }) {
       </div>
     </section>
 
+    {/* Solution-Specific GEO FAQs */}
+    <FaqSection variant={`solution-${variant}`} />
+
     <ReferenceCTA />
   </div>;
 }
@@ -2103,6 +2113,7 @@ export default function App() {
     const article = blogsData.find(item => item.slug === blogSlug);
     if (article) seo = { title: `${article.title} | Ottoclick`, description: article.summary };
   }
+  else if (route === 'faqs') seo = { title: 'Frequently Asked Questions (FAQs) | Ottoclick Kanpur & UP', description: 'Comprehensive answers to all automation questions across smart home, industrial, institutional, and hotel automation in Kanpur, Uttar Pradesh, and across India.' };
 
   useEffect(() => {
     let lenisInstance;
@@ -2199,6 +2210,7 @@ export default function App() {
     : route === 'product-detail' ? <ProductDetailPage slug={productSlug} />
     : route === 'blog-post' ? <BlogPostPage slug={blogSlug} />
     : route === 'blogs' ? <BlogsPage />
+    : route === 'faqs' ? <FaqsPage />
     : route === 'contact' ? <ContactPage />
     : <ReferenceHome />;
 
