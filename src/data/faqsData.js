@@ -10,7 +10,7 @@ export const faqsData = [
     "category": "home",
     "section": "Home Page FAQs",
     "question": "What is OttoClick?",
-    "answer": "OttoClick is a Kanpur-based automation company that designs, installs and supports home automation, industrial automation, institutional automation and hotel automation for customers across India, with a strong local presence in Kanpur and Uttar Pradesh. One team handles the site survey, design, installation, app and voice-control setup, and after- sales service. Headquartered at CSJMIF Shopping Complex, Kalyanpur, Kanpur, OttoClick has engineered over 200+ residential villas, boutique hotels, and industrial facilities across Uttar Pradesh and India.",
+    "answer": "OttoClick is a Kanpur-based automation company that designs, installs and supports home automation, industrial automation, institutional automation and hotel automation for customers across India, with a strong local presence in Kanpur and Uttar Pradesh. One team handles the site survey, design, installation, app and voice-control setup, and after-sales service. Headquartered at CSJMIF Shopping Complex, Kalyanpur, Kanpur, OttoClick has engineered more than 200 residential villas, boutique hotels, and industrial facilities across Uttar Pradesh and India.",
     "geoBadge": "India & Uttar Pradesh"
   },
   {
@@ -218,7 +218,7 @@ export const faqsData = [
     "category": "industrial-automation",
     "section": "Industrial Automation FAQs",
     "question": "Which brands and protocols do you work with?",
-    "answer": "We work with Siemens, Delta, Mitsubishi, Schneider Electric, and ABB and standard industrial protocols such as Modbus and OPC UA with official manufacturer warranties and local technical support. We choose components that match your plant’s existing equipment and spare- parts availability.",
+    "answer": "We work with Siemens, Delta, Mitsubishi, Schneider Electric, and ABB and standard industrial protocols such as Modbus and OPC UA with official manufacturer warranties and local technical support. We choose components that match your plant’s existing equipment and spare parts availability.",
     "geoBadge": "Pan-India · UP Focus"
   },
   {
@@ -226,7 +226,7 @@ export const faqsData = [
     "category": "industrial-automation",
     "section": "Industrial Automation FAQs",
     "question": "How does an industrial automation project with OttoClick work?",
-    "answer": "Our industrial execution follows five rigorous stages: 1) On-site energy and machinery audit, 2) Technical blueprint and quote, 3) Control panel fabrication and PLC programming, 4) Testing and commissioning, and 5) Plant operator training with handover documentation. The project runs in five stages: site audit and requirement study, design and quotation, panel build and programming, installation with testing and commissioning, and operator training with support. You receive the I/O list, drawings and program backup at handover.",
+    "answer": "The project runs in five stages: site audit and requirement study, design and quotation, panel build and programming, installation with testing and commissioning, and operator training with support. You receive the I/O list, drawings and program backup at handover.",
     "geoBadge": "Pan-India · UP Focus"
   },
   {

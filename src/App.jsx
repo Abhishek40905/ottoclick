@@ -165,7 +165,7 @@ function Navbar({ onSearchOpen }) {
     });
   }, [scrollY, open]);
 
-  const links = [['Home', '/'], ['About', '/about-us/'], ['Products', '/product/'], ['Blogs', '/blog/'], ['FAQs', '/faqs/']];
+  const links = [['Home', '/'], ['Industries', '/industries/'], ['About', '/about-us/'], ['Products', '/product/'], ['Blogs', '/blog/'], ['FAQs', '/faqs/']];
   const solutionLinks = [['Home Automation', '/home-automation/'], ['Hotel Automation', '/hotel-automation/'], ['Institutional Automation', '/institutional-automation/'], ['Industrial Automation', '/industrial-automation/']];
   return <motion.header className={`nav-shell ${scrolled ? 'nav-scrolled' : ''} ${hidden ? 'nav-hidden' : ''}`}>
     <motion.div className="nav-progress" style={{ scaleX: scrollYProgress }} />
@@ -174,7 +174,7 @@ function Navbar({ onSearchOpen }) {
       <div className="nav-links">
         <a href="/">Home</a>
         <div className="nav-dropdown">
-          <a href="/home-automation/" className="nav-dropdown-trigger">Solutions <ChevronDown size={13} /></a>
+          <a href="/industries/" className="nav-dropdown-trigger">Solutions <ChevronDown size={13} /></a>
           <div className="nav-dropdown-menu">
             {solutionLinks.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
           </div>
@@ -206,6 +206,7 @@ const getRoute = () => {
   const raw = (window.location.pathname || '/').toLowerCase();
   const path = raw.replace(/\/+$/, '') || '/';
   if (path === '/about' || path === '/about-us' || path.startsWith('/about-us/')) return 'about';
+  if (path === '/industries' || path === '/solutions') return 'solutions';
   if (path === '/privacy' || path === '/privacy-policy' || path.startsWith('/privacy-policy/')) return 'privacy';
   if (path === '/product' || path === '/products') return 'products';
   if (path.startsWith('/product/') || path.startsWith('/products/')) return 'product-detail';
@@ -480,7 +481,7 @@ function ReferenceHome() {
           <RefEyebrow>FLAGSHIP HARDWARE</RefEyebrow>
           <h2>Master Catalogue <em>Highlights.</em></h2>
         </div>
-        <p>Direct from our 2025 Architectural &amp; Hardware Catalogues: precision switches, biometric locks, silent motors, and sensors.</p>
+        <p>Explore our Architectural &amp; Hardware Catalogues: precision switches, biometric locks, silent motors, and sensors.</p>
       </div>
 
       <div className="product-category-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 24 }}>
@@ -532,7 +533,7 @@ function ReferenceHome() {
       </div>
 
       <div style={{ textAlign: 'center', marginTop: 24 }}>
-        <RefButton href="/product/">Browse Complete 118-Product Catalogue</RefButton>
+        <RefButton href="/product/">Browse Complete 128-Product Catalogue</RefButton>
       </div>
     </section>
 
@@ -2097,6 +2098,7 @@ export default function App() {
 
   let seo = { title: 'Ottoclick | Your Comfort, Our Priority', description: 'Premium smart home, hotel, and industrial automation solutions in Kanpur. Engineered for performance, built for life.' };
   if (route === 'about') seo = { title: 'About Us | Ottoclick', description: 'Learn about Ottoclick\'s mission to make spaces smarter, safer, and more efficient with cutting-edge automation.' };
+  else if (route === 'solutions') seo = { title: 'Industries & Automation Solutions | Ottoclick', description: 'Explore Ottoclick automation solutions for homes, hotels, institutions, and industry.' };
   else if (route === 'privacy') seo = { title: 'Privacy Policy | Ottoclick', description: 'Learn how Ottoclick handles information submitted through its website and enquiry forms.' };
   else if (route === 'contact') seo = { title: 'Contact Us | Ottoclick', description: 'Get in touch with Ottoclick to discuss your automation project, request a consultation, or talk to an expert.' };
   else if (route === 'products') seo = { title: 'Smart Products | Ottoclick', description: 'Explore our range of premium smart touch switches, sensors, climate controllers, and security systems.' };
@@ -2201,6 +2203,7 @@ export default function App() {
   }, []);
 
   const page = route === 'about' ? <AboutPage />
+    : route === 'solutions' ? <SolutionsPage />
     : route === 'privacy' ? <PrivacyPage />
     : route === 'solution-home' ? <SolutionDetailPage variant="home" />
     : route === 'solution-hotel' ? <SolutionDetailPage variant="hotel" />
